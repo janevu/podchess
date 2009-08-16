@@ -1,0 +1,18 @@
+####################
+### Introduction ###
+####################
+PodChess is a Chinese XiangQi application for iPhone/iPod touch devices. It currently supports only play with Robot , in the near future, it will support play online with other players via services provided by playxiangqi.com, which is made by our dedicate team . Hope you will enjoy.
+
+
+########################
+### Build Instruction ##
+########################
+Im basing this on iPhone SDK 3.0 , you may open PodChess.xcodeproj in your XCode ,and simply build and go.
+
+
+
+
+########################
+### How to report Bug ##
+########################
+You can always file bugs or wishlists to me via email (see the file header), or fill bug entries in the project hosting page . We appreciate your suggests.

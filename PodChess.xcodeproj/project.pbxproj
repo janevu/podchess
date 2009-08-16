@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D3623260D0F684500981E51 /* PodChessAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* PodChessAppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68E710370E24002EB371 /* podchessbg320x480.png */; };
+		4B1E68EE10371863002EB371 /* background_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68EC10371863002EB371 /* background_320x480.png */; };
+		4B1E68EF10371863002EB371 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68ED10371863002EB371 /* board_320x480.png */; };
+		4BBB5F28103303D500243E55 /* Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F0F103303D500243E55 /* Bit.m */; };
+		4BBB5F29103303D500243E55 /* BitHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F11103303D500243E55 /* BitHolder.m */; };
+		4BBB5F2A103303D500243E55 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F13103303D500243E55 /* BoardView.m */; };
+		4BBB5F2B103303D500243E55 /* CChessGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F15103303D500243E55 /* CChessGame.m */; };
+		4BBB5F2C103303D500243E55 /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F17103303D500243E55 /* ChessBoardView.m */; };
+		4BBB5F2D103303D500243E55 /* ChessBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F19103303D500243E55 /* ChessBoardViewController.m */; };
+		4BBB5F2E103303D500243E55 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F1B103303D500243E55 /* Game.m */; };
+		4BBB5F2F103303D500243E55 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F1D103303D500243E55 /* Grid.m */; };
+		4BBB5F30103303D500243E55 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F1F103303D500243E55 /* Piece.m */; };
+		4BBB5F31103303D500243E55 /* QuartzUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F21103303D500243E55 /* QuartzUtils.m */; };
+		4BBB5F32103303D500243E55 /* XiangQi.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F23103303D500243E55 /* XiangQi.m */; };
+		4BBB5F33103303D500243E55 /* XiangQiMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */; };
+		4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */; };
+		4BBB5F4D1033045300243E55 /* badvisor.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F361033045300243E55 /* badvisor.png */; };
+		4BBB5F4E1033045300243E55 /* bcannon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F371033045300243E55 /* bcannon.png */; };
+		4BBB5F4F1033045300243E55 /* bchariot.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F381033045300243E55 /* bchariot.png */; };
+		4BBB5F501033045300243E55 /* belephant.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F391033045300243E55 /* belephant.png */; };
+		4BBB5F511033045300243E55 /* bhorse.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F3A1033045300243E55 /* bhorse.png */; };
+		4BBB5F521033045300243E55 /* bking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F3B1033045300243E55 /* bking.png */; };
+		4BBB5F541033045300243E55 /* bpawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F3D1033045300243E55 /* bpawn.png */; };
+		4BBB5F571033045300243E55 /* hint_move.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F401033045300243E55 /* hint_move.png */; };
+		4BBB5F5A1033045300243E55 /* radvisor.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F431033045300243E55 /* radvisor.png */; };
+		4BBB5F5B1033045300243E55 /* rcannon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F441033045300243E55 /* rcannon.png */; };
+		4BBB5F5C1033045300243E55 /* rchariot.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F451033045300243E55 /* rchariot.png */; };
+		4BBB5F5D1033045300243E55 /* relephant.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F461033045300243E55 /* relephant.png */; };
+		4BBB5F5E1033045300243E55 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F471033045300243E55 /* reset.png */; };
+		4BBB5F5F1033045300243E55 /* rhorse.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F481033045300243E55 /* rhorse.png */; };
+		4BBB5F601033045300243E55 /* rking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F491033045300243E55 /* rking.png */; };
+		4BBB5F611033045300243E55 /* rpawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F4A1033045300243E55 /* rpawn.png */; };
+		4BBB5F621033045300243E55 /* Wood.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F4B1033045300243E55 /* Wood.jpg */; };
+		4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F64103304F000243E55 /* CoreGraphics.framework */; };
+		4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F65103304F000243E55 /* QuartzCore.framework */; };
+		4BBB5F8A1033069500243E55 /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F881033069500243E55 /* ChessBoardViewController.xib */; };
+		4BBB5F8B1033069500243E55 /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */; };
+		4BBB67141035027D004D6412 /* Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB67131035027D004D6412 /* Sort.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* PodChessAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodChessAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* PodChessAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PodChessAppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* PodChess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodChess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* PodChess_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodChess_Prefix.pch; sourceTree = "<group>"; };
+		4B1E68E710370E24002EB371 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
+		4B1E68EC10371863002EB371 /* background_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_320x480.png; sourceTree = "<group>"; };
+		4B1E68ED10371863002EB371 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
+		4BBB5F0E103303D500243E55 /* Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bit.h; sourceTree = "<group>"; };
+		4BBB5F0F103303D500243E55 /* Bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bit.m; sourceTree = "<group>"; };
+		4BBB5F10103303D500243E55 /* BitHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitHolder.h; sourceTree = "<group>"; };
+		4BBB5F11103303D500243E55 /* BitHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitHolder.m; sourceTree = "<group>"; };
+		4BBB5F12103303D500243E55 /* BoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardView.h; sourceTree = "<group>"; };
+		4BBB5F13103303D500243E55 /* BoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardView.m; sourceTree = "<group>"; };
+		4BBB5F14103303D500243E55 /* CChessGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CChessGame.h; sourceTree = "<group>"; };
+		4BBB5F15103303D500243E55 /* CChessGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CChessGame.m; sourceTree = "<group>"; };
+		4BBB5F16103303D500243E55 /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessBoardView.h; sourceTree = "<group>"; };
+		4BBB5F17103303D500243E55 /* ChessBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessBoardView.m; sourceTree = "<group>"; };
+		4BBB5F18103303D500243E55 /* ChessBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessBoardViewController.h; sourceTree = "<group>"; };
+		4BBB5F19103303D500243E55 /* ChessBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessBoardViewController.m; sourceTree = "<group>"; };
+		4BBB5F1A103303D500243E55 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		4BBB5F1B103303D500243E55 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		4BBB5F1C103303D500243E55 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
+		4BBB5F1D103303D500243E55 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		4BBB5F1E103303D500243E55 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = "<group>"; };
+		4BBB5F1F103303D500243E55 /* Piece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Piece.m; sourceTree = "<group>"; };
+		4BBB5F20103303D500243E55 /* QuartzUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuartzUtils.h; sourceTree = "<group>"; };
+		4BBB5F21103303D500243E55 /* QuartzUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuartzUtils.m; sourceTree = "<group>"; };
+		4BBB5F22103303D500243E55 /* XiangQi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiangQi.h; sourceTree = "<group>"; };
+		4BBB5F23103303D500243E55 /* XiangQi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiangQi.m; sourceTree = "<group>"; };
+		4BBB5F24103303D500243E55 /* XiangQiMainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiangQiMainMenu.h; sourceTree = "<group>"; };
+		4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiangQiMainMenu.m; sourceTree = "<group>"; };
+		4BBB5F26103303D500243E55 /* ZobristHashGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZobristHashGenerator.h; sourceTree = "<group>"; };
+		4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZobristHashGenerator.m; sourceTree = "<group>"; };
+		4BBB5F361033045300243E55 /* badvisor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = badvisor.png; sourceTree = "<group>"; };
+		4BBB5F371033045300243E55 /* bcannon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bcannon.png; sourceTree = "<group>"; };
+		4BBB5F381033045300243E55 /* bchariot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bchariot.png; sourceTree = "<group>"; };
+		4BBB5F391033045300243E55 /* belephant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = belephant.png; sourceTree = "<group>"; };
+		4BBB5F3A1033045300243E55 /* bhorse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bhorse.png; sourceTree = "<group>"; };
+		4BBB5F3B1033045300243E55 /* bking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bking.png; sourceTree = "<group>"; };
+		4BBB5F3D1033045300243E55 /* bpawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bpawn.png; sourceTree = "<group>"; };
+		4BBB5F401033045300243E55 /* hint_move.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hint_move.png; sourceTree = "<group>"; };
+		4BBB5F431033045300243E55 /* radvisor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radvisor.png; sourceTree = "<group>"; };
+		4BBB5F441033045300243E55 /* rcannon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rcannon.png; sourceTree = "<group>"; };
+		4BBB5F451033045300243E55 /* rchariot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rchariot.png; sourceTree = "<group>"; };
+		4BBB5F461033045300243E55 /* relephant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = relephant.png; sourceTree = "<group>"; };
+		4BBB5F471033045300243E55 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
+		4BBB5F481033045300243E55 /* rhorse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rhorse.png; sourceTree = "<group>"; };
+		4BBB5F491033045300243E55 /* rking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rking.png; sourceTree = "<group>"; };
+		4BBB5F4A1033045300243E55 /* rpawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rpawn.png; sourceTree = "<group>"; };
+		4BBB5F4B1033045300243E55 /* Wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wood.jpg; sourceTree = "<group>"; };
+		4BBB5F64103304F000243E55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		4BBB5F65103304F000243E55 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4BBB5F881033069500243E55 /* ChessBoardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChessBoardViewController.xib; sourceTree = "<group>"; };
+		4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XiangQiMainMenu.xib; sourceTree = "<group>"; };
+		4BBB67121035027D004D6412 /* Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sort.h; sourceTree = "<group>"; };
+		4BBB67131035027D004D6412 /* Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sort.m; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */,
+				4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				4BBB5ECA1032FAFD00243E55 /* xiangqi */,
+				1D3623240D0F684500981E51 /* PodChessAppDelegate.h */,
+				1D3623250D0F684500981E51 /* PodChessAppDelegate.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* PodChess.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* PodChess_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4B1E68EC10371863002EB371 /* background_320x480.png */,
+				4B1E68ED10371863002EB371 /* board_320x480.png */,
+				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
+				4BBB5F881033069500243E55 /* ChessBoardViewController.xib */,
+				4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */,
+				4BBB5F361033045300243E55 /* badvisor.png */,
+				4BBB5F371033045300243E55 /* bcannon.png */,
+				4BBB5F381033045300243E55 /* bchariot.png */,
+				4BBB5F391033045300243E55 /* belephant.png */,
+				4BBB5F3A1033045300243E55 /* bhorse.png */,
+				4BBB5F3B1033045300243E55 /* bking.png */,
+				4BBB5F3D1033045300243E55 /* bpawn.png */,
+				4BBB5F401033045300243E55 /* hint_move.png */,
+				4BBB5F431033045300243E55 /* radvisor.png */,
+				4BBB5F441033045300243E55 /* rcannon.png */,
+				4BBB5F451033045300243E55 /* rchariot.png */,
+				4BBB5F461033045300243E55 /* relephant.png */,
+				4BBB5F471033045300243E55 /* reset.png */,
+				4BBB5F481033045300243E55 /* rhorse.png */,
+				4BBB5F491033045300243E55 /* rking.png */,
+				4BBB5F4A1033045300243E55 /* rpawn.png */,
+				4BBB5F4B1033045300243E55 /* Wood.jpg */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				8D1107310486CEB800E47090 /* PodChess-Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4BBB5F64103304F000243E55 /* CoreGraphics.framework */,
+				4BBB5F65103304F000243E55 /* QuartzCore.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4BBB5ECA1032FAFD00243E55 /* xiangqi */ = {
+			isa = PBXGroup;
+			children = (
+				4BBB5F0E103303D500243E55 /* Bit.h */,
+				4BBB5F0F103303D500243E55 /* Bit.m */,
+				4BBB5F10103303D500243E55 /* BitHolder.h */,
+				4BBB5F11103303D500243E55 /* BitHolder.m */,
+				4BBB5F12103303D500243E55 /* BoardView.h */,
+				4BBB5F13103303D500243E55 /* BoardView.m */,
+				4BBB5F14103303D500243E55 /* CChessGame.h */,
+				4BBB5F15103303D500243E55 /* CChessGame.m */,
+				4BBB5F16103303D500243E55 /* ChessBoardView.h */,
+				4BBB5F17103303D500243E55 /* ChessBoardView.m */,
+				4BBB5F18103303D500243E55 /* ChessBoardViewController.h */,
+				4BBB5F19103303D500243E55 /* ChessBoardViewController.m */,
+				4BBB5F1A103303D500243E55 /* Game.h */,
+				4BBB5F1B103303D500243E55 /* Game.m */,
+				4BBB5F1C103303D500243E55 /* Grid.h */,
+				4BBB5F1D103303D500243E55 /* Grid.m */,
+				4BBB5F1E103303D500243E55 /* Piece.h */,
+				4BBB5F1F103303D500243E55 /* Piece.m */,
+				4BBB5F20103303D500243E55 /* QuartzUtils.h */,
+				4BBB5F21103303D500243E55 /* QuartzUtils.m */,
+				4BBB5F22103303D500243E55 /* XiangQi.h */,
+				4BBB5F23103303D500243E55 /* XiangQi.m */,
+				4BBB5F24103303D500243E55 /* XiangQiMainMenu.h */,
+				4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */,
+				4BBB5F26103303D500243E55 /* ZobristHashGenerator.h */,
+				4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */,
+				4BBB67121035027D004D6412 /* Sort.h */,
+				4BBB67131035027D004D6412 /* Sort.m */,
+			);
+			name = xiangqi;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* PodChess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "PodChess" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PodChess;
+			productName = PodChess;
+			productReference = 1D6058910D05DD3D006BFB54 /* PodChess.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PodChess" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* PodChess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
+				4BBB5F4D1033045300243E55 /* badvisor.png in Resources */,
+				4BBB5F4E1033045300243E55 /* bcannon.png in Resources */,
+				4BBB5F4F1033045300243E55 /* bchariot.png in Resources */,
+				4BBB5F501033045300243E55 /* belephant.png in Resources */,
+				4BBB5F511033045300243E55 /* bhorse.png in Resources */,
+				4BBB5F521033045300243E55 /* bking.png in Resources */,
+				4BBB5F541033045300243E55 /* bpawn.png in Resources */,
+				4BBB5F571033045300243E55 /* hint_move.png in Resources */,
+				4BBB5F5A1033045300243E55 /* radvisor.png in Resources */,
+				4BBB5F5B1033045300243E55 /* rcannon.png in Resources */,
+				4BBB5F5C1033045300243E55 /* rchariot.png in Resources */,
+				4BBB5F5D1033045300243E55 /* relephant.png in Resources */,
+				4BBB5F5E1033045300243E55 /* reset.png in Resources */,
+				4BBB5F5F1033045300243E55 /* rhorse.png in Resources */,
+				4BBB5F601033045300243E55 /* rking.png in Resources */,
+				4BBB5F611033045300243E55 /* rpawn.png in Resources */,
+				4BBB5F621033045300243E55 /* Wood.jpg in Resources */,
+				4BBB5F8A1033069500243E55 /* ChessBoardViewController.xib in Resources */,
+				4BBB5F8B1033069500243E55 /* XiangQiMainMenu.xib in Resources */,
+				4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */,
+				4B1E68EE10371863002EB371 /* background_320x480.png in Resources */,
+				4B1E68EF10371863002EB371 /* board_320x480.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* PodChessAppDelegate.m in Sources */,
+				4BBB5F28103303D500243E55 /* Bit.m in Sources */,
+				4BBB5F29103303D500243E55 /* BitHolder.m in Sources */,
+				4BBB5F2A103303D500243E55 /* BoardView.m in Sources */,
+				4BBB5F2B103303D500243E55 /* CChessGame.m in Sources */,
+				4BBB5F2C103303D500243E55 /* ChessBoardView.m in Sources */,
+				4BBB5F2D103303D500243E55 /* ChessBoardViewController.m in Sources */,
+				4BBB5F2E103303D500243E55 /* Game.m in Sources */,
+				4BBB5F2F103303D500243E55 /* Grid.m in Sources */,
+				4BBB5F30103303D500243E55 /* Piece.m in Sources */,
+				4BBB5F31103303D500243E55 /* QuartzUtils.m in Sources */,
+				4BBB5F32103303D500243E55 /* XiangQi.m in Sources */,
+				4BBB5F33103303D500243E55 /* XiangQiMainMenu.m in Sources */,
+				4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */,
+				4BBB67141035027D004D6412 /* Sort.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PodChess_Prefix.pch;
+				INFOPLIST_FILE = "PodChess-Info.plist";
+				PRODUCT_NAME = PodChess;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PodChess_Prefix.pch;
+				INFOPLIST_FILE = "PodChess-Info.plist";
+				PRODUCT_NAME = PodChess;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "PodChess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PodChess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
