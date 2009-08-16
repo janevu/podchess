@@ -22,9 +22,6 @@
 //  PodChessAppDelegate.m
 //  PodChess
 //
-//  Created by Nevo(nhua@geminimobile.com) on 8/12/09.
-//  Copyright Gemini Mobile Inc 2009. All rights reserved.
-//
 
 #import "PodChessAppDelegate.h"
 
