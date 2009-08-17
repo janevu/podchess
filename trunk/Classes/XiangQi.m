@@ -1,5 +1,10 @@
 /***************************************************************************
- *  Copyright 2009 Nevo Hua  <nevo.hua@playxiangqi.com>                    *
+ *  XiangQi Wizard Light Engine - A Very Simple Chinese Chess Engine       *
+ *  Designed by Morning Yellow, Version: 0.6, Last Modified: Mar. 2008     *
+ *  Copyright (C) 2004-2008 www.elephantbase.net                           *
+ *                                                                         *
+ *  The engine is rewritten in Objective-C to be extensible in iPhone      *
+ *  platform.                                                              *
  *                                                                         * 
  *  This file is part of PodChess.                                         *
  *                                                                         *
