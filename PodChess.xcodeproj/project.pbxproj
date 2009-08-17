@@ -51,6 +51,8 @@
 		4BBB5F8A1033069500243E55 /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F881033069500243E55 /* ChessBoardViewController.xib */; };
 		4BBB5F8B1033069500243E55 /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */; };
 		4BBB67141035027D004D6412 /* Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB67131035027D004D6412 /* Sort.m */; };
+		4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B31039AB250021A5ED /* SettingViewController.m */; };
+		4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B41039AB250021A5ED /* SettingViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +117,9 @@
 		4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XiangQiMainMenu.xib; sourceTree = "<group>"; };
 		4BBB67121035027D004D6412 /* Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sort.h; sourceTree = "<group>"; };
 		4BBB67131035027D004D6412 /* Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sort.m; sourceTree = "<group>"; };
+		4BD8E8B21039AB250021A5ED /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		4BD8E8B31039AB250021A5ED /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		4BD8E8B41039AB250021A5ED /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Classes/SettingViewController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +181,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4BD8E8B41039AB250021A5ED /* SettingViewController.xib */,
 				4B1E68EC10371863002EB371 /* background_320x480.png */,
 				4B1E68ED10371863002EB371 /* board_320x480.png */,
 				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
@@ -247,6 +253,8 @@
 				4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */,
 				4BBB67121035027D004D6412 /* Sort.h */,
 				4BBB67131035027D004D6412 /* Sort.m */,
+				4BD8E8B21039AB250021A5ED /* SettingViewController.h */,
+				4BD8E8B31039AB250021A5ED /* SettingViewController.m */,
 			);
 			name = xiangqi;
 			sourceTree = "<group>";
@@ -316,6 +324,7 @@
 				4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */,
 				4B1E68EE10371863002EB371 /* background_320x480.png in Resources */,
 				4B1E68EF10371863002EB371 /* board_320x480.png in Resources */,
+				4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +351,7 @@
 				4BBB5F33103303D500243E55 /* XiangQiMainMenu.m in Sources */,
 				4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */,
 				4BBB67141035027D004D6412 /* Sort.m in Sources */,
+				4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

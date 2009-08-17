@@ -25,6 +25,17 @@
 #import "Game.h"
 #import "XiangQi.h"
 
+/*Possible game result*/
+enum{
+    kXiangQi_InPlay,
+    kXiangQi_YouWin,
+    kXiangQi_ComputerWin,
+    //we need this state because you might play with other online player
+    kXiangqi_YouLose,
+    kXiangQi_Draw,
+    kXiangQi_OverMoves,
+};
+
 @class RectGrid;
 @class Piece;
 
@@ -35,6 +46,8 @@
     NSMutableArray *_pieceBox;
     
     XiangQi *engine;
+    
+    int game_result;
 }
 
 - (void)setupCChessPieces;
@@ -42,9 +55,11 @@
 - (void)x_movePiece:(Piece*)piece toRow:(int)row toCol:(int)col;
 - (Piece*)x_getPieceAtRow:(int)row col:(int)col;
 - (int)RobotMoveWithCaptured:(int*)captured;
-- (void)resetCCHessPieces;
+- (void)resetCChessPieces;
 - (void)reset_game;
 
 @property (nonatomic,readonly)    XiangQi *engine;
 @property (nonatomic,readonly)    RectGrid *_grid;
+
+@property (nonatomic,assign) int game_result;
 @end
