@@ -20,6 +20,7 @@
 #import "XiangQiMainMenu.h"
 #import "ChessBoardViewController.h"
 #import "PodChessAppDelegate.h"
+#import "SettingViewController.h"
 
 @implementation XiangQiMainMenu
 
@@ -68,6 +69,10 @@
 
 
 - (void)dealloc {
+    [new_game release];
+    [setting release];
+    [about release];
+    [bg_view release];
     [super dealloc];
 }
 
@@ -85,7 +90,9 @@
 
 - (IBAction)settingPressed:(id)sender
 {
-    
+    SettingViewController *settingController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController pushViewController:settingController animated:YES];
+    [settingController release];    
 }
 
 

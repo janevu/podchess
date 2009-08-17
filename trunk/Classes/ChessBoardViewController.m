@@ -107,6 +107,13 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     opn_time.text = @"Computer";
     ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
+    
+    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
+    [game addObserver: self 
+           forKeyPath: @"game_result"
+              options: (NSKeyValueObservingOptionNew |
+                        NSKeyValueObservingOptionOld)
+              context: NULL];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,6 +122,68 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
          ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }
 }
+
+#pragma mark game result change notification handler
+- (void)observeValueForKeyPath:(NSString *)keyPath 
+                      ofObject:(id)object 
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
+    UIAlertView *alert = [UIAlertView alloc]; 
+    
+    if( object == game ) {
+        switch(game.game_result) {
+            case kXiangQi_YouWin:
+                [alert initWithTitle:@"PodChess"
+                             message:@"You win,congratulations!"
+                            delegate:self 
+                   cancelButtonTitle:nil 
+                   otherButtonTitles:@"OK", nil];
+                break;
+            case kXiangQi_ComputerWin:
+                [alert initWithTitle:@"PodChess"
+                             message:@"Computer wins. Don't give up, please try again!"
+                            delegate:self 
+                   cancelButtonTitle:nil 
+                   otherButtonTitles:@"OK", nil];
+                break;
+            case kXiangqi_YouLose:
+                [alert initWithTitle:@"PodChess"
+                             message:@"You lose. You may try again!"
+                            delegate:self 
+                   cancelButtonTitle:nil 
+                   otherButtonTitles:@"OK", nil];
+                break;
+            case kXiangQi_Draw:
+                [alert initWithTitle:@"PodChess"
+                             message:@"Sorry,we are in draw!"
+                            delegate:self 
+                   cancelButtonTitle:nil 
+                   otherButtonTitles:@"OK", nil];
+                break;
+            case kXiangQi_OverMoves:
+                [alert initWithTitle:@"PodChess"
+                             message:@"Sorry,we made too many moves, please restart again!"
+                            delegate:self 
+                   cancelButtonTitle:nil 
+                   otherButtonTitles:@"OK", nil];
+                break;
+            case kXiangQi_InPlay:
+                break;
+        }
+        
+        [alert show];	
+        [alert release];	
+    }
+}
+
+- (void)alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
+{
+    [self reset_board];
+    ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+}
+
 
 
 /*
@@ -139,6 +208,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 
 - (void)dealloc {
+    [home release];
+    [reset release];
+    [self_time release];
+    [opn_time release];
     [super dealloc];
 }
 
@@ -172,41 +245,15 @@ static Piece *selected = nil;
     vlRep = [game.engine rep_status:3];
     if([game.engine is_mate]) {
         //computer wins
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"iPhoneChess"
-                              message:@"You win,congratulations!"
-                              delegate:self 
-                              cancelButtonTitle:nil 
-                              otherButtonTitles:@"OK", nil];
-        alert.tag = kComputerWin;
-        [alert show];	
-        [alert release];	
+        game.game_result = kXiangQi_ComputerWin;	
         
     } else if(vlRep > 0) {
         //长打
         vlRep = [game.engine rep_value:vlRep];
-        int tag = vlRep < -WIN_VALUE ? kComputerWin : (vlRep > WIN_VALUE ? kYouWin : kDraw);
-        NSString *str = vlRep < -WIN_VALUE ? @"You lose, please try again!" : (vlRep > WIN_VALUE ? @"You win,congratulations!" : @"We draw");
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"iPhoneChess"
-                              message:str
-                              delegate:self 
-                              cancelButtonTitle:nil 
-                              otherButtonTitles:@"OK", nil];
-        alert.tag = tag;
-        [alert show];	
-        [alert release];
+        game.game_result = vlRep < -WIN_VALUE ? kXiangQi_ComputerWin : (vlRep > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
     } else if(game.engine.nMoveNum > 100) {
         //too many moves
-        UIAlertView *alert = [[UIAlertView alloc] 
-                              initWithTitle:@"iPhoneChess"
-                              message:@"Too many moves!"
-                              delegate:self 
-                              cancelButtonTitle:nil 
-                              otherButtonTitles:@"OK", nil];
-        alert.tag = kDraw;
-        [alert show];	
-        [alert release];	
+        game.game_result = kXiangQi_OverMoves;
     }  else {
         sqSrc = SRC(m);
         dstSq = DST(m);
@@ -297,41 +344,15 @@ static Piece *selected = nil;
                     vlRep = [game.engine rep_status:3];
                     if([game.engine is_mate]) {
                         //you wins
-                        UIAlertView *alert = [[UIAlertView alloc] 
-                                              initWithTitle:@"iPhoneChess"
-                                              message:@"You wins!"
-                                              delegate:self 
-                                              cancelButtonTitle:nil 
-                                              otherButtonTitles:@"OK", nil];
-                        alert.tag = kYouWin;
-                        [alert show];	
-                        [alert release];	
+                        game.game_result = kXiangQi_YouWin;
                         
                     }else if(vlRep > 0) {
                         //长打
                         vlRep = [game.engine rep_value:vlRep];
-                        int tag = vlRep > WIN_VALUE ? kComputerWin : (vlRep < -WIN_VALUE ? kYouWin : kDraw);
-                        NSString *str = vlRep > WIN_VALUE ? @"You lose, please try again!" : (vlRep < -WIN_VALUE ? @"You win,congratulations!" : @"We draw");
-                        UIAlertView *alert = [[UIAlertView alloc] 
-                                              initWithTitle:@"iPhoneChess"
-                                              message:str
-                                              delegate:self 
-                                              cancelButtonTitle:nil 
-                                              otherButtonTitles:@"OK", nil];
-                        alert.tag = tag;
-                        [alert show];	
-                        [alert release];
+                        game.game_result = vlRep > WIN_VALUE ? kXiangQi_ComputerWin : (vlRep < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
                     } else if(game.engine.nMoveNum > 100) {
                         //too many moves
-                        UIAlertView *alert = [[UIAlertView alloc] 
-                                              initWithTitle:@"iPhoneChess"
-                                              message:@"Too many moves!"
-                                              delegate:self 
-                                              cancelButtonTitle:nil 
-                                              otherButtonTitles:@"OK", nil];
-                        alert.tag = kDraw;
-                        [alert show];	
-                        [alert release];	
+                        game.game_result = kXiangQi_OverMoves;	
                     } else {
                         //normal move
                         if(captured) {
@@ -363,17 +384,6 @@ static Piece *selected = nil;
     }
 }
 
-- (void)alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
-{
-    switch (alertView.tag) {
-        case kDraw:
-            break;
-        case kComputerWin:
-            break;
-        case kYouWin:
-            break;
-    }
-}
 
 - (void)reset_board
 {

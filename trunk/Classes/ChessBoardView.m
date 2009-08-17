@@ -40,18 +40,6 @@ static NSString* sCurrentGameName = @"CChessGame";
 {
     ((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController.navigationBarHidden = YES;
     [super startGameNamed: gameClassName];
-    
-    
-    Game *game = _game;
-    [game addObserver: self 
-           forKeyPath: @"currentPlayer"
-              options: NSKeyValueObservingOptionInitial
-              context: NULL];
-    [game addObserver: self
-           forKeyPath: @"winner"
-              options: 0 
-              context: NULL];
-    
     //self.title = [(id)[game class] displayName];
 }
 
@@ -69,29 +57,5 @@ static NSString* sCurrentGameName = @"CChessGame";
 {    
     [self startGameNamed: sCurrentGameName];
 }
-
-
-- (void)observeValueForKeyPath:(NSString *)keyPath 
-                      ofObject:(id)object 
-                        change:(NSDictionary *)change
-                       context:(void *)context
-{
-    Game *game = self.game;
-    if( object == game ) {
-        Player *p = game._winner;
-        NSString *msg;
-        if( p ) {
-            //[[NSSound soundNamed: @"Sosumi"] play];
-            msg = @"%@ wins! Congratulations!";
-        } else {
-            p = game._currentPlayer;
-            msg = @"Your turn, %@";
-        }
-       // _headline.string = [NSString stringWithFormat: msg, p.name];
-    }
-}
-
-
-
 
 @end

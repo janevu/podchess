@@ -28,6 +28,7 @@
 
 @synthesize engine;
 @synthesize _grid;
+@synthesize game_result;
 
 - (void)x_createPiece: (NSString*)imageName row: (int)row col: (int)col forPlayer: (unsigned)playerNo
 {
@@ -130,43 +131,13 @@
         ((XiangQiSquare*)[grid cellAtRow: 1 column: 4]).cross = YES;
         ((XiangQiSquare*)[grid cellAtRow: 8 column: 4]).cross = YES;
         
+        game_result = kXiangQi_InPlay;
+        
         engine = [XiangQi getXiangQi];
-}
+    }
     return self;
 }
 
-
-- (BOOL) canBit: (Bit*)bit moveFrom: (id<BitHolder>)srcHolder to: (id<BitHolder>)dstHolder
-{
-    Square *dst=(Square*)dstHolder;
-    
-    // There should be a check here for a "ko" (repeated position) ... exercise for the reader!
-    
-    // Check for suicidal move. First an easy check for an empty adjacent space:
-    NSArray *neighbors = dst.neighbors;
-    for( GridCell *c in neighbors )
-        if( c.empty )
-            return YES;                     // there's an empty space
-    // If the piece is surrounded, check the neighboring groups' liberties:
-    for( GridCell *c in neighbors ) {
-        int nLiberties;
-        [c getGroup: &nLiberties];
-        if( c._bit.unfriendly ) {
-            if( nLiberties <= 1 )
-                return YES;             // the move captures, so it's not suicidal
-        } else {
-            if( nLiberties > 1 )
-                return YES;             // the stone joins a group with other liberties
-        }
-    }
-    return NO;
-}
-
-
-- (void) bit: (Bit*)bit movedFrom: (id<BitHolder>)srcHolder to: (id<BitHolder>)dstHolder
-{
-
-}
 
 - (int)RobotMoveWithCaptured:(int*)captured
 {
@@ -177,11 +148,11 @@
 
 - (void)reset_game
 {
-    [self resetCCHessPieces];
+    [self resetCChessPieces];
     [engine reset];
 }
 
-- (void)resetCCHessPieces
+- (void)resetCChessPieces
 {
     //reset the pieces in pieceBox by the order they are created
     //chariot
