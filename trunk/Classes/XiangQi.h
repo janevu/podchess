@@ -78,6 +78,8 @@
     
     int mvResult;
     
+    int search_depth;
+    
     //zobrist table
     ZobristHashGenerator *zobr;
     ZobristHashGenerator *player_zobr;
@@ -133,10 +135,11 @@
 
 + (XiangQi*)getXiangQi;
 
-@property (nonatomic) int mvResult;
-@property (nonatomic)   char *ucpc_squares;
-@property (nonatomic) int nMoveNum; 
+@property (nonatomic, assign) int mvResult;
+@property (nonatomic, assign)   char *ucpc_squares;
+@property (nonatomic, assign) int nMoveNum; 
 @property (nonatomic, readonly) int sd_player;
 @property (nonatomic, readonly) int n_distance;
+@property (nonatomic, assign) int search_depth;
 @end
 

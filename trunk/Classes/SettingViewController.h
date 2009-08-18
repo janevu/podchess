@@ -23,9 +23,18 @@
 @interface SettingViewController : UIViewController {
     IBOutlet UISlider *difficulty_setting;
     IBOutlet UISlider *time_setting;
+    
+    IBOutlet UIButton *home;
+    IBOutlet UIButton *default_setting;
 }
 
 @property(nonatomic,retain) IBOutlet UISlider *difficulty_setting;
 @property(nonatomic,retain) IBOutlet UISlider *time_setting;
+
+@property(nonatomic,retain) IBOutlet UIButton *home;
+@property(nonatomic,retain) IBOutlet UIButton *default_setting;
+
+- (IBAction)homePressed:(id)sender;
+- (IBAction)defaultSettingPressed:(id)sender;
 
 @end
