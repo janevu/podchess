@@ -494,6 +494,7 @@ static BOOL NO_NULL = TRUE;
 @synthesize nMoveNum;
 @synthesize sd_player;
 @synthesize n_distance;
+@synthesize search_depth;
 
 - (void)dealloc
 {
@@ -565,6 +566,8 @@ static BOOL NO_NULL = TRUE;
 - (void)startup
 {
     int sq, pc;
+    //default search depth 
+    search_depth = 7;
     ucpc_squares = malloc(256 * sizeof(char));
     memset(ucpc_squares, 0, 256 * sizeof(char));
     memset(mvsList, 0x0, sizeof(MoveStruct) * MAX_MOVES);
@@ -1217,7 +1220,7 @@ ret:
     }
     
     // 迭代加深过程
-    for (i = 1; i <= LIMIT_DEPTH; i ++) {
+    for (i = 1; i <= search_depth; i ++) {
         vl = [self search_root:i];
         // 搜索到杀棋，就终止搜索
         if (vl > WIN_VALUE || vl < -WIN_VALUE) {
@@ -1250,7 +1253,7 @@ ret:
     }
     
     // 1-2. 到达极限深度就返回局面评价
-    if (n_distance == LIMIT_DEPTH) {
+    if (n_distance == search_depth) {
         return [self evaluate];
     }
     
@@ -1401,7 +1404,7 @@ ret:
     }
     
     // 2. 到达极限深度就返回局面评价
-    if (n_distance == LIMIT_DEPTH) {
+    if (n_distance == search_depth) {
         return [self evaluate];
     }
     

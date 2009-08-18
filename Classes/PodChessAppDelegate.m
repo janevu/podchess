@@ -33,6 +33,14 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 
     // Override point for customization after application launch
+    //set default preferences
+    float setting = [[NSUserDefaults standardUserDefaults] floatForKey:@"difficulty_setting"];
+    if(setting < 3.0f || setting > 64.0f)
+        [[NSUserDefaults standardUserDefaults] setFloat:7.0f forKey:@"difficulty_setting"];
+    setting = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
+    if(setting < 30.0f || setting > 120.0f)
+        [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
+    
     [window addSubview:[navigationController view]];
     navigationController.navigationBarHidden = YES;
     [window makeKeyAndVisible];
