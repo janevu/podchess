@@ -17,18 +17,14 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
-#import "XiangQiMainMenu.h"
-#import "ChessBoardViewController.h"
-#import "PodChessAppDelegate.h"
-#import "SettingViewController.h"
 #import "AboutViewController.h"
+#import "PodChessVersion.h"
+#import "PodChessAppDelegate.h"
+#import "QuartzUtils.h"
 
-@implementation XiangQiMainMenu
-
-@synthesize new_game;
-@synthesize setting;
-@synthesize about;
-@synthesize bg_view;
+@implementation AboutViewController
+@synthesize webview;
+@synthesize home;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -44,7 +40,11 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSString *path = [[NSBundle mainBundle] bundlePath];
+    NSURL *baseURL = [NSURL fileURLWithPath:path];
+    NSString *build_info = [NSString stringWithUTF8String:PODCHESS_BUILD_INFO];
+    NSString *about_page = [NSString stringWithFormat:@"<body style=\"background-image:url(board_320x480.png);\"><h2>About PodChess</h2><div><div><bold>PodChess</bold> is an open source XiangQi application on iPhone/iPod Touch, hosted at <a href=\"http://code.google.com/p/podchess\"> PodChess Google Code Project </a>. Please contact us at <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>Version</h2><div>%@</div></div></body>",build_info];
+    [webview loadHTMLString:about_page baseURL:baseURL];
 }
 
 
@@ -70,32 +70,26 @@
 
 
 - (void)dealloc {
-    [new_game release];
-    [setting release];
-    [about release];
-    [bg_view release];
+    [webview release];
+    [home release];
     [super dealloc];
 }
 
-- (IBAction)newGamePressed:(id)sender
+- (IBAction)homePressed:(id)sender
 {
-    ChessBoardViewController *chessboard = [[ChessBoardViewController alloc] initWithNibName:@"ChessBoardViewController" bundle:nil];
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController pushViewController:chessboard animated:YES];
-    [chessboard release];
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
 }
 
-- (IBAction)aboutPressed:(id)sender
+#pragma mark WebView delegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    AboutViewController *aboutController = [[AboutViewController alloc] initWithNibName:@"AboutViewController" bundle:nil];
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController pushViewController:aboutController animated:YES];
-    [aboutController release];      
-}
-
-- (IBAction)settingPressed:(id)sender
-{
-    SettingViewController *settingController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController pushViewController:settingController animated:YES];
-    [settingController release];    
+    if(navigationType == UIWebViewNavigationTypeLinkClicked) {
+        //start safari to load in page url
+        [[UIApplication sharedApplication] openURL:[request URL]];
+        return NO;
+    }
+    return YES;
+    
 }
 
 
