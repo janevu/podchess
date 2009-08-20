@@ -16,6 +16,8 @@
 		4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68E710370E24002EB371 /* podchessbg320x480.png */; };
 		4B1E68EE10371863002EB371 /* background_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68EC10371863002EB371 /* background_320x480.png */; };
 		4B1E68EF10371863002EB371 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68ED10371863002EB371 /* board_320x480.png */; };
+		4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA901E2103AE37A0039C307 /* AboutViewController.m */; };
+		4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA901E3103AE37A0039C307 /* AboutViewController.xib */; };
 		4BBB5F28103303D500243E55 /* Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F0F103303D500243E55 /* Bit.m */; };
 		4BBB5F29103303D500243E55 /* BitHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F11103303D500243E55 /* BitHolder.m */; };
 		4BBB5F2A103303D500243E55 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F13103303D500243E55 /* BoardView.m */; };
@@ -66,9 +68,13 @@
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* PodChess_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodChess_Prefix.pch; sourceTree = "<group>"; };
+		4B1D5D14103CE9F800C9C53D /* PodChessVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodChessVersion.h; sourceTree = "<group>"; };
 		4B1E68E710370E24002EB371 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
 		4B1E68EC10371863002EB371 /* background_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_320x480.png; sourceTree = "<group>"; };
 		4B1E68ED10371863002EB371 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
+		4BA901E1103AE37A0039C307 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		4BA901E2103AE37A0039C307 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		4BA901E3103AE37A0039C307 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Classes/AboutViewController.xib; sourceTree = "<group>"; };
 		4BBB5F0E103303D500243E55 /* Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bit.h; sourceTree = "<group>"; };
 		4BBB5F0F103303D500243E55 /* Bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bit.m; sourceTree = "<group>"; };
 		4BBB5F10103303D500243E55 /* BitHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitHolder.h; sourceTree = "<group>"; };
@@ -147,6 +153,7 @@
 				4BBB5ECA1032FAFD00243E55 /* xiangqi */,
 				1D3623240D0F684500981E51 /* PodChessAppDelegate.h */,
 				1D3623250D0F684500981E51 /* PodChessAppDelegate.m */,
+				4B1D5D14103CE9F800C9C53D /* PodChessVersion.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -183,6 +190,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4BA901E3103AE37A0039C307 /* AboutViewController.xib */,
 				4BD8E8B41039AB250021A5ED /* SettingViewController.xib */,
 				4B1E68EC10371863002EB371 /* background_320x480.png */,
 				4B1E68ED10371863002EB371 /* board_320x480.png */,
@@ -258,6 +266,8 @@
 				4BBB67131035027D004D6412 /* Sort.m */,
 				4BD8E8B21039AB250021A5ED /* SettingViewController.h */,
 				4BD8E8B31039AB250021A5ED /* SettingViewController.m */,
+				4BA901E1103AE37A0039C307 /* AboutViewController.h */,
+				4BA901E2103AE37A0039C307 /* AboutViewController.m */,
 			);
 			name = xiangqi;
 			sourceTree = "<group>";
@@ -269,6 +279,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "PodChess" */;
 			buildPhases = (
+				4B1D5D24103CEA6500C9C53D /* ShellScript */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
@@ -329,10 +340,27 @@
 				4B1E68EF10371863002EB371 /* board_320x480.png in Resources */,
 				4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */,
 				4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */,
+				4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4B1D5D24103CEA6500C9C53D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TIMESTAMP=`date +%Y%m%d%H%M.%S%Z`\nSVNVERSION=`svnversion .`\n## attach the build version info\nBUILD_VERSION_INFO=\"build${TIMESTAMP}r${SVNVERSION}\"\n\n>./Classes/PodChessVersion.h\ncat >./Classes/PodChessVersion.h<<EOF\n#ifndef PODCHESS_VERSION\n#define PODCHESS_BUILD_INFO \"${BUILD_VERSION_INFO}\"\n#endif\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -356,6 +384,7 @@
 				4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */,
 				4BBB67141035027D004D6412 /* Sort.m in Sources */,
 				4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */,
+				4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,8 +425,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
