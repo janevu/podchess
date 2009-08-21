@@ -449,13 +449,8 @@
 - (void) setHighlighted: (BOOL)highlighted
 {
     _highlighted = highlighted;
-    self.borderWidth = (highlighted ?2 :0);
-    //draw hint image over this squar
-//    if(highlighted) {
-//        self.backgroundColor = GetCGPatternNamed(@"hint_move.png");
-//    } else {
-//        self.backgroundColor = nil;
-//    }
+    self.cornerRadius = ceil(_grid.spacing.width / 4);
+    self.borderWidth = (highlighted ?3 :0);
 }
 
 

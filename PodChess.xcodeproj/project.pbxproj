@@ -56,6 +56,7 @@
 		4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B31039AB250021A5ED /* SettingViewController.m */; };
 		4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B41039AB250021A5ED /* SettingViewController.xib */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
+		4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEA500103EF5BB0018A6E2 /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,7 @@
 		4BD8E8B31039AB250021A5ED /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		4BD8E8B41039AB250021A5ED /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Classes/SettingViewController.xib; sourceTree = "<group>"; };
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		4BEEA500103EF5BB0018A6E2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +192,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4BEEA500103EF5BB0018A6E2 /* logo.png */,
 				4BA901E3103AE37A0039C307 /* AboutViewController.xib */,
 				4BD8E8B41039AB250021A5ED /* SettingViewController.xib */,
 				4B1E68EC10371863002EB371 /* background_320x480.png */,
@@ -341,6 +344,7 @@
 				4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */,
 				4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */,
 				4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */,
+				4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
