@@ -16,12 +16,13 @@
 		4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68E710370E24002EB371 /* podchessbg320x480.png */; };
 		4B1E68EE10371863002EB371 /* background_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68EC10371863002EB371 /* background_320x480.png */; };
 		4B1E68EF10371863002EB371 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68ED10371863002EB371 /* board_320x480.png */; };
+		4B67333210423930009DA9E7 /* pieces in Resources */ = {isa = PBXBuildFile; fileRef = 4B67330E10423930009DA9E7 /* pieces */; };
+		4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B673389104259F5009DA9E7 /* CChessGame.m */; };
 		4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA901E2103AE37A0039C307 /* AboutViewController.m */; };
 		4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA901E3103AE37A0039C307 /* AboutViewController.xib */; };
 		4BBB5F28103303D500243E55 /* Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F0F103303D500243E55 /* Bit.m */; };
 		4BBB5F29103303D500243E55 /* BitHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F11103303D500243E55 /* BitHolder.m */; };
 		4BBB5F2A103303D500243E55 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F13103303D500243E55 /* BoardView.m */; };
-		4BBB5F2B103303D500243E55 /* CChessGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F15103303D500243E55 /* CChessGame.m */; };
 		4BBB5F2C103303D500243E55 /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F17103303D500243E55 /* ChessBoardView.m */; };
 		4BBB5F2D103303D500243E55 /* ChessBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F19103303D500243E55 /* ChessBoardViewController.m */; };
 		4BBB5F2E103303D500243E55 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F1B103303D500243E55 /* Game.m */; };
@@ -31,22 +32,8 @@
 		4BBB5F32103303D500243E55 /* XiangQi.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F23103303D500243E55 /* XiangQi.m */; };
 		4BBB5F33103303D500243E55 /* XiangQiMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */; };
 		4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */; };
-		4BBB5F4D1033045300243E55 /* badvisor.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F361033045300243E55 /* badvisor.png */; };
-		4BBB5F4E1033045300243E55 /* bcannon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F371033045300243E55 /* bcannon.png */; };
-		4BBB5F4F1033045300243E55 /* bchariot.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F381033045300243E55 /* bchariot.png */; };
-		4BBB5F501033045300243E55 /* belephant.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F391033045300243E55 /* belephant.png */; };
-		4BBB5F511033045300243E55 /* bhorse.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F3A1033045300243E55 /* bhorse.png */; };
-		4BBB5F521033045300243E55 /* bking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F3B1033045300243E55 /* bking.png */; };
-		4BBB5F541033045300243E55 /* bpawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F3D1033045300243E55 /* bpawn.png */; };
 		4BBB5F571033045300243E55 /* hint_move.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F401033045300243E55 /* hint_move.png */; };
-		4BBB5F5A1033045300243E55 /* radvisor.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F431033045300243E55 /* radvisor.png */; };
-		4BBB5F5B1033045300243E55 /* rcannon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F441033045300243E55 /* rcannon.png */; };
-		4BBB5F5C1033045300243E55 /* rchariot.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F451033045300243E55 /* rchariot.png */; };
-		4BBB5F5D1033045300243E55 /* relephant.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F461033045300243E55 /* relephant.png */; };
 		4BBB5F5E1033045300243E55 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F471033045300243E55 /* reset.png */; };
-		4BBB5F5F1033045300243E55 /* rhorse.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F481033045300243E55 /* rhorse.png */; };
-		4BBB5F601033045300243E55 /* rking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F491033045300243E55 /* rking.png */; };
-		4BBB5F611033045300243E55 /* rpawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F4A1033045300243E55 /* rpawn.png */; };
 		4BBB5F621033045300243E55 /* Wood.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F4B1033045300243E55 /* Wood.jpg */; };
 		4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F64103304F000243E55 /* CoreGraphics.framework */; };
 		4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F65103304F000243E55 /* QuartzCore.framework */; };
@@ -73,6 +60,8 @@
 		4B1E68E710370E24002EB371 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
 		4B1E68EC10371863002EB371 /* background_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_320x480.png; sourceTree = "<group>"; };
 		4B1E68ED10371863002EB371 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
+		4B67330E10423930009DA9E7 /* pieces */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pieces; sourceTree = "<group>"; };
+		4B673389104259F5009DA9E7 /* CChessGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CChessGame.m; sourceTree = "<group>"; };
 		4BA901E1103AE37A0039C307 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		4BA901E2103AE37A0039C307 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		4BA901E3103AE37A0039C307 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Classes/AboutViewController.xib; sourceTree = "<group>"; };
@@ -83,7 +72,6 @@
 		4BBB5F12103303D500243E55 /* BoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardView.h; sourceTree = "<group>"; };
 		4BBB5F13103303D500243E55 /* BoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardView.m; sourceTree = "<group>"; };
 		4BBB5F14103303D500243E55 /* CChessGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CChessGame.h; sourceTree = "<group>"; };
-		4BBB5F15103303D500243E55 /* CChessGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CChessGame.m; sourceTree = "<group>"; };
 		4BBB5F16103303D500243E55 /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessBoardView.h; sourceTree = "<group>"; };
 		4BBB5F17103303D500243E55 /* ChessBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessBoardView.m; sourceTree = "<group>"; };
 		4BBB5F18103303D500243E55 /* ChessBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessBoardViewController.h; sourceTree = "<group>"; };
@@ -102,22 +90,8 @@
 		4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiangQiMainMenu.m; sourceTree = "<group>"; };
 		4BBB5F26103303D500243E55 /* ZobristHashGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZobristHashGenerator.h; sourceTree = "<group>"; };
 		4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZobristHashGenerator.m; sourceTree = "<group>"; };
-		4BBB5F361033045300243E55 /* badvisor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = badvisor.png; sourceTree = "<group>"; };
-		4BBB5F371033045300243E55 /* bcannon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bcannon.png; sourceTree = "<group>"; };
-		4BBB5F381033045300243E55 /* bchariot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bchariot.png; sourceTree = "<group>"; };
-		4BBB5F391033045300243E55 /* belephant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = belephant.png; sourceTree = "<group>"; };
-		4BBB5F3A1033045300243E55 /* bhorse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bhorse.png; sourceTree = "<group>"; };
-		4BBB5F3B1033045300243E55 /* bking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bking.png; sourceTree = "<group>"; };
-		4BBB5F3D1033045300243E55 /* bpawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bpawn.png; sourceTree = "<group>"; };
 		4BBB5F401033045300243E55 /* hint_move.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hint_move.png; sourceTree = "<group>"; };
-		4BBB5F431033045300243E55 /* radvisor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radvisor.png; sourceTree = "<group>"; };
-		4BBB5F441033045300243E55 /* rcannon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rcannon.png; sourceTree = "<group>"; };
-		4BBB5F451033045300243E55 /* rchariot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rchariot.png; sourceTree = "<group>"; };
-		4BBB5F461033045300243E55 /* relephant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = relephant.png; sourceTree = "<group>"; };
 		4BBB5F471033045300243E55 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
-		4BBB5F481033045300243E55 /* rhorse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rhorse.png; sourceTree = "<group>"; };
-		4BBB5F491033045300243E55 /* rking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rking.png; sourceTree = "<group>"; };
-		4BBB5F4A1033045300243E55 /* rpawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rpawn.png; sourceTree = "<group>"; };
 		4BBB5F4B1033045300243E55 /* Wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wood.jpg; sourceTree = "<group>"; };
 		4BBB5F64103304F000243E55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4BBB5F65103304F000243E55 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -192,6 +166,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4B67330E10423930009DA9E7 /* pieces */,
 				4BEEA500103EF5BB0018A6E2 /* logo.png */,
 				4BA901E3103AE37A0039C307 /* AboutViewController.xib */,
 				4BD8E8B41039AB250021A5ED /* SettingViewController.xib */,
@@ -200,22 +175,8 @@
 				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
 				4BBB5F881033069500243E55 /* ChessBoardViewController.xib */,
 				4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */,
-				4BBB5F361033045300243E55 /* badvisor.png */,
-				4BBB5F371033045300243E55 /* bcannon.png */,
-				4BBB5F381033045300243E55 /* bchariot.png */,
-				4BBB5F391033045300243E55 /* belephant.png */,
-				4BBB5F3A1033045300243E55 /* bhorse.png */,
-				4BBB5F3B1033045300243E55 /* bking.png */,
-				4BBB5F3D1033045300243E55 /* bpawn.png */,
 				4BBB5F401033045300243E55 /* hint_move.png */,
-				4BBB5F431033045300243E55 /* radvisor.png */,
-				4BBB5F441033045300243E55 /* rcannon.png */,
-				4BBB5F451033045300243E55 /* rchariot.png */,
-				4BBB5F461033045300243E55 /* relephant.png */,
 				4BBB5F471033045300243E55 /* reset.png */,
-				4BBB5F481033045300243E55 /* rhorse.png */,
-				4BBB5F491033045300243E55 /* rking.png */,
-				4BBB5F4A1033045300243E55 /* rpawn.png */,
 				4BBB5F4B1033045300243E55 /* Wood.jpg */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* PodChess-Info.plist */,
@@ -239,6 +200,7 @@
 		4BBB5ECA1032FAFD00243E55 /* xiangqi */ = {
 			isa = PBXGroup;
 			children = (
+				4B673389104259F5009DA9E7 /* CChessGame.m */,
 				4BBB5F0E103303D500243E55 /* Bit.h */,
 				4BBB5F0F103303D500243E55 /* Bit.m */,
 				4BBB5F10103303D500243E55 /* BitHolder.h */,
@@ -246,7 +208,6 @@
 				4BBB5F12103303D500243E55 /* BoardView.h */,
 				4BBB5F13103303D500243E55 /* BoardView.m */,
 				4BBB5F14103303D500243E55 /* CChessGame.h */,
-				4BBB5F15103303D500243E55 /* CChessGame.m */,
 				4BBB5F16103303D500243E55 /* ChessBoardView.h */,
 				4BBB5F17103303D500243E55 /* ChessBoardView.m */,
 				4BBB5F18103303D500243E55 /* ChessBoardViewController.h */,
@@ -319,22 +280,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				4BBB5F4D1033045300243E55 /* badvisor.png in Resources */,
-				4BBB5F4E1033045300243E55 /* bcannon.png in Resources */,
-				4BBB5F4F1033045300243E55 /* bchariot.png in Resources */,
-				4BBB5F501033045300243E55 /* belephant.png in Resources */,
-				4BBB5F511033045300243E55 /* bhorse.png in Resources */,
-				4BBB5F521033045300243E55 /* bking.png in Resources */,
-				4BBB5F541033045300243E55 /* bpawn.png in Resources */,
 				4BBB5F571033045300243E55 /* hint_move.png in Resources */,
-				4BBB5F5A1033045300243E55 /* radvisor.png in Resources */,
-				4BBB5F5B1033045300243E55 /* rcannon.png in Resources */,
-				4BBB5F5C1033045300243E55 /* rchariot.png in Resources */,
-				4BBB5F5D1033045300243E55 /* relephant.png in Resources */,
 				4BBB5F5E1033045300243E55 /* reset.png in Resources */,
-				4BBB5F5F1033045300243E55 /* rhorse.png in Resources */,
-				4BBB5F601033045300243E55 /* rking.png in Resources */,
-				4BBB5F611033045300243E55 /* rpawn.png in Resources */,
 				4BBB5F621033045300243E55 /* Wood.jpg in Resources */,
 				4BBB5F8A1033069500243E55 /* ChessBoardViewController.xib in Resources */,
 				4BBB5F8B1033069500243E55 /* XiangQiMainMenu.xib in Resources */,
@@ -345,6 +292,7 @@
 				4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */,
 				4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */,
 				4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */,
+				4B67333210423930009DA9E7 /* pieces in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +324,6 @@
 				4BBB5F28103303D500243E55 /* Bit.m in Sources */,
 				4BBB5F29103303D500243E55 /* BitHolder.m in Sources */,
 				4BBB5F2A103303D500243E55 /* BoardView.m in Sources */,
-				4BBB5F2B103303D500243E55 /* CChessGame.m in Sources */,
 				4BBB5F2C103303D500243E55 /* ChessBoardView.m in Sources */,
 				4BBB5F2D103303D500243E55 /* ChessBoardViewController.m in Sources */,
 				4BBB5F2E103303D500243E55 /* Game.m in Sources */,
@@ -389,6 +336,7 @@
 				4BBB67141035027D004D6412 /* Sort.m in Sources */,
 				4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */,
 				4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */,
+				4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
