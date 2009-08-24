@@ -26,6 +26,8 @@
     
     IBOutlet UIButton *home;
     IBOutlet UIButton *default_setting;
+    
+    IBOutlet UISegmentedControl *piece_style;
 }
 
 @property(nonatomic,retain) IBOutlet UISlider *difficulty_setting;
@@ -34,7 +36,11 @@
 @property(nonatomic,retain) IBOutlet UIButton *home;
 @property(nonatomic,retain) IBOutlet UIButton *default_setting;
 
+@property(nonatomic,retain) IBOutlet UISegmentedControl *piece_style;
+
 - (IBAction)homePressed:(id)sender;
 - (IBAction)defaultSettingPressed:(id)sender;
+
+- (IBAction)valueChanged:(id)sender;
 
 @end

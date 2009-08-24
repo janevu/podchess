@@ -10,35 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Group</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Name</string>
-			<key>Key</key>
-			<string>name_preference</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>IsSecure</key>
-			<false/>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Enabled</string>
-			<key>Key</key>
-			<string>enabled_preference</string>
-			<key>DefaultValue</key>
-			<true/>
+			<string>Difficulty</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -58,6 +30,12 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Time</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSSliderSpecifier</string>
 			<key>Key</key>
 			<string>time_setting</string>
@@ -71,6 +49,22 @@
 			<string></string>
 			<key>MaximumValueImage</key>
 			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Pieces Style</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Enable Western Pieces</string>
+			<key>Key</key>
+			<string>ToggleWestern</string>
+			<key>DefaultValue</key>
+			<false/>
 		</dict>
 	</array>
 </dict>

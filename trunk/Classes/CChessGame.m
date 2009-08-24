@@ -37,7 +37,15 @@
     CGPoint position;
     position.x = CGRectGetMidX(frame);
     position.y = CGRectGetMidY(frame); 
-    CGFloat pieceSize = _grid.spacing.width;  // make sure it's even   
+    CGFloat pieceSize = _grid.spacing.width;  // make sure it's even
+    //western or Chinese?
+    BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
+    if(toggleWestern) {
+        imageName = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"pieces/alfaerie_50x50"];
+    } else {
+        imageName = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"pieces/xqwizard_31x31"];
+    }
+    
     Piece *piece = [[Piece alloc] initWithImageNamed: imageName scale: pieceSize];
     piece._owner = [self._players objectAtIndex: playerNo];
     piece.holder = [_grid cellAtRow:row column:col];

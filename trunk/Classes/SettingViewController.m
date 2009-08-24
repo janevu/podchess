@@ -26,6 +26,7 @@
 @synthesize time_setting;
 @synthesize home;
 @synthesize default_setting;
+@synthesize piece_style;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -46,6 +47,12 @@
     difficulty_setting.maximumValue = 64.0f;
     time_setting.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
     difficulty_setting.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"difficulty_setting"];
+    BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
+    if(toggleWestern) {
+        piece_style.selectedSegmentIndex = 1;
+    } else {
+        piece_style.selectedSegmentIndex = 0;
+    }
     [super viewDidLoad];
 }
 
@@ -76,6 +83,7 @@
     [difficulty_setting release];
     [home release];
     [default_setting release];
+    [piece_style release];
     [super dealloc];
 }
 
@@ -94,6 +102,11 @@
     [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
     difficulty_setting.value = 7.0f;
     time_setting.value = 60.0f;
+}
+
+- (IBAction)valueChanged:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool:(BOOL)piece_style.selectedSegmentIndex forKey:@"ToggleWestern"];
 }
 
 
