@@ -41,7 +41,7 @@
     //western or Chinese?
     BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
     if(toggleWestern) {
-        imageName = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"pieces/alfaerie_50x50"];
+        imageName = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"pieces/alfaerie_31x31"];
     } else {
         imageName = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"pieces/xqwizard_31x31"];
     }
