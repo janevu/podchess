@@ -71,6 +71,6 @@ Copyright © 2007 Apple Inc. All Rights Reserved.
 - (void) setImage: (CGImageRef)image;
 - (void) setImageNamed: (NSString*)name;
 
-@property (copy) NSString* imageName;
+@property (nonatomic, retain) NSString* _imageName;
 
 @end

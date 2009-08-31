@@ -54,7 +54,13 @@
 
 @implementation Piece
 
-@synthesize imageName=_imageName;
+@synthesize _imageName;
+
+- (void)dealloc
+{
+    [_imageName release];
+    [super dealloc];
+}
 
 - (id) initWithImageNamed: (NSString*)imageName
                     scale: (CGFloat)scale
@@ -97,7 +103,7 @@
 - (void) setImage: (CGImageRef)image scale: (CGFloat)scale
 {
     self.contents = (id) image;
-    self.contentsGravity = @"resize";
+    self.contentsGravity = kCAGravityResizeAspect;
     self.minificationFilter = kCAFilterLinear;
     int width = CGImageGetWidth(image), height = CGImageGetHeight(image);
     if( scale > 0 ) {
@@ -123,29 +129,29 @@
 }
 
 
-- (BOOL)containsPoint:(CGPoint)p
-{
-    // Overrides CGLayer's implementation,
-    // returning YES only for pixels at which this layer's alpha is at least 0.5.
-    // This takes into account the opacity, bg color, and background image's alpha channel.
-    if( ! [super containsPoint: p] )
-        return NO;
-    float opacity = self.opacity;
-    if( opacity < 0.5 )
-        return NO;
-    float thresholdAlpha = 0.5 / self.opacity;
-    
-    CGColorRef bg = self.backgroundColor;
-    float alpha = bg ?CGColorGetAlpha(bg) :0.0;
-    if( alpha < thresholdAlpha ) {
-        CGImageRef image = (CGImageRef)self.contents;
-        if( image ) {
-            // Note: This makes the convenient assumption that the image entirely fills the bounds.
-            alpha = MAX(alpha, GetPixelAlpha(image, self.bounds.size, p));
-        }
-    }
-    return alpha >= thresholdAlpha;
-}
+//- (BOOL)containsPoint:(CGPoint)p
+//{
+//    // Overrides CGLayer's implementation,
+//    // returning YES only for pixels at which this layer's alpha is at least 0.5.
+//    // This takes into account the opacity, bg color, and background image's alpha channel.
+//    if( ! [super containsPoint: p] )
+//        return NO;
+//    float opacity = self.opacity;
+//    if( opacity < 0.5 )
+//        return NO;
+//    float thresholdAlpha = 0.5 / self.opacity;
+//    
+//    CGColorRef bg = self.backgroundColor;
+//    float alpha = bg ?CGColorGetAlpha(bg) :0.0;
+//    if( alpha < thresholdAlpha ) {
+//        CGImageRef image = (CGImageRef)self.contents;
+//        if( image ) {
+//            // Note: This makes the convenient assumption that the image entirely fills the bounds.
+//            alpha = MAX(alpha, GetPixelAlpha(image, self.bounds.size, p));
+//        }
+//    }
+//    return alpha >= thresholdAlpha;
+//}
 
 
 @end
