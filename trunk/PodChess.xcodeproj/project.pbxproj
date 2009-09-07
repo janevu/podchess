@@ -16,6 +16,10 @@
 		4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68E710370E24002EB371 /* podchessbg320x480.png */; };
 		4B1E68EE10371863002EB371 /* background_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68EC10371863002EB371 /* background_320x480.png */; };
 		4B1E68EF10371863002EB371 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68ED10371863002EB371 /* board_320x480.png */; };
+		4B34546C1053DB3000362ED5 /* AudioHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B34546B1053DB3000362ED5 /* AudioHelper.m */; };
+		4B3454761053DC6500362ED5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3454751053DC6500362ED5 /* CoreAudio.framework */; };
+		4B3454AC1053E7EC00362ED5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3454AB1053E7EC00362ED5 /* AudioToolbox.framework */; };
+		4B3454D81054EAFF00362ED5 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 4B3454C61054EAFF00362ED5 /* sounds */; };
 		4B67333210423930009DA9E7 /* pieces in Resources */ = {isa = PBXBuildFile; fileRef = 4B67330E10423930009DA9E7 /* pieces */; };
 		4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B673389104259F5009DA9E7 /* CChessGame.m */; };
 		4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA901E2103AE37A0039C307 /* AboutViewController.m */; };
@@ -60,6 +64,11 @@
 		4B1E68E710370E24002EB371 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
 		4B1E68EC10371863002EB371 /* background_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_320x480.png; sourceTree = "<group>"; };
 		4B1E68ED10371863002EB371 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
+		4B34546A1053DB3000362ED5 /* AudioHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioHelper.h; sourceTree = "<group>"; };
+		4B34546B1053DB3000362ED5 /* AudioHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioHelper.m; sourceTree = "<group>"; };
+		4B3454751053DC6500362ED5 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		4B3454AB1053E7EC00362ED5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4B3454C61054EAFF00362ED5 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		4B67330E10423930009DA9E7 /* pieces */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pieces; sourceTree = "<group>"; };
 		4B673389104259F5009DA9E7 /* CChessGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CChessGame.m; sourceTree = "<group>"; };
 		4BA901E1103AE37A0039C307 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -117,6 +126,8 @@
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */,
 				4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */,
+				4B3454761053DC6500362ED5 /* CoreAudio.framework in Frameworks */,
+				4B3454AC1053E7EC00362ED5 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +177,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4B3454C61054EAFF00362ED5 /* sounds */,
 				4B67330E10423930009DA9E7 /* pieces */,
 				4BEEA500103EF5BB0018A6E2 /* logo.png */,
 				4BA901E3103AE37A0039C307 /* AboutViewController.xib */,
@@ -188,6 +200,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4B3454AB1053E7EC00362ED5 /* AudioToolbox.framework */,
+				4B3454751053DC6500362ED5 /* CoreAudio.framework */,
 				4BBB5F64103304F000243E55 /* CoreGraphics.framework */,
 				4BBB5F65103304F000243E55 /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
@@ -232,6 +246,8 @@
 				4BD8E8B31039AB250021A5ED /* SettingViewController.m */,
 				4BA901E1103AE37A0039C307 /* AboutViewController.h */,
 				4BA901E2103AE37A0039C307 /* AboutViewController.m */,
+				4B34546A1053DB3000362ED5 /* AudioHelper.h */,
+				4B34546B1053DB3000362ED5 /* AudioHelper.m */,
 			);
 			name = xiangqi;
 			sourceTree = "<group>";
@@ -293,6 +309,7 @@
 				4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */,
 				4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */,
 				4B67333210423930009DA9E7 /* pieces in Resources */,
+				4B3454D81054EAFF00362ED5 /* sounds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +354,7 @@
 				4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */,
 				4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */,
 				4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */,
+				4B34546C1053DB3000362ED5 /* AudioHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +365,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Xueliang Hua";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Xueliang Hua";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 2;
@@ -354,6 +374,9 @@
 				GCC_PREFIX_HEADER = PodChess_Prefix.pch;
 				INFOPLIST_FILE = "PodChess-Info.plist";
 				PRODUCT_NAME = PodChess;
+				PROVISIONING_PROFILE = "9F335894-1C2F-48CF-8803-6BDBC445EF78";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9F335894-1C2F-48CF-8803-6BDBC445EF78";
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};

@@ -19,7 +19,7 @@
 
 
 #import <UIKit/UIKit.h>
-
+#import "AudioHelper.h"
 
 #define TOSQUARE(row, col) (16 * ((row) + 3) + ((col) + 3))
 #define COLUMN(sq) ((sq) % 16 - 3)
@@ -39,6 +39,8 @@
     
     float r_total_time;
     float b_total_time;
+    
+    AudioHelper * audio_helper;
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *home;
@@ -51,5 +53,6 @@
 - (IBAction)resetPressed:(id)sender;
 
 - (void)reset_board;
+- (void)install_cchess_sounds;
 
 @end

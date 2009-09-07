@@ -44,15 +44,17 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @synthesize reset;
 @synthesize self_time;
 @synthesize opn_time;
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+
+// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
+        audio_helper = [[AudioHelper alloc] init];
+        [self install_cchess_sounds];
     }
     return self;
 }
-*/
+
 
 - (void)ticked:(NSTimer*)timer
 {
@@ -135,6 +137,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     if( object == game ) {
         switch(game.game_result) {
             case kXiangQi_YouWin:
+                [audio_helper play_wav_sound:@"WIN"];
                 [alert initWithTitle:@"PodChess"
                              message:@"You win,congratulations!"
                             delegate:self 
@@ -142,6 +145,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                    otherButtonTitles:@"OK", nil];
                 break;
             case kXiangQi_ComputerWin:
+                [audio_helper play_wav_sound:@"LOSS"];
                 [alert initWithTitle:@"PodChess"
                              message:@"Computer wins. Don't give up, please try again!"
                             delegate:self 
@@ -149,6 +153,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                    otherButtonTitles:@"OK", nil];
                 break;
             case kXiangqi_YouLose:
+                [audio_helper play_wav_sound:@"LOSS"];
                 [alert initWithTitle:@"PodChess"
                              message:@"You lose. You may try again!"
                             delegate:self 
@@ -156,6 +161,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                    otherButtonTitles:@"OK", nil];
                 break;
             case kXiangQi_Draw:
+                [audio_helper play_wav_sound:@"DRAW"];
                 [alert initWithTitle:@"PodChess"
                              message:@"Sorry,we are in draw!"
                             delegate:self 
@@ -163,6 +169,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                    otherButtonTitles:@"OK", nil];
                 break;
             case kXiangQi_OverMoves:
+                [audio_helper play_wav_sound:@"ILLEGAL"];
                 [alert initWithTitle:@"PodChess"
                              message:@"Sorry,we made too many moves, please restart again!"
                             delegate:self 
@@ -212,6 +219,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [reset release];
     [self_time release];
     [opn_time release];
+    [audio_helper release];
     [super dealloc];
 }
 
@@ -268,7 +276,10 @@ static Piece *selected = nil;
                 piece = [game x_getPieceAtRow:row col:col];
                 if(piece) {
                     [piece removeFromSuperlayer];
+                    [audio_helper performSelectorOnMainThread:@selector(play_wav_sound:) withObject:@"CAPTURE2" waitUntilDone:NO];
                 }
+            }else{
+                [audio_helper performSelectorOnMainThread:@selector(play_wav_sound:) withObject:@"MOVE" waitUntilDone:NO];
             }
             [game x_movePiece:ai_selected toRow:row toCol:col];
         }
@@ -314,6 +325,7 @@ static Piece *selected = nil;
                     ((XiangQiSquare*)[game._grid cellAtRow:row column:col])._highlighted = YES;
                 }
                 selected = piece;
+                [audio_helper play_wav_sound:@"CLICK"];
                 return;
             }
             
@@ -336,6 +348,9 @@ static Piece *selected = nil;
                     col = COLUMN(dstSq);
                     if(captured && piece != nil) {
                         [piece removeFromSuperlayer];
+                        [audio_helper play_wav_sound:@"CAPTURE"];
+                    }else{
+                        [audio_helper play_wav_sound:@"MOVE"];
                     }
                     [game x_movePiece:selected toRow:row toCol:col];
                     
@@ -396,6 +411,21 @@ static Piece *selected = nil;
     opn_time.text = @"Robot";
     [ticker invalidate];
     [game reset_game];
+}
+
+- (void)install_cchess_sounds
+{
+    [audio_helper load_wav_sound:@"CAPTURE"];
+    [audio_helper load_wav_sound:@"CAPTURE2"];
+    [audio_helper load_wav_sound:@"DRAW"];
+    [audio_helper load_wav_sound:@"LOSS"];
+    [audio_helper load_wav_sound:@"CLICK"];
+    [audio_helper load_wav_sound:@"CHECK"];
+    [audio_helper load_wav_sound:@"CHECK2"];
+    [audio_helper load_wav_sound:@"MOVE"];
+    [audio_helper load_wav_sound:@"MOVE2"];
+    [audio_helper load_wav_sound:@"WIN"];
+    [audio_helper load_wav_sound:@"ILLEGAL"];
 }
 
 
