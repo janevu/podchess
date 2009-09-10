@@ -90,10 +90,25 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [pool release];   
 }
 
+- (void)resetRobot:(id)restart
+{
+    //place holder
+    [self reset_board];
+    [activity stopAnimating];
+    if(restart) {
+        ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    }else{
+        [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
+    }
+}
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [activity setHidden:YES];
+    [activity stopAnimating];
+    [self.view bringSubviewToFront:activity];
     [self.view bringSubviewToFront:home];
     [self.view bringSubviewToFront:reset];
     [self.view bringSubviewToFront:self_time];
@@ -220,19 +235,22 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self_time release];
     [opn_time release];
     [audio_helper release];
+    [activity release];
     [super dealloc];
 }
 
 - (IBAction)homePressed:(id)sender
 {
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
-    [self reset_board];
+    [activity setHidden:NO];
+    [activity startAnimating];
+    [self performSelector:@selector(resetRobot:) onThread:robot withObject:nil waitUntilDone:NO];
 }
 
 - (IBAction)resetPressed:(id)sender
 {
-    [self reset_board];
-     ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    [activity setHidden:NO];
+    [activity startAnimating];
+    [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
 }
 
 static int moves[MAX_GEN_MOVES];

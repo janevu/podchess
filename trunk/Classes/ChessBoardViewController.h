@@ -33,6 +33,8 @@
     IBOutlet UITextField *self_time;
     IBOutlet UITextField *opn_time;
     
+    IBOutlet UIActivityIndicatorView *activity;
+    
     NSTimer *ticker;
     
     NSThread *robot;
