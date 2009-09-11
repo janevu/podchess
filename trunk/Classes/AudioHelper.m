@@ -158,10 +158,12 @@ static void playbackCallback (
 
 - (void)play
 {
-    AudioQueueStart (
-					 mQueue,
-					 NULL			// start time. NULL means ASAP.
-					 );
+    BOOL toggle_sound = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleSound"];
+    if(toggle_sound)
+        AudioQueueStart (
+                         mQueue,
+                         NULL			// start time. NULL means ASAP.
+                         );
 }
 
 // an audio queue object doesn't provide audio level information unless you 

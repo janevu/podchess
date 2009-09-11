@@ -27,6 +27,7 @@
 @synthesize home;
 @synthesize default_setting;
 @synthesize piece_style;
+@synthesize sound_switch;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -48,6 +49,7 @@
     time_setting.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
     difficulty_setting.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"difficulty_setting"];
     BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
+    sound_switch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleSound"];
     if(toggleWestern) {
         piece_style.selectedSegmentIndex = 1;
     } else {
@@ -84,6 +86,7 @@
     [home release];
     [default_setting release];
     [piece_style release];
+    [sound_switch release];
     [super dealloc];
 }
 
@@ -93,6 +96,7 @@
     //save the setting before we leave setting page
     [[NSUserDefaults standardUserDefaults] setFloat:[difficulty_setting value] forKey:@"difficulty_setting"];
     [[NSUserDefaults standardUserDefaults] setFloat:[time_setting value] forKey:@"time_setting"];
+    [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"ToggleSound"];
     [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
 }
 
@@ -100,8 +104,10 @@
 {
     [[NSUserDefaults standardUserDefaults] setFloat:7.0f forKey:@"difficulty_setting"];
     [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
     difficulty_setting.value = 7.0f;
     time_setting.value = 60.0f;
+    sound_switch.on = YES;
 }
 
 - (IBAction)valueChanged:(id)sender
