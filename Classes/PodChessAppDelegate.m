@@ -38,8 +38,11 @@
     if(setting < 3.0f || setting > 64.0f)
         [[NSUserDefaults standardUserDefaults] setFloat:7.0f forKey:@"difficulty_setting"];
     setting = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
-    if(setting < 30.0f || setting > 120.0f)
+    if(setting < 30.0f || setting > 120.0f) {
         [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
+        //this might be the first time run
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
+    }
     
     [window addSubview:[navigationController view]];
     navigationController.navigationBarHidden = YES;
