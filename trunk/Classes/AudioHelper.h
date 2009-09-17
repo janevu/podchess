@@ -40,7 +40,10 @@
 
 - (id)initWithSoundFile:(NSString*)path;
 
+- (void)prepareAudioData:(CFURLRef)url;
 - (void)play;
+- (void)enableLevelMetering;
+- (void)calculateSizesFor:(Float64)seconds;
 
 @property(readwrite) UInt32							bufferByteSize;						// the number of bytes to use in each audio queue buffer
 @property(readwrite) UInt32							numPacketsToRead;					// the number of audio data packets to read into each audio queue buffer
