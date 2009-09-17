@@ -164,8 +164,6 @@
 
 @synthesize _game;
 @synthesize _name;
-@synthesize previousPlayer;
-@synthesize nextPlayer;
 
 - (void)dealloc
 {
