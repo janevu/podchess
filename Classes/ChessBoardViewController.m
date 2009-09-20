@@ -28,6 +28,7 @@
 #import "CChessGame.h"
 #import "ChessBoardView.h"
 
+#define MAX_MOVES_IN_GAME 100
 
 enum GameEnd {
     kComputerWin,
@@ -38,6 +39,30 @@ enum GameEnd {
 static BOOL layerIsBit( CALayer* layer )        {return [layer isKindOfClass: [Bit class]];}
 static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtocol: @protocol(BitHolder)];}
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Private methods
+//
+///////////////////////////////////////////////////////////////////////////////
+ 
+@interface ChessBoardViewController ()
+
+- (void) _setHighlightCells: (CChessGame *)game highlighted:(BOOL)bHighlight;
+
+- (void) _doPieceMove: (Piece *)piece 
+                toRow:(int)row toCol:(int)col
+        capturedPiece:(Piece *)capture
+                 isAI:(BOOL)isAI;
+
+@end
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Implementation of Public methods
+//
+///////////////////////////////////////////////////////////////////////////////
+
 @implementation ChessBoardViewController
 
 @synthesize home;
@@ -45,20 +70,24 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @synthesize self_time;
 @synthesize opn_time;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+/**
+ * The designated initializer.
+ * Override if you create the controller programmatically and want to perform
+ * customization that is not appropriate for viewDidLoad.
+ */
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
         audio_helper = [[AudioHelper alloc] init];
         [self install_cchess_sounds];
     }
+    
     return self;
 }
 
 
 - (void)ticked:(NSTimer*)timer
 {
-    int m,s;
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
     if(game.engine.sd_player) {
         //opponent - black
@@ -68,8 +97,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         //        opn_time.text = [NSString stringWithFormat:@"%d.%d",m,s];
     } else {
         r_total_time -= 1.0;
-        m = (int)r_total_time / 60;
-        s = (int)r_total_time % 60;
+        int m = (int)r_total_time / 60;
+        int s = (int)r_total_time % 60;
         self_time.text = [NSString stringWithFormat:@"%d.%d",m,s];
     }
 }
@@ -103,8 +132,12 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 }
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+/**
+ * Implement viewDidLoad to do additional setup after loading the view,
+ * typically from a nib.
+ */
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     [activity setHidden:YES];
     [activity stopAnimating];
@@ -216,20 +249,23 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 }
 */
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
 
 
-- (void)dealloc {
+- (void)dealloc
+{
     [home release];
     [reset release];
     [self_time release];
@@ -257,164 +293,77 @@ static int moves[MAX_GEN_MOVES];
 static int nMoves = 0;
 static Piece *selected = nil;
 
-#pragma mark  AI move 
-- (void)AIMove:(void*)param
+#pragma mark AI move 
+- (void)AIMove:(void*)unused_param
 {
-    int m, vlRep;
-    int sqSrc, dstSq, col, row;
-    int captured;
-    Piece *piece = (Piece*)param; 
-    Piece *ai_selected;
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    m = [game RobotMoveWithCaptured:&captured];
-    //check repeat status
-    vlRep = [game.engine rep_status:3];
-    if([game.engine is_mate]) {
-        //computer wins
-        game.game_result = kXiangQi_ComputerWin;	
+    int captured = 0;
+    int m = [game RobotMoveWithCaptured:&captured];
+    if (m == -1) {  // Invalid move.
+        return;
+    }
+    
+    int sqSrc = SRC(m);
+    int sqDst = DST(m);
+    Piece *piece = [game x_getPieceAtRow:ROW(sqSrc) col:COLUMN(sqSrc)];
+    int row = ROW(sqDst);
+    int col = COLUMN(sqDst);
+    Piece *capture = [game x_getPieceAtRow:row col:col];
+    [self _doPieceMove:piece toRow:row toCol:col capturedPiece:capture isAI:YES];
+}
+
+#pragma mark Touch event handling
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // Valid for single touch only
+    if ([[event allTouches] count] != 1) {
+        return;
+    }
+    
+    ChessBoardView *view = (ChessBoardView*) self.view;
+    CChessGame *game = (CChessGame*) view.game;
+    GridCell *holder = nil;
+    
+    UITouch *touch = [[touches allObjects] objectAtIndex:0];
+    CGPoint p = [touch locationInView:self.view];
+    Piece *piece = (Piece*)[view hitTestPoint:p LayerMatchCallback:layerIsBit offset:NULL];
+    if(piece) {
+        // Generate moves for the selected piece.
+        holder = (GridCell*)piece.holder;
+        if(!selected || (selected && selected._owner == piece._owner)) {
+            int sqSrc = TOSQUARE(holder._row, holder._column);
+            [self _setHighlightCells:game highlighted:NO]; // Clear old highlight.
+            
+            nMoves = [game.engine generate_moves:moves square:sqSrc];
+            [self _setHighlightCells:game highlighted:YES];
+            selected = piece;
+            [audio_helper play_wav_sound:@"CLICK"];
+            return;
+        }
         
-    } else if(vlRep > 0) {
-        //长打
-        vlRep = [game.engine rep_value:vlRep];
-        game.game_result = vlRep < -WIN_VALUE ? kXiangQi_ComputerWin : (vlRep > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
-    } else if(game.engine.nMoveNum > 100) {
-        //too many moves
-        game.game_result = kXiangQi_OverMoves;
-    }  else {
-        sqSrc = SRC(m);
-        dstSq = DST(m);
-        row = ROW(sqSrc);
-        col = COLUMN(sqSrc);
-        ai_selected = [game x_getPieceAtRow:row col:col];
-        if(ai_selected) {
-            row = ROW(dstSq);
-            col = COLUMN(dstSq);
-            if(captured) {
-                [game.engine set_irrev];
-                piece = [game x_getPieceAtRow:row col:col];
-                if(piece) {
-                    [piece removeFromSuperlayer];
-                    [audio_helper performSelectorOnMainThread:@selector(play_wav_sound:) withObject:@"CAPTURE2" waitUntilDone:NO];
-                }
-            }else{
-                [audio_helper performSelectorOnMainThread:@selector(play_wav_sound:) withObject:@"MOVE" waitUntilDone:NO];
+    } else {
+        holder = (GridCell*)[view hitTestPoint:p LayerMatchCallback:layerIsBitHolder offset:NULL];
+    }
+    
+    // Make a move from the last selected cell to the current selected cell.
+    if(holder && holder._highlighted && selected != nil && nMoves > 0) {
+        int sqDst = TOSQUARE(holder._row, holder._column);
+        GridCell *cell = (GridCell*)selected.holder;
+        int sqSrc = TOSQUARE(cell._row, cell._column);
+        int m = MOVE(sqSrc, sqDst);
+        if([game.engine legal_move:m]) {
+            if ( [game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)] ) {
+                [self _doPieceMove:selected toRow:ROW(sqDst) toCol:COLUMN(sqDst)
+                     capturedPiece:piece isAI:NO];
+                // AI's turn.
+                [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
             }
-            [game x_movePiece:ai_selected toRow:row toCol:col];
         }
     }
     
-}
-
-#pragma mark touch event handling
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    int i;
-    GridCell *holder;
-    Piece *piece;
-    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    if([[event allTouches] count] == 1) {
-        //be valid for single touch only
-        UITouch *touch = [[touches allObjects] objectAtIndex:0];
-		CGPoint p = [touch locationInView:self.view];
-        piece = (Piece*)[(ChessBoardView*)self.view hitTestPoint:p
-                        LayerMatchCallback:layerIsBit
-                                    offset:NULL];
-        if(piece) {
-            //we may generate moves for selected piece
-            holder = (GridCell*)piece.holder;
-            if(!selected || (selected && selected._owner == piece._owner)) {
-                int sqSrc = TOSQUARE(holder._row, holder._column);
-                //clear the previous highlighted cells
-                for(i = 0; i < nMoves; i++) {
-                    int m = moves[i];
-                    int dstSq = DST(m);
-                    int row = ROW(dstSq);
-                    int col = COLUMN(dstSq);
-                    moves[i] = 0;
-                    ((XiangQiSquare*)[game._grid cellAtRow:row column:col])._highlighted = NO;
-                }
-                
-                nMoves = [game.engine generate_moves:moves square:sqSrc];
-                for(i = 0; i < nMoves; i++) {
-                    int m = moves[i];
-                    int dstSq = DST(m);
-                    int row = ROW(dstSq);
-                    int col = COLUMN(dstSq);
-                    ((XiangQiSquare*)[game._grid cellAtRow:row column:col])._highlighted = YES;
-                }
-                selected = piece;
-                [audio_helper play_wav_sound:@"CLICK"];
-                return;
-            }
-            
-        } else {
-            holder = (GridCell*)[(ChessBoardView*)self.view hitTestPoint:p
-                                LayerMatchCallback:layerIsBitHolder
-                                            offset:NULL];
-        }
-        if(holder && holder._highlighted && selected != nil && nMoves > 0) {
-            //make a move to this
-            int dstSq = TOSQUARE(holder._row, holder._column);
-            GridCell *cell = (GridCell*)selected.holder;
-            int sqSrc = TOSQUARE(cell._row, cell._column);
-            int m = MOVE(sqSrc, dstSq);
-            int captured = 0;
-            if([game.engine legal_move:m]) {
-                int row, col;
-                if([game.engine make_move:m captured:&captured]) {
-                    row = ROW(dstSq);
-                    col = COLUMN(dstSq);
-                    if(captured && piece != nil) {
-                        [piece removeFromSuperlayer];
-                        [audio_helper play_wav_sound:@"CAPTURE"];
-                    }else{
-                        [audio_helper play_wav_sound:@"MOVE"];
-                    }
-                    [game x_movePiece:selected toRow:row toCol:col];
-                    
-                    //check if we win
-                    int vlRep;
-                    vlRep = [game.engine rep_status:3];
-                    if([game.engine is_mate]) {
-                        //you wins
-                        game.game_result = kXiangQi_YouWin;
-                        
-                    }else if(vlRep > 0) {
-                        //长打
-                        vlRep = [game.engine rep_value:vlRep];
-                        game.game_result = vlRep > WIN_VALUE ? kXiangQi_ComputerWin : (vlRep < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
-                    } else if(game.engine.nMoveNum > 100) {
-                        //too many moves
-                        game.game_result = kXiangQi_OverMoves;	
-                    } else {
-                        //normal move
-                        if(captured) {
-                            [game.engine set_irrev];
-                        }
-                    }
-                    
-                    
-                    
-                    //computer turn
-                    [self performSelector:@selector(AIMove:) onThread:robot withObject:piece waitUntilDone:NO];
-                }
-            }
-        }
-        
-        //reset selected state
-        selected = nil;
-        
-        //clear highlighted state
-        for(i = 0; i < nMoves; i++) {
-            int m = moves[i];
-            int dstSq = DST(m);
-            int row = ROW(dstSq);
-            int col = COLUMN(dstSq);
-            moves[i] = 0;
-            ((XiangQiSquare*)[game._grid cellAtRow:row column:col])._highlighted = NO;
-        }
-        nMoves = 0;
-    }
+    selected = nil; // Reset selected state.
+    [self _setHighlightCells:game highlighted:NO]; // Clear highlighted.
+    nMoves = 0;
 }
 
 
@@ -447,6 +396,78 @@ static Piece *selected = nil;
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Implementation of Private methods
+//
+///////////////////////////////////////////////////////////////////////////////
 
+#pragma mark -
+#pragma mark Private methods
+
+- (void) _setHighlightCells: (CChessGame *)game highlighted:(BOOL)bHighlight
+{    
+    assert(game);
+    // Set (or Clear) highlighted cells.
+    for(int i = 0; i < nMoves; ++i) {
+        int sqDst = DST(moves[i]);
+        int row = ROW(sqDst);
+        int col = COLUMN(sqDst);
+        if ( ! bHighlight ) {
+            moves[i] = 0;
+        }
+        ((XiangQiSquare*)[game._grid cellAtRow:row column:col])._highlighted = bHighlight;
+    }
+}
+
+
+- (void) _doPieceMove: (Piece *)piece
+                toRow:(int)row toCol:(int)col
+        capturedPiece:(Piece *)capture
+                 isAI:(BOOL)isAI
+{
+    ChessBoardView *view = (ChessBoardView*) self.view;
+    CChessGame *game = (CChessGame*) view.game;
+    NSString *sound = @"MOVE";
+
+    if (capture != nil) {
+        [capture removeFromSuperlayer];
+        sound = (isAI ? @"CAPTURE2" : @"CAPTURE");
+    }
+
+    if ( isAI ) {
+        [audio_helper performSelectorOnMainThread:@selector(play_wav_sound:) 
+                                       withObject:sound waitUntilDone:NO];
+    } else {
+        [audio_helper play_wav_sound:sound];
+    }
+
+    [game x_movePiece:piece toRow:row toCol:col];
+    
+    // Check repeat status
+    int vlRep = [game.engine rep_status:3];
+    if([game.engine is_mate]) {
+        game.game_result = (isAI ? kXiangQi_ComputerWin : kXiangQi_YouWin); 
+    } else if(vlRep > 0) {
+        //长打
+        vlRep = [game.engine rep_value:vlRep];
+        
+        if (isAI) {
+            game.game_result = vlRep < -WIN_VALUE ? kXiangQi_ComputerWin 
+                                                  : (vlRep > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+        } else {
+            game.game_result = vlRep > WIN_VALUE ? kXiangQi_ComputerWin 
+                                                 : (vlRep < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+        }
+    } else if(game.engine.nMoveNum > MAX_MOVES_IN_GAME) {
+        // Too many moves
+        game.game_result = kXiangQi_OverMoves;	 
+    } else {
+        // Normal move.
+        if(capture != nil) {
+            [game.engine set_irrev];
+        }
+    }
+}
 
 @end
