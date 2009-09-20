@@ -17,59 +17,21 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
-#import <CoreGraphics/CoreGraphics.h>
-#import <QuartzCore/QuartzCore.h>
-#import "Game.h"
-#import "XiangQi.h"
 #import "AIEngine.h"
 
-#define TOSQUARE(row, col) (16 * ((row) + 3) + ((col) + 3))
-#define COLUMN(sq) ((sq) % 16 - 3)
-#define ROW(sq) ((sq) / 16 - 3)
 
-/* Uncomment out to enable the use of AI_HaQiKiD instead of XWQLight */
-//#define USE_AI_HAQIKID
-
-
-/* Possible game result */
-enum{
-    kXiangQi_InPlay,
-    kXiangQi_YouWin,
-    kXiangQi_ComputerWin,
-    //we need this state because you might play with other online player
-    kXiangqi_YouLose,
-    kXiangQi_Draw,
-    kXiangQi_OverMoves,
-};
-
-@class RectGrid;
-@class Piece;
-
-@interface CChessGame : Game
+@interface AI_HaQiKiD : AIEngine
 {
-    RectGrid *_grid;
-    
-    NSMutableArray *_pieceBox;
-    
-    XiangQi *engine;
-    AIEngine *_aiEngine;
-    
-    int game_result;
+    // Empty.
 }
 
-- (void)setupCChessPieces;
-- (void)x_createPiece: (NSString*)imageName row: (int)row col: (int)col forPlayer: (unsigned)playerNo;
-- (void)x_movePiece:(Piece*)piece toRow:(int)row toCol:(int)col;
-- (Piece*)x_getPieceAtRow:(int)row col:(int)col;
-- (int)RobotMoveWithCaptured:(int*)captured;
-- (BOOL)humanMove:(int)row1 fromCol:(int)col1
-            toRow:(int)row2 toCol:(int)col2;
-- (void)setSearchDepth:(int)depth;
-- (void)resetCChessPieces;
-- (void)reset_game;
+- (id) init;
+- (int) setDifficultyLevel: (int)nAILevel;
+- (int) initGame;
+- (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
+               toRow:(int*) pRow2 toCol:(int*) pCol2;
+- (int) onHumanMove:(int)row1 fromCol:(int)col1
+              toRow:(int)row2 toCol:(int)col2;
+- (const char*) getInfo;
 
-@property (nonatomic,readonly)    XiangQi *engine;
-@property (nonatomic,readonly)    RectGrid *_grid;
-
-@property (nonatomic,assign) int game_result;
 @end

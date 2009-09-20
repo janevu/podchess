@@ -48,6 +48,9 @@
 		4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B41039AB250021A5ED /* SettingViewController.xib */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
 		4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEA500103EF5BB0018A6E2 /* logo.png */; };
+		AF75F8E91065B78F002A371B /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F8E81065B78F002A371B /* AIEngine.m */; };
+		AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F9291065BE01002A371B /* AI_HaQiKiD.m */; };
+		AF82F6EF1064B51D0039E9E2 /* AI_haqikidHOX.c in Sources */ = {isa = PBXBuildFile; fileRef = AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */; };
 		AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF8CABE61042F7FC002D6594 /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +118,11 @@
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4BEEA500103EF5BB0018A6E2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AF75F8E71065B78F002A371B /* AIEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIEngine.h; sourceTree = "<group>"; };
+		AF75F8E81065B78F002A371B /* AIEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIEngine.m; sourceTree = "<group>"; };
+		AF75F9281065BE01002A371B /* AI_HaQiKiD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AI_HaQiKiD.h; sourceTree = "<group>"; };
+		AF75F9291065BE01002A371B /* AI_HaQiKiD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AI_HaQiKiD.m; sourceTree = "<group>"; };
+		AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AI_haqikidHOX.c; path = ../AI_haqikidHOX.c; sourceTree = "<group>"; };
 		AF8CABE61042F7FC002D6594 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +147,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AF75F8D91065B6CD002A371B /* AI */,
 				4BBB5ECA1032FAFD00243E55 /* xiangqi */,
 				1D3623240D0F684500981E51 /* PodChessAppDelegate.h */,
 				1D3623250D0F684500981E51 /* PodChessAppDelegate.m */,
@@ -255,6 +264,18 @@
 			name = xiangqi;
 			sourceTree = "<group>";
 		};
+		AF75F8D91065B6CD002A371B /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */,
+				AF75F8E71065B78F002A371B /* AIEngine.h */,
+				AF75F8E81065B78F002A371B /* AIEngine.m */,
+				AF75F9281065BE01002A371B /* AI_HaQiKiD.h */,
+				AF75F9291065BE01002A371B /* AI_HaQiKiD.m */,
+			);
+			name = AI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -359,6 +380,9 @@
 				4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */,
 				4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */,
 				4B34546C1053DB3000362ED5 /* AudioHelper.m in Sources */,
+				AF82F6EF1064B51D0039E9E2 /* AI_haqikidHOX.c in Sources */,
+				AF75F8E91065B78F002A371B /* AIEngine.m in Sources */,
+				AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

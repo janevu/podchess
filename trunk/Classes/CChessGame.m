@@ -23,6 +23,7 @@
 #import "Grid.h"
 #import "Piece.h"
 #import "QuartzUtils.h"
+#import "AI_HaQiKiD.h"
 
 @implementation CChessGame
 
@@ -94,6 +95,7 @@
     [_grid removeAllCells];
     [_grid release];
     [_pieceBox release];
+    [_aiEngine release];
     [super dealloc];
 }
 
@@ -142,6 +144,8 @@
         game_result = kXiangQi_InPlay;
         
         engine = [XiangQi getXiangQi];
+        _aiEngine = [[AI_HaQiKiD alloc] init];
+        [_aiEngine initGame];
     }
     return self;
 }
@@ -149,15 +153,56 @@
 
 - (int)RobotMoveWithCaptured:(int*)captured
 {
+    int move = -1;  // No valid move found.
+
+#ifdef USE_AI_HAQIKID
+    int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
+    [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
+    
+    int sqSrc = TOSQUARE(row1, col1);
+    int sqDst = TOSQUARE(row2, col2);
+    move = MOVE(sqSrc, sqDst);
+#else /* USE AI_XQWLIGHT */
     [engine SearchMain];
-    [engine make_move:engine.mvResult captured:captured];
-    return engine.mvResult;
+    move = engine.mvResult;
+#endif
+
+    if ( ! [engine make_move:move captured:captured] ) {
+        return -1;  // No valid move found.
+    }
+    return move;
+}
+
+- (BOOL)humanMove:(int)row1 fromCol:(int)col1
+            toRow:(int)row2 toCol:(int)col2
+{
+    int sqSrc = TOSQUARE(row1, col1);
+    int sqDst = TOSQUARE(row2, col2);
+    int m = MOVE(sqSrc, sqDst);
+    int captured = 0;
+    if ( ! [engine make_move:m captured:&captured] ) {
+        return FALSE;
+    }
+#ifdef USE_AI_HAQIKID
+    [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
+#endif
+    return TRUE;
+}
+
+- (void)setSearchDepth:(int)depth
+{
+#ifdef USE_AI_HAQIKID
+    [_aiEngine setDifficultyLevel:depth];
+#else
+    engine.search_depth = depth;
+#endif
 }
 
 - (void)reset_game
 {
     [self resetCChessPieces];
     [engine reset];
+    [_aiEngine initGame];
 }
 
 - (void)resetCChessPieces

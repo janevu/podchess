@@ -41,7 +41,8 @@ static NSString* sCurrentGameName = @"CChessGame";
     ((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController.navigationBarHidden = YES;
     [super startGameNamed: gameClassName];
     //set search depth 
-    ((CChessGame*)_game).engine.search_depth = (int)floor([[NSUserDefaults standardUserDefaults] floatForKey:@"difficulty_setting"]);
+    int search_depth = (int)floor([[NSUserDefaults standardUserDefaults] floatForKey:@"difficulty_setting"]);
+    [((CChessGame*)_game) setSearchDepth:search_depth];
     //self.title = [(id)[game class] displayName];
 }
 

@@ -17,40 +17,34 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
+#import <Foundation/Foundation.h>
 
-#import <UIKit/UIKit.h>
-#import "AudioHelper.h"
 
-@interface ChessBoardViewController : UIViewController {
-    
-    IBOutlet UIButton *home;
-    IBOutlet UIButton *reset;
-    
-    IBOutlet UITextField *self_time;
-    IBOutlet UITextField *opn_time;
-    
-    IBOutlet UIActivityIndicatorView *activity;
-    
-    NSTimer *ticker;
-    
-    NSThread *robot;
-    
-    float r_total_time;
-    float b_total_time;
-    
-    AudioHelper * audio_helper;
+/**
+ * AI error codes (or Return-Codes).
+ */
+#define AI_RC_UNKNOWN       -1
+#define AI_RC_OK             0  /* A generic success       */
+#define AI_RC_ERR            1  /* A generic error         */
+#define AI_RC_NOT_FOUND      2  /* Something not found     */
+#define AI_RC_NOT_SUPPORTED  3  /* Something not supported */
+
+
+/**
+ * Abstract superclass for all AI Engines.
+ */
+@interface AIEngine : NSObject
+{
+    // Empty.
 }
 
-@property (nonatomic, retain) IBOutlet UIButton *home;
-@property (nonatomic, retain) IBOutlet UIButton *reset;
-
-@property (nonatomic, retain) IBOutlet UITextField *self_time;
-@property (nonatomic, retain) IBOutlet UITextField *opn_time;
-
-- (IBAction)homePressed:(id)sender;
-- (IBAction)resetPressed:(id)sender;
-
-- (void)reset_board;
-- (void)install_cchess_sounds;
+- (id) init;
+- (int) setDifficultyLevel: (int)nAILevel;
+- (int) initGame;
+- (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
+               toRow:(int*)pRow2 toCol:(int*)pCol2;
+- (int) onHumanMove:(int)row1 fromCol:(int)col1
+              toRow:(int)row2 toCol:(int)col2;
+- (const char*) getInfo;
 
 @end
