@@ -130,17 +130,17 @@
 - (void) setPickedUp: (BOOL)up
 {
     if( up != self.pickedUp ) {
-        CGFloat shadow, offset, radius, opacity, z, scale;
+        CGFloat /*shadow, offset, radius,*/ opacity, z, scale;
         if( up ) {
-            shadow = 0.8;
-            offset = 2;
-            radius = 8;
+//            shadow = 0.8;
+//            offset = 2;
+//            radius = 8;
             opacity = 0.9;
             scale = 1.2;
             z = kPickedUpZ;
             _restingZ = self.zPosition;
         } else {
-            shadow = offset = radius = 0.0;
+//            shadow = offset = radius = 0.0;
             opacity = 1.0;
             scale = 1.0/1.2;
             z = _restingZ;

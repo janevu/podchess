@@ -437,7 +437,7 @@ void InitMaterial()
                             total += (nA+nE)*((13-density)*(13-density)/10 - 5);
                             materialTable[i] = total;
                             if(total > 127 || total < -128) exit(0);
-                            total += 25*nP + 112*(nC+nH) + 225*nR - 50*nA - 35*nE;
+                            /* Commented by HPHAN: total += 25*nP + 112*(nC+nH) + 225*nR - 50*nA - 35*nE; */
                             /* devaluate superfluous defenders */
                             defenders = 2*nA + 2*nE;
                             attackers = 8*nR + 4*nH + 2*nC + 3*nP;
@@ -588,10 +588,10 @@ int Search(int origAlpha, int beta, int lastPly, int PV, int depth)
 {
     int alpha, curEval, curMove, lastMove, bestMove, capts, nonCapts, iterDep;
     int score, i, j, from, to, step, piece, victim, dir, mustSort, firstMove;
-    int bestScore, prevScore = -INF, startScore = -INF, ranKey;
+    int bestScore = 0, prevScore = -INF, startScore = -INF, ranKey;
     int saveKeyH = hashKeyH, saveKeyL = hashKeyL;
-    int alphaMoves, evalCor, hashMove, origDep = depth, inCheck = 0, xking = pos[stm], king;
-    struct _hash *hashEntry;
+    int /*alphaMoves,*/ evalCor, hashMove = 0, origDep = depth, inCheck = 0, xking = pos[stm], king;
+    struct _hash *hashEntry = NULL;
     int old50 = revMovCnt;
     int savDifEval = difEval;
     //int oldCnt;
@@ -824,7 +824,7 @@ if(hashMove) {
     }
 }
 #endif
-alphaMoves = capts;
+/* Commented by HPHAN: alphaMoves = capts; */
 
 if(depth<=0) {
     if(curEval > origAlpha) {
@@ -1064,7 +1064,7 @@ for(iterDep = depth>=1000?1:hashMove?depth:PV?2-(depth&1):depth>2?1:depth; iterD
 Cutoff:
 #ifdef HASH
     // HASH STORE
-    if(origDep >= 1) {
+    if(origDep >= 1 && hashEntry) {
         hashEntry->signature = saveKeyH;
         hashEntry->from = moveStack[bestMove].u.from;
         hashEntry->to   = moveStack[bestMove].u.to;

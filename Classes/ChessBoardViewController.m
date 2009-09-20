@@ -180,57 +180,59 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                        context:(void *)context
 {
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    UIAlertView *alert = [UIAlertView alloc]; 
+    if ( object != game ) return;
     
-    if( object == game ) {
-        switch(game.game_result) {
-            case kXiangQi_YouWin:
-                [audio_helper play_wav_sound:@"WIN"];
-                [alert initWithTitle:@"PodChess"
-                             message:@"You win,congratulations!"
-                            delegate:self 
-                   cancelButtonTitle:nil 
-                   otherButtonTitles:@"OK", nil];
-                break;
-            case kXiangQi_ComputerWin:
-                [audio_helper play_wav_sound:@"LOSS"];
-                [alert initWithTitle:@"PodChess"
-                             message:@"Computer wins. Don't give up, please try again!"
-                            delegate:self 
-                   cancelButtonTitle:nil 
-                   otherButtonTitles:@"OK", nil];
-                break;
-            case kXiangqi_YouLose:
-                [audio_helper play_wav_sound:@"LOSS"];
-                [alert initWithTitle:@"PodChess"
-                             message:@"You lose. You may try again!"
-                            delegate:self 
-                   cancelButtonTitle:nil 
-                   otherButtonTitles:@"OK", nil];
-                break;
-            case kXiangQi_Draw:
-                [audio_helper play_wav_sound:@"DRAW"];
-                [alert initWithTitle:@"PodChess"
-                             message:@"Sorry,we are in draw!"
-                            delegate:self 
-                   cancelButtonTitle:nil 
-                   otherButtonTitles:@"OK", nil];
-                break;
-            case kXiangQi_OverMoves:
-                [audio_helper play_wav_sound:@"ILLEGAL"];
-                [alert initWithTitle:@"PodChess"
-                             message:@"Sorry,we made too many moves, please restart again!"
-                            delegate:self 
-                   cancelButtonTitle:nil 
-                   otherButtonTitles:@"OK", nil];
-                break;
-            case kXiangQi_InPlay:
-                break;
-        }
-        
-        [alert show];	
-        [alert release];	
+
+    UIAlertView *alert = [UIAlertView alloc]; 
+    if (!alert) return;
+    
+    switch(game.game_result) {
+        case kXiangQi_YouWin:
+            [audio_helper play_wav_sound:@"WIN"];
+            [alert initWithTitle:@"PodChess"
+                         message:@"You win,congratulations!"
+                        delegate:self 
+               cancelButtonTitle:nil 
+               otherButtonTitles:@"OK", nil];
+            break;
+        case kXiangQi_ComputerWin:
+            [audio_helper play_wav_sound:@"LOSS"];
+            [alert initWithTitle:@"PodChess"
+                         message:@"Computer wins. Don't give up, please try again!"
+                        delegate:self 
+               cancelButtonTitle:nil 
+               otherButtonTitles:@"OK", nil];
+            break;
+        case kXiangqi_YouLose:
+            [audio_helper play_wav_sound:@"LOSS"];
+            [alert initWithTitle:@"PodChess"
+                         message:@"You lose. You may try again!"
+                        delegate:self 
+               cancelButtonTitle:nil 
+               otherButtonTitles:@"OK", nil];
+            break;
+        case kXiangQi_Draw:
+            [audio_helper play_wav_sound:@"DRAW"];
+            [alert initWithTitle:@"PodChess"
+                         message:@"Sorry,we are in draw!"
+                        delegate:self 
+               cancelButtonTitle:nil 
+               otherButtonTitles:@"OK", nil];
+            break;
+        case kXiangQi_OverMoves:
+            [audio_helper play_wav_sound:@"ILLEGAL"];
+            [alert initWithTitle:@"PodChess"
+                         message:@"Sorry,we made too many moves, please restart again!"
+                        delegate:self 
+               cancelButtonTitle:nil 
+               otherButtonTitles:@"OK", nil];
+            break;
+        case kXiangQi_InPlay:
+            break;
     }
+        
+    [alert show];
+    [alert release];
 }
 
 - (void)alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex

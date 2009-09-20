@@ -62,7 +62,7 @@
 @property (nonatomic, readonly, getter=isEmpty) BOOL empty;
 
 /** BitHolders will be highlighted while the target of a drag operation */
-@property (nonatomic, setter=setHighlighted) BOOL _highlighted;
+@property (nonatomic, setter=setHighlighted:) BOOL _highlighted;
 
 
 /** Tests whether the bit is allowed to be dragged out of me.

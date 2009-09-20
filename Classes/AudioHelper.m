@@ -101,7 +101,11 @@ static void playbackCallback (
 {
     self = [super init];
     if(self) {
-        [self prepareAudioData:CFURLCreateFromFileSystemRepresentation(NULL, (UInt8*)[path UTF8String], [path length], FALSE)]; 
+        CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, (UInt8*)[path UTF8String], [path length], FALSE);
+        if (url) {
+            [self prepareAudioData:url];
+            CFRelease(url);
+        }
     }
     return self;
 }
@@ -115,7 +119,7 @@ static void playbackCallback (
 					  //kAudioFileCAFType,
 					  &audioFileID
 					  );
-	
+
 	UInt32 s = sizeof ([self audioFormat]);
 	
 	// get the AudioStreamBasicDescription format for the playback file
