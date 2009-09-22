@@ -1227,6 +1227,9 @@ ret:
     // search opening book
     mvResult = [self searchBook];
     if (mvResult != 0) {
+#ifdef ENABLE_DEBUG
+        printf("[%s] get one move in open book\n", __func__);
+#endif
         [self make_move:mvResult];
         if ([self rep_status:3] == 0) {
             [self undo_make_move];
@@ -1251,6 +1254,9 @@ ret:
     
     // iterative-deepen search
     for (i = 1; i <= search_depth; i ++) {
+#ifdef ENABLE_DEBUG
+        printf("[%s]search %d (%d) depth\n", __func__, i, search_depth);
+#endif
         vl = [self search_root:i];
         // search to capture then quit search
         if (vl > WIN_VALUE || vl < -WIN_VALUE) {
@@ -1515,7 +1521,10 @@ ret:
                 vlBest = vl;
                 mvResult = mv;
                 if (vlBest > -WIN_VALUE && vlBest < WIN_VALUE) {
-                    vlBest += (rand() & RANDOM_MASK) - (rand() & RANDOM_MASK);
+                    vlBest += (random() & RANDOM_MASK) - (random() & RANDOM_MASK);
+#ifdef ENABLE_DEBUG
+                    printf("[%s]random value %x\n", __func__, vlBest);
+#endif
                 }
             }
         }
@@ -1771,24 +1780,33 @@ ret:
             vls[nBookMoves] = lpbk->wvl;
             vl += vls[nBookMoves];
             nBookMoves ++;
+#ifdef ENABLE_DEBUG
+            printf("[%s]search %d book move\n", __func__, nBookMoves);
+#endif
             if (nBookMoves == MAX_GEN_MOVES) {
                 break; // 防止"BOOK.DAT"中含有异常数据
             }
         }
-            lpbk ++;
-            }
-            if (vl == 0) {
-            return 0; // 防止"BOOK.DAT"中含有异常数据
+        lpbk ++;
+    }
+    if (vl == 0) {
+        return 0; // 防止"BOOK.DAT"中含有异常数据
+    }
+    // 7. 根据权重随机选择一个走法
+    vl = random() % vl;
+#ifdef ENABLE_DEBUG
+    printf("[%s]random value %x\n", __func__, vl);
+#endif
+    for (i = 0; i < nBookMoves; i ++) {
+        vl -= vls[i];
+        if (vl < 0) {
+            break;
         }
-            // 7. 根据权重随机选择一个走法
-            vl = rand() % vl;
-            for (i = 0; i < nBookMoves; i ++) {
-            vl -= vls[i];
-            if (vl < 0) {
-                break;
-            }
-        }
-            return mvs[i];
+    }
+#ifdef ENABLE_DEBUG
+    printf("[%s]select %dth move\n", __func__, i);
+#endif
+    return mvs[i];
 }
 
 @end
