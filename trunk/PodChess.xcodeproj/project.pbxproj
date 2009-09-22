@@ -46,6 +46,8 @@
 		4BBB67141035027D004D6412 /* Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB67131035027D004D6412 /* Sort.m */; };
 		4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B31039AB250021A5ED /* SettingViewController.m */; };
 		4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B41039AB250021A5ED /* SettingViewController.xib */; };
+		4BE4048710690C90006154CC /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4048610690C90006154CC /* Book.m */; };
+		4BE40C1110691A1B006154CC /* books in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40C0B10691A1B006154CC /* books */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
 		4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEA500103EF5BB0018A6E2 /* logo.png */; };
 		AF75F8E91065B78F002A371B /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F8E81065B78F002A371B /* AIEngine.m */; };
@@ -115,6 +117,9 @@
 		4BD8E8B21039AB250021A5ED /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		4BD8E8B31039AB250021A5ED /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		4BD8E8B41039AB250021A5ED /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Classes/SettingViewController.xib; sourceTree = "<group>"; };
+		4BE4048510690C90006154CC /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
+		4BE4048610690C90006154CC /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
+		4BE40C0B10691A1B006154CC /* books */ = {isa = PBXFileReference; lastKnownFileType = folder; path = books; sourceTree = "<group>"; };
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4BEEA500103EF5BB0018A6E2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -189,6 +194,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4BE40C0B10691A1B006154CC /* books */,
 				4B3454C61054EAFF00362ED5 /* sounds */,
 				4B67330E10423930009DA9E7 /* pieces */,
 				4BEEA500103EF5BB0018A6E2 /* logo.png */,
@@ -260,6 +266,8 @@
 				4BA901E2103AE37A0039C307 /* AboutViewController.m */,
 				4B34546A1053DB3000362ED5 /* AudioHelper.h */,
 				4B34546B1053DB3000362ED5 /* AudioHelper.m */,
+				4BE4048510690C90006154CC /* Book.h */,
+				4BE4048610690C90006154CC /* Book.m */,
 			);
 			name = xiangqi;
 			sourceTree = "<group>";
@@ -335,6 +343,7 @@
 				4B67333210423930009DA9E7 /* pieces in Resources */,
 				4B3454D81054EAFF00362ED5 /* sounds in Resources */,
 				AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */,
+				4BE40C1110691A1B006154CC /* books in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,6 +392,7 @@
 				AF82F6EF1064B51D0039E9E2 /* AI_haqikidHOX.c in Sources */,
 				AF75F8E91065B78F002A371B /* AIEngine.m in Sources */,
 				AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */,
+				4BE4048710690C90006154CC /* Book.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
