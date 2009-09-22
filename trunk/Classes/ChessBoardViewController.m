@@ -108,6 +108,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
  	NSAutoreleasePool*  pool = [[NSAutoreleasePool alloc] init];
 	
     robot = [NSThread currentThread];
+    //set the priority to the highest so that Robot can utilize more time to think
+    [NSThread setThreadPriority:1.0f];
     // Let the run loop process things.
     do
     {
