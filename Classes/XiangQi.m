@@ -24,10 +24,16 @@
 
 #import "XiangQi.h"
 #import "Sort.h"
+#import "Book.h"
+
 #include <sys/time.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+/*ENABLE MTDF Search*/
+//#define USE_MTDF
+
 // board range
 int RANK_TOP = 3;
 int RANK_BOTTOM = 12;
@@ -484,8 +490,16 @@ static int CompareMvvLva(const void *lpmv1, const void *lpmv2) {
     return MvvLva(*(int *) lpmv2) - MvvLva(*(int *) lpmv1);
 }
 
-static BOOL GEN_CAPTURE = TRUE;
-static BOOL NO_NULL = TRUE;
+static int CompareBook(const void *lpbk1, const void *lpbk2) {
+    int dw1, dw2;
+    dw1 = ((BookItem *) lpbk1)->dwLock;
+    dw2 = ((BookItem *) lpbk2)->dwLock;
+    return dw1 > dw2 ? 1 : dw1 < dw2 ? -1 : 0;
+}
+
+
+#define GEN_CAPTURE  TRUE
+#define NO_NULL  TRUE
 
 @implementation XiangQi
 
@@ -495,6 +509,8 @@ static BOOL NO_NULL = TRUE;
 @synthesize sd_player;
 @synthesize n_distance;
 @synthesize search_depth;
+@synthesize search_time;
+@synthesize zobr;
 
 - (void)dealloc
 {
@@ -506,7 +522,7 @@ static BOOL NO_NULL = TRUE;
             [table[i][j] release];
         }
     }
-    
+    [book release];
     [super dealloc];
 }
 
@@ -567,10 +583,13 @@ static BOOL NO_NULL = TRUE;
 {
     int sq, pc;
     //default search depth 
-    search_depth = 7;
+    search_depth = DEFAULT_SEARCH_DEPTH;
+    search_time = DEFAULT_SEARCH_TIME;
     ucpc_squares = malloc(256 * sizeof(char));
     memset(ucpc_squares, 0, 256 * sizeof(char));
     memset(mvsList, 0x0, sizeof(MoveStruct) * MAX_MOVES);
+    //load book
+    book = [[Book alloc] initWithBook:@"BOOK.DAT"];
     [self init_zobrist];
     [self clear_board];
     for(sq = 0; sq < 256; sq ++) {
@@ -1192,20 +1211,31 @@ ret:
 }
 
 
-// 迭代加深搜索过程
+// iterative-deepening search
 - (void)SearchMain 
 {
     int i, t, vl, nGenMoves;
     int mvs[MAX_GEN_MOVES];
     memset(mvs, 0x0, MAX_GEN_MOVES * sizeof(int));
-    // 初始化
-    memset(nHistoryTable, 0, 65536 * sizeof(int)); // 清空历史表
-    memset(mvKillers, 0, LIMIT_DEPTH * 2 * sizeof(int)); // 清空杀手走法表
-    memset(HashTable, 0, HASH_SIZE * sizeof(HashItem));  // 清空置换表
-    t = clock();       // 初始化定时器
-    n_distance = 0; // 初始步数
+    // initialize
+    memset(nHistoryTable, 0, 65536 * sizeof(int)); // clear history table
+    memset(mvKillers, 0, LIMIT_DEPTH * 2 * sizeof(int)); // clear killer move table
+    memset(HashTable, 0, HASH_SIZE * sizeof(HashItem));  // clear TT
+    t = clock();       // initialize timer
+    n_distance = 0; // initialize steps
     
-    // 检查是否只有唯一走法
+    // search opening book
+    mvResult = [self searchBook];
+    if (mvResult != 0) {
+        [self make_move:mvResult];
+        if ([self rep_status:3] == 0) {
+            [self undo_make_move];
+            return;
+        }
+        [self undo_make_move];
+    }
+    
+    // check if we have only one move to go
     vl = 0;
     nGenMoves = [self generate_moves:mvs];
     for (i = 0; i < nGenMoves; i ++) {
@@ -1219,15 +1249,15 @@ ret:
         return;
     }
     
-    // 迭代加深过程
+    // iterative-deepen search
     for (i = 1; i <= search_depth; i ++) {
         vl = [self search_root:i];
-        // 搜索到杀棋，就终止搜索
+        // search to capture then quit search
         if (vl > WIN_VALUE || vl < -WIN_VALUE) {
             break;
         }
-        // 超过一秒，就终止搜索
-        if (clock() - t > CLOCKS_PER_SEC) {
+        // timeout
+        if (clock() - t > search_time * CLOCKS_PER_SEC) {
             break;
         }
     }
@@ -1468,7 +1498,12 @@ ret:
         if ([self make_move:mv]) {
             nNewDepth = [self in_check] ? nDepth : nDepth - 1;
             if (vlBest == -MATE_VALUE) {
+                //full window search for the first ply
+#ifdef USE_MTDF
+                vl = [self search_root_mtdf:nNewDepth];
+#else
                 vl = -[self search_full_for_depth:nNewDepth alpha:-MATE_VALUE beta:MATE_VALUE nonull:NO_NULL];
+#endif /*USE_MTDF*/
             } else {
                 vl = -[self search_full_for_depth:nNewDepth alpha:-vlBest - 1 beta:-vlBest nonull:FALSE]; 
                 if (vl > vlBest) {
@@ -1618,8 +1653,24 @@ ret:
 }
 
 - (BOOL)null_okay
-{                 // 判断是否允许空步裁剪
+{   //check if Null Cut is allowed
     return (sd_player == 0 ? vl_white : vl_black) > NULL_MARGIN;
+}
+
+- (void)mirror:(XiangQi*)posMirror
+{
+    int sq, pc;
+    [posMirror clear_board];
+    for (sq = 0; sq < 256; sq ++) {
+        pc = ucpc_squares[sq];
+        if (pc != 0) {
+            [posMirror add_piece:pc square:MIRROR_SQUARE(sq)];
+        }
+    }
+    if (sd_player == 1) {
+        [posMirror change_side];
+    }
+    [posMirror set_irrev];    
 }
 
 + (XiangQi*)getXiangQi
@@ -1629,6 +1680,116 @@ ret:
     return xiangqi;
 }
 
+#pragma mark  MTD tree search (experimental)
+/*
+ * Current XQLight AI is quite slow when setting timeout to a bigger value , whereas it's weak when using a small value.
+ * Beside this, because we r not using opening book at this moment, it seems the first ply for AI is quite predictable 
+ * although XQLight has already randomized the evalatuated value (see search_root). This leads me to think how to make the
+ * openning more unpredictable. My idea here is use MTD tree search which is faster than NegaScout(same with PVS) to search
+ * the first ply.
+ * The algorithm can be found at http://people.csail.mit.edu/plaat/mtdf.html
+ */
+- (int)mtdf_search:(int)depth guess:(int)guess
+{
+    int g, beta;
+    int upperbound = MATE_VALUE; 
+    int lowerbound = -MATE_VALUE; 
+    g = guess;
+    do {
+        if(g == lowerbound) { 
+            beta = g + 1; 
+        } else {
+            beta = g;
+        }
+        g = [self search_full_for_depth:depth alpha:beta - 1 beta:beta nonull:NO_NULL];
+        if(g < beta) {
+            upperbound = g;
+        } else {
+            lowerbound = g;
+        }
+    } while (lowerbound < upperbound);
+    return g; 
+}
+
+- (int)search_root_mtdf:(int)depth
+{
+
+    int first_guess = 0;
+    /* Typically, one would call MTD(f) in an iterative deepening framework. 
+     * A natural choice for a first guess is to use the value of the previous 
+     * iteration, like this:
+     *     for d = 1 to MAX_SEARCH_DEPTH do
+     *         firstguess := MTDF(root, firstguess, d);
+     * 
+     */
+    for(int d = 1; d < depth; d++) {
+        first_guess = [self mtdf_search:d guess:first_guess];
+    }
+    return first_guess;
+}
+
+#pragma mark  seach book
+- (int)searchBook
+{
+    int i, vl, nBookMoves, mv;
+    int mvs[MAX_GEN_MOVES], vls[MAX_GEN_MOVES];
+    BOOL bMirror;
+    BookItem bkToSearch, *lpbk;
+    XiangQi *posMirror = [[XiangQi alloc] init];
+    // 搜索开局库的过程有以下几个步骤
+    
+    // 1. 如果没有开局库，则立即返回
+    if (book.nBookSize == 0) {
+        return 0;
+    }
+    // 2. 搜索当前局面
+    bMirror = FALSE;
+    bkToSearch.dwLock = zobr.dwLock1;
+    lpbk = (BookItem *) bsearch(&bkToSearch, book.BookTable, book.nBookSize, sizeof(BookItem), CompareBook);
+    // 3. 如果没有找到，那么搜索当前局面的镜像局面
+    if (lpbk == NULL) {
+        bMirror = TRUE;
+        [self mirror:posMirror];
+        bkToSearch.dwLock = posMirror.zobr.dwLock1;
+        lpbk = (BookItem *) bsearch(&bkToSearch, book.BookTable, book.nBookSize, sizeof(BookItem), CompareBook);
+    }
+    // 4. 如果镜像局面也没找到，则立即返回
+    if (lpbk == NULL) {
+        return 0;
+    }
+    // 5. 如果找到，则向前查第一个开局库项
+    while (lpbk >= book.BookTable && lpbk->dwLock == bkToSearch.dwLock) {
+        lpbk --;
+    }
+    lpbk ++;
+    // 6. 把走法和分值写入到"mvs"和"vls"数组中
+    vl = nBookMoves = 0;
+    while (lpbk < book.BookTable + book.nBookSize && lpbk->dwLock == bkToSearch.dwLock) {
+        mv = (bMirror ? MIRROR_MOVE(lpbk->wmv) : lpbk->wmv);
+        if ([self legal_move:mv]) {
+            mvs[nBookMoves] = mv;
+            vls[nBookMoves] = lpbk->wvl;
+            vl += vls[nBookMoves];
+            nBookMoves ++;
+            if (nBookMoves == MAX_GEN_MOVES) {
+                break; // 防止"BOOK.DAT"中含有异常数据
+            }
+        }
+            lpbk ++;
+            }
+            if (vl == 0) {
+            return 0; // 防止"BOOK.DAT"中含有异常数据
+        }
+            // 7. 根据权重随机选择一个走法
+            vl = rand() % vl;
+            for (i = 0; i < nBookMoves; i ++) {
+            vl -= vls[i];
+            if (vl < 0) {
+                break;
+            }
+        }
+            return mvs[i];
+}
 
 @end
 

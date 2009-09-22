@@ -68,6 +68,13 @@
 #define PHASE_GEN_MOVES  3
 #define PHASE_REST       4
 
+//default search time for iterative-deepening search
+#define DEFAULT_SEARCH_TIME 5
+//default search depth for iterative-deepening search
+#define DEFAULT_SEARCH_DEPTH 7
+
+@class Book;
+
 @interface XiangQi : NSObject {
     int sd_player; //0 - red 1 - black
     char *ucpc_squares;
@@ -80,10 +87,15 @@
     
     int search_depth;
     
+    int search_time; //secs time for iterative-deepening search
+    
     //zobrist table
     ZobristHashGenerator *zobr;
     ZobristHashGenerator *player_zobr;
     ZobristHashGenerator *table[14][256];
+    
+    //opening book
+    Book *book;
     
 }
 
@@ -112,7 +124,11 @@
 - (void)SearchMain;
 
 /*quiescent search*/
-- (int)search_quiescent_for_alpha:(int)alpha beta:(int)beta; 
+- (int)search_quiescent_for_alpha:(int)alpha beta:(int)beta;
+
+/*mtdf root search*/
+- (int)search_root_mtdf:(int)depth;
+- (int)searchBook;
 
 - (BOOL)null_okay;
 - (int)draw_value;
@@ -133,6 +149,9 @@
 - (void)clear_board;
 - (void)reset;
 
+//mirror the current positions
+- (void)mirror:(XiangQi*)posMirror;
+
 + (XiangQi*)getXiangQi;
 
 @property (nonatomic, assign) int mvResult;
@@ -141,5 +160,7 @@
 @property (nonatomic, readonly) int sd_player;
 @property (nonatomic, readonly) int n_distance;
 @property (nonatomic, assign) int search_depth;
+@property (nonatomic, assign) int search_time;
+@property (nonatomic, readonly) ZobristHashGenerator *zobr;
 @end
 
