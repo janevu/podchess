@@ -1,0 +1,9 @@
+/* 
+   Localizable.strings (Chinese version)
+   PodChess
+
+   Created by Huy Phan on 9/23/09.
+   Copyright 2009 PlayXiangqi. All rights reserved.
+ */
+
+"About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>关于PodChess</h2><div><div><bold>PodChess</bold> 是一个开放源码象棋应用在iPhone / iPod的触摸, 主办了 <a href=\"http://code.google.com/p/podchess\"> PodChess Google Code Project </a>. 请联系我们 <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>版本</h2><div>%@</div></div></body>";
