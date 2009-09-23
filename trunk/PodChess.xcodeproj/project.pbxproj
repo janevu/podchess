@@ -23,7 +23,6 @@
 		4B67333210423930009DA9E7 /* pieces in Resources */ = {isa = PBXBuildFile; fileRef = 4B67330E10423930009DA9E7 /* pieces */; };
 		4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B673389104259F5009DA9E7 /* CChessGame.m */; };
 		4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BA901E2103AE37A0039C307 /* AboutViewController.m */; };
-		4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BA901E3103AE37A0039C307 /* AboutViewController.xib */; };
 		4BBB5F28103303D500243E55 /* Bit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F0F103303D500243E55 /* Bit.m */; };
 		4BBB5F29103303D500243E55 /* BitHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F11103303D500243E55 /* BitHolder.m */; };
 		4BBB5F2A103303D500243E55 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F13103303D500243E55 /* BoardView.m */; };
@@ -41,19 +40,21 @@
 		4BBB5F621033045300243E55 /* Wood.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F4B1033045300243E55 /* Wood.jpg */; };
 		4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F64103304F000243E55 /* CoreGraphics.framework */; };
 		4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F65103304F000243E55 /* QuartzCore.framework */; };
-		4BBB5F8A1033069500243E55 /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F881033069500243E55 /* ChessBoardViewController.xib */; };
-		4BBB5F8B1033069500243E55 /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */; };
 		4BBB67141035027D004D6412 /* Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB67131035027D004D6412 /* Sort.m */; };
 		4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B31039AB250021A5ED /* SettingViewController.m */; };
-		4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B41039AB250021A5ED /* SettingViewController.xib */; };
 		4BE4048710690C90006154CC /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4048610690C90006154CC /* Book.m */; };
 		4BE40C1110691A1B006154CC /* books in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40C0B10691A1B006154CC /* books */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
 		4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEA500103EF5BB0018A6E2 /* logo.png */; };
+		AF0973B8106A7BF40007C208 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973B7106A7BF40007C208 /* SettingViewController.xib */; };
+		AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973D0106A7D820007C208 /* AboutViewController.xib */; };
+		AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */; };
+		AF277D8B106A606F003DF2ED /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */; };
 		AF75F8E91065B78F002A371B /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F8E81065B78F002A371B /* AIEngine.m */; };
 		AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F9291065BE01002A371B /* AI_HaQiKiD.m */; };
 		AF82F6EF1064B51D0039E9E2 /* AI_haqikidHOX.c in Sources */ = {isa = PBXBuildFile; fileRef = AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */; };
 		AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF8CABE61042F7FC002D6594 /* Entitlements.plist */; };
+		AFB08A14106A663E00038488 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AFB08A12106A663E00038488 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,7 +80,6 @@
 		4B673389104259F5009DA9E7 /* CChessGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CChessGame.m; sourceTree = "<group>"; };
 		4BA901E1103AE37A0039C307 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		4BA901E2103AE37A0039C307 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		4BA901E3103AE37A0039C307 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AboutViewController.xib; path = Classes/AboutViewController.xib; sourceTree = "<group>"; };
 		4BBB5F0E103303D500243E55 /* Bit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bit.h; sourceTree = "<group>"; };
 		4BBB5F0F103303D500243E55 /* Bit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bit.m; sourceTree = "<group>"; };
 		4BBB5F10103303D500243E55 /* BitHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitHolder.h; sourceTree = "<group>"; };
@@ -110,25 +110,32 @@
 		4BBB5F4B1033045300243E55 /* Wood.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wood.jpg; sourceTree = "<group>"; };
 		4BBB5F64103304F000243E55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4BBB5F65103304F000243E55 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		4BBB5F881033069500243E55 /* ChessBoardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChessBoardViewController.xib; sourceTree = "<group>"; };
-		4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XiangQiMainMenu.xib; sourceTree = "<group>"; };
+		4BBB5F881033069500243E55 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ChessBoardViewController.xib; sourceTree = "<group>"; };
+		4BBB5F891033069500243E55 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
 		4BBB67121035027D004D6412 /* Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sort.h; sourceTree = "<group>"; };
 		4BBB67131035027D004D6412 /* Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sort.m; sourceTree = "<group>"; };
 		4BD8E8B21039AB250021A5ED /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		4BD8E8B31039AB250021A5ED /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
-		4BD8E8B41039AB250021A5ED /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SettingViewController.xib; path = Classes/SettingViewController.xib; sourceTree = "<group>"; };
 		4BE4048510690C90006154CC /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		4BE4048610690C90006154CC /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		4BE40C0B10691A1B006154CC /* books */ = {isa = PBXFileReference; lastKnownFileType = folder; path = books; sourceTree = "<group>"; };
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4BEEA500103EF5BB0018A6E2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AF0973BC106A7BFD0007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/SettingViewController.xib; sourceTree = "<group>"; };
+		AF0973D2106A7D870007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/AboutViewController.xib; sourceTree = "<group>"; };
+		AF277D34106A5C23003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
+		AF277D8C106A6077003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/ChessBoardViewController.xib; sourceTree = "<group>"; };
 		AF75F8E71065B78F002A371B /* AIEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIEngine.h; sourceTree = "<group>"; };
 		AF75F8E81065B78F002A371B /* AIEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIEngine.m; sourceTree = "<group>"; };
 		AF75F9281065BE01002A371B /* AI_HaQiKiD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AI_HaQiKiD.h; sourceTree = "<group>"; };
 		AF75F9291065BE01002A371B /* AI_HaQiKiD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AI_HaQiKiD.m; sourceTree = "<group>"; };
 		AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AI_haqikidHOX.c; path = ../AI_haqikidHOX.c; sourceTree = "<group>"; };
 		AF8CABE61042F7FC002D6594 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		AF9F2B7C106A71D400D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AboutViewController.xib; sourceTree = "<group>"; };
+		AF9F2B7E106A71F700D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SettingViewController.xib; sourceTree = "<group>"; };
+		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AFB08A15106A665300038488 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,20 +204,21 @@
 				4BE40C0B10691A1B006154CC /* books */,
 				4B3454C61054EAFF00362ED5 /* sounds */,
 				4B67330E10423930009DA9E7 /* pieces */,
+				AF0973B7106A7BF40007C208 /* SettingViewController.xib */,
+				AF0973D0106A7D820007C208 /* AboutViewController.xib */,
 				4BEEA500103EF5BB0018A6E2 /* logo.png */,
-				4BA901E3103AE37A0039C307 /* AboutViewController.xib */,
-				4BD8E8B41039AB250021A5ED /* SettingViewController.xib */,
 				4B1E68EC10371863002EB371 /* background_320x480.png */,
 				4B1E68ED10371863002EB371 /* board_320x480.png */,
 				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
-				4BBB5F881033069500243E55 /* ChessBoardViewController.xib */,
-				4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */,
+				AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */,
+				AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */,
 				4BBB5F401033045300243E55 /* hint_move.png */,
 				4BBB5F471033045300243E55 /* reset.png */,
 				4BBB5F4B1033045300243E55 /* Wood.jpg */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* PodChess-Info.plist */,
 				4BEB36CA103A4A7000B545FE /* Settings.bundle */,
+				AFB08A12106A663E00038488 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -313,6 +321,13 @@
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PodChess" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				zh,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -331,19 +346,20 @@
 				4BBB5F571033045300243E55 /* hint_move.png in Resources */,
 				4BBB5F5E1033045300243E55 /* reset.png in Resources */,
 				4BBB5F621033045300243E55 /* Wood.jpg in Resources */,
-				4BBB5F8A1033069500243E55 /* ChessBoardViewController.xib in Resources */,
-				4BBB5F8B1033069500243E55 /* XiangQiMainMenu.xib in Resources */,
+				AF277D8B106A606F003DF2ED /* ChessBoardViewController.xib in Resources */,
+				AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */,
 				4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */,
 				4B1E68EE10371863002EB371 /* background_320x480.png in Resources */,
 				4B1E68EF10371863002EB371 /* board_320x480.png in Resources */,
-				4BD8E8B61039AB250021A5ED /* SettingViewController.xib in Resources */,
 				4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */,
-				4BA901E5103AE37A0039C307 /* AboutViewController.xib in Resources */,
 				4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */,
 				4B67333210423930009DA9E7 /* pieces in Resources */,
 				4B3454D81054EAFF00362ED5 /* sounds in Resources */,
 				AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */,
 				4BE40C1110691A1B006154CC /* books in Resources */,
+				AFB08A14106A663E00038488 /* Localizable.strings in Resources */,
+				AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */,
+				AF0973B8106A7BF40007C208 /* SettingViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +413,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AF0973B7106A7BF40007C208 /* SettingViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF9F2B7E106A71F700D919B1 /* English */,
+				AF0973BC106A7BFD0007C208 /* zh */,
+			);
+			name = SettingViewController.xib;
+			sourceTree = "<group>";
+		};
+		AF0973D0106A7D820007C208 /* AboutViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF9F2B7C106A71D400D919B1 /* English */,
+				AF0973D2106A7D870007C208 /* zh */,
+			);
+			name = AboutViewController.xib;
+			sourceTree = "<group>";
+		};
+		AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4BBB5F891033069500243E55 /* English */,
+				AF277D34106A5C23003DF2ED /* zh */,
+			);
+			name = XiangQiMainMenu.xib;
+			sourceTree = "<group>";
+		};
+		AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4BBB5F881033069500243E55 /* English */,
+				AF277D8C106A6077003DF2ED /* zh */,
+			);
+			name = ChessBoardViewController.xib;
+			sourceTree = "<group>";
+		};
+		AFB08A12106A663E00038488 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AFB08A13106A663E00038488 /* English */,
+				AFB08A15106A665300038488 /* zh */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {

@@ -43,7 +43,7 @@
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
     NSString *build_info = [NSString stringWithUTF8String:PODCHESS_BUILD_INFO];
-    NSString *about_page = [NSString stringWithFormat:@"<body style=\"background-image:url(board_320x480.png);\"><h2>About PodChess</h2><div><div><bold>PodChess</bold> is an open source XiangQi application on iPhone/iPod Touch, hosted at <a href=\"http://code.google.com/p/podchess\"> PodChess Google Code Project </a>. Please contact us at <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>Version</h2><div>%@</div></div></body>",build_info];
+    NSString *about_page = [NSString stringWithFormat:NSLocalizedString(@"About_PodChess_Key", @""), build_info];
     [webview loadHTMLString:about_page baseURL:baseURL];
 }
 
