@@ -33,6 +33,7 @@
 
 /*ENABLE MTDF Search*/
 //#define USE_MTDF
+//#define ENABLE_DEBUG
 
 // board range
 int RANK_TOP = 3;
@@ -1521,9 +1522,9 @@ ret:
                 vlBest = vl;
                 mvResult = mv;
                 if (vlBest > -WIN_VALUE && vlBest < WIN_VALUE) {
-                    vlBest += (random() & RANDOM_MASK) - (random() & RANDOM_MASK);
+                    vlBest += (arc4random() & RANDOM_MASK) - (arc4random() & RANDOM_MASK);
 #ifdef ENABLE_DEBUG
-                    printf("[%s]random value %x\n", __func__, vlBest);
+                    printf("[%s]random value %d\n", __func__, vlBest);
 #endif
                 }
             }
@@ -1793,9 +1794,9 @@ ret:
         return 0; // 防止"BOOK.DAT"中含有异常数据
     }
     // 7. 根据权重随机选择一个走法
-    vl = random() % vl;
+    vl = arc4random() % vl;
 #ifdef ENABLE_DEBUG
-    printf("[%s]random value %x\n", __func__, vl);
+    printf("[%s]random value %d\n", __func__, vl);
 #endif
     for (i = 0; i < nBookMoves; i ++) {
         vl -= vls[i];
