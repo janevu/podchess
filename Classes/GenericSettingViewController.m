@@ -41,7 +41,8 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad 
+{
     time_setting.minimumValue = 30.0f;
     time_setting.maximumValue = 120.0f;
     difficulty_setting.minimumValue = 3.0f;
@@ -67,20 +68,30 @@
 }
 */
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning 
+{
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload 
+{
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated 
+{
+    [super viewWillAppear:animated];
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController setNavigationBarHidden:NO animated:YES];
+}
 
-- (void)dealloc {
+
+
+- (void)dealloc 
+{
     [time_setting release];
     [difficulty_setting release];
     [home release];
