@@ -41,12 +41,16 @@
 		4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F64103304F000243E55 /* CoreGraphics.framework */; };
 		4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F65103304F000243E55 /* QuartzCore.framework */; };
 		4BBB67141035027D004D6412 /* Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB67131035027D004D6412 /* Sort.m */; };
-		4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B31039AB250021A5ED /* SettingViewController.m */; };
+		4BD8E8B51039AB250021A5ED /* GenericSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BD8E8B31039AB250021A5ED /* GenericSettingViewController.m */; };
 		4BE4048710690C90006154CC /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE4048610690C90006154CC /* Book.m */; };
 		4BE40C1110691A1B006154CC /* books in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40C0B10691A1B006154CC /* books */; };
+		4BE40D95106B5AFB006154CC /* OptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE40D94106B5AFB006154CC /* OptionsViewController.m */; };
+		4BE40D97106B5BBE006154CC /* OptionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40D96106B5BBE006154CC /* OptionsView.xib */; };
+		4BE40E43106C8BA2006154CC /* AISelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE40E42106C8BA2006154CC /* AISelectionViewController.m */; };
+		4BE40E45106C8C0F006154CC /* AISelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40E44106C8C0F006154CC /* AISelectionView.xib */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
 		4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEA500103EF5BB0018A6E2 /* logo.png */; };
-		AF0973B8106A7BF40007C208 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973B7106A7BF40007C208 /* SettingViewController.xib */; };
+		AF0973B8106A7BF40007C208 /* GenericSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973B7106A7BF40007C208 /* GenericSettingViewController.xib */; };
 		AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973D0106A7D820007C208 /* AboutViewController.xib */; };
 		AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */; };
 		AF277D8B106A606F003DF2ED /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */; };
@@ -114,15 +118,21 @@
 		4BBB5F891033069500243E55 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
 		4BBB67121035027D004D6412 /* Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sort.h; sourceTree = "<group>"; };
 		4BBB67131035027D004D6412 /* Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sort.m; sourceTree = "<group>"; };
-		4BD8E8B21039AB250021A5ED /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		4BD8E8B31039AB250021A5ED /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		4BD8E8B21039AB250021A5ED /* GenericSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericSettingViewController.h; sourceTree = "<group>"; };
+		4BD8E8B31039AB250021A5ED /* GenericSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericSettingViewController.m; sourceTree = "<group>"; };
 		4BE4048510690C90006154CC /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Book.h; sourceTree = "<group>"; };
 		4BE4048610690C90006154CC /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Book.m; sourceTree = "<group>"; };
 		4BE40C0B10691A1B006154CC /* books */ = {isa = PBXFileReference; lastKnownFileType = folder; path = books; sourceTree = "<group>"; };
+		4BE40D93106B5AFB006154CC /* OptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionsViewController.h; sourceTree = "<group>"; };
+		4BE40D94106B5AFB006154CC /* OptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionsViewController.m; sourceTree = "<group>"; };
+		4BE40D96106B5BBE006154CC /* OptionsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsView.xib; sourceTree = "<group>"; };
+		4BE40E41106C8BA2006154CC /* AISelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AISelectionViewController.h; sourceTree = "<group>"; };
+		4BE40E42106C8BA2006154CC /* AISelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AISelectionViewController.m; sourceTree = "<group>"; };
+		4BE40E44106C8C0F006154CC /* AISelectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AISelectionView.xib; sourceTree = "<group>"; };
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		4BEEA500103EF5BB0018A6E2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		AF0973BC106A7BFD0007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/SettingViewController.xib; sourceTree = "<group>"; };
+		AF0973BC106A7BFD0007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/GenericSettingViewController.xib; sourceTree = "<group>"; };
 		AF0973D2106A7D870007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		AF277D34106A5C23003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
 		AF277D8C106A6077003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/ChessBoardViewController.xib; sourceTree = "<group>"; };
@@ -133,7 +143,7 @@
 		AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AI_haqikidHOX.c; path = ../AI_haqikidHOX.c; sourceTree = "<group>"; };
 		AF8CABE61042F7FC002D6594 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		AF9F2B7C106A71D400D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AboutViewController.xib; sourceTree = "<group>"; };
-		AF9F2B7E106A71F700D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SettingViewController.xib; sourceTree = "<group>"; };
+		AF9F2B7E106A71F700D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GenericSettingViewController.xib; sourceTree = "<group>"; };
 		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AFB08A15106A665300038488 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,16 +214,18 @@
 				4BE40C0B10691A1B006154CC /* books */,
 				4B3454C61054EAFF00362ED5 /* sounds */,
 				4B67330E10423930009DA9E7 /* pieces */,
-				AF0973B7106A7BF40007C208 /* SettingViewController.xib */,
+				AF0973B7106A7BF40007C208 /* GenericSettingViewController.xib */,
 				AF0973D0106A7D820007C208 /* AboutViewController.xib */,
-				4BEEA500103EF5BB0018A6E2 /* logo.png */,
-				4B1E68EC10371863002EB371 /* background_320x480.png */,
-				4B1E68ED10371863002EB371 /* board_320x480.png */,
-				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
 				AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */,
 				AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */,
-				4BBB5F401033045300243E55 /* hint_move.png */,
+				4BE40D96106B5BBE006154CC /* OptionsView.xib */,
+				4BE40E44106C8C0F006154CC /* AISelectionView.xib */,
+				4BEEA500103EF5BB0018A6E2 /* logo.png */,
+				4B1E68EC10371863002EB371 /* background_320x480.png */,
+				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
+				4B1E68ED10371863002EB371 /* board_320x480.png */,
 				4BBB5F471033045300243E55 /* reset.png */,
+				4BBB5F401033045300243E55 /* hint_move.png */,
 				4BBB5F4B1033045300243E55 /* Wood.jpg */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* PodChess-Info.plist */,
@@ -240,6 +252,8 @@
 		4BBB5ECA1032FAFD00243E55 /* xiangqi */ = {
 			isa = PBXGroup;
 			children = (
+				4BE40D93106B5AFB006154CC /* OptionsViewController.h */,
+				4BE40D94106B5AFB006154CC /* OptionsViewController.m */,
 				4BBB5F14103303D500243E55 /* CChessGame.h */,
 				4B673389104259F5009DA9E7 /* CChessGame.m */,
 				4BBB5F0E103303D500243E55 /* Bit.h */,
@@ -268,14 +282,16 @@
 				4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */,
 				4BBB67121035027D004D6412 /* Sort.h */,
 				4BBB67131035027D004D6412 /* Sort.m */,
-				4BD8E8B21039AB250021A5ED /* SettingViewController.h */,
-				4BD8E8B31039AB250021A5ED /* SettingViewController.m */,
+				4BD8E8B21039AB250021A5ED /* GenericSettingViewController.h */,
+				4BD8E8B31039AB250021A5ED /* GenericSettingViewController.m */,
 				4BA901E1103AE37A0039C307 /* AboutViewController.h */,
 				4BA901E2103AE37A0039C307 /* AboutViewController.m */,
 				4B34546A1053DB3000362ED5 /* AudioHelper.h */,
 				4B34546B1053DB3000362ED5 /* AudioHelper.m */,
 				4BE4048510690C90006154CC /* Book.h */,
 				4BE4048610690C90006154CC /* Book.m */,
+				4BE40E41106C8BA2006154CC /* AISelectionViewController.h */,
+				4BE40E42106C8BA2006154CC /* AISelectionViewController.m */,
 			);
 			name = xiangqi;
 			sourceTree = "<group>";
@@ -359,7 +375,9 @@
 				4BE40C1110691A1B006154CC /* books in Resources */,
 				AFB08A14106A663E00038488 /* Localizable.strings in Resources */,
 				AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */,
-				AF0973B8106A7BF40007C208 /* SettingViewController.xib in Resources */,
+				AF0973B8106A7BF40007C208 /* GenericSettingViewController.xib in Resources */,
+				4BE40D97106B5BBE006154CC /* OptionsView.xib in Resources */,
+				4BE40E45106C8C0F006154CC /* AISelectionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +419,7 @@
 				4BBB5F33103303D500243E55 /* XiangQiMainMenu.m in Sources */,
 				4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */,
 				4BBB67141035027D004D6412 /* Sort.m in Sources */,
-				4BD8E8B51039AB250021A5ED /* SettingViewController.m in Sources */,
+				4BD8E8B51039AB250021A5ED /* GenericSettingViewController.m in Sources */,
 				4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */,
 				4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */,
 				4B34546C1053DB3000362ED5 /* AudioHelper.m in Sources */,
@@ -409,19 +427,21 @@
 				AF75F8E91065B78F002A371B /* AIEngine.m in Sources */,
 				AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */,
 				4BE4048710690C90006154CC /* Book.m in Sources */,
+				4BE40D95106B5AFB006154CC /* OptionsViewController.m in Sources */,
+				4BE40E43106C8BA2006154CC /* AISelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		AF0973B7106A7BF40007C208 /* SettingViewController.xib */ = {
+		AF0973B7106A7BF40007C208 /* GenericSettingViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				AF9F2B7E106A71F700D919B1 /* English */,
 				AF0973BC106A7BFD0007C208 /* zh */,
 			);
-			name = SettingViewController.xib;
+			name = GenericSettingViewController.xib;
 			sourceTree = "<group>";
 		};
 		AF0973D0106A7D820007C208 /* AboutViewController.xib */ = {

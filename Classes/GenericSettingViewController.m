@@ -17,7 +17,7 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
-#import "SettingViewController.h"
+#import "GenericSettingViewController.h"
 #import "PodChessAppDelegate.h"
 
 @implementation SettingViewController
@@ -97,7 +97,9 @@
     [[NSUserDefaults standardUserDefaults] setFloat:[difficulty_setting value] forKey:@"difficulty_setting"];
     [[NSUserDefaults standardUserDefaults] setFloat:[time_setting value] forKey:@"time_setting"];
     [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"ToggleSound"];
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
+    //[((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
+    //return to HOME(root)
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)defaultSettingPressed:(id)sender

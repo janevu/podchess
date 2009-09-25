@@ -20,8 +20,8 @@
 #import "XiangQiMainMenu.h"
 #import "ChessBoardViewController.h"
 #import "PodChessAppDelegate.h"
-#import "SettingViewController.h"
 #import "AboutViewController.h"
+#import "OptionsViewController.h"
 
 @implementation XiangQiMainMenu
 
@@ -44,7 +44,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"Menu";
 }
 
 
@@ -93,9 +93,10 @@
 
 - (IBAction)settingPressed:(id)sender
 {
-    SettingViewController *settingController = [[SettingViewController alloc] initWithNibName:@"SettingViewController" bundle:nil];
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController pushViewController:settingController animated:YES];
-    [settingController release];    
+    OptionsViewController *optionController = [[OptionsViewController alloc] initWithNibName:@"OptionsView" bundle:nil];
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController pushViewController:optionController animated:YES];
+    [optionController release];
+    
 }
 
 
