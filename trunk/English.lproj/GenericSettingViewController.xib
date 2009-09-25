@@ -206,7 +206,7 @@
 					</object>
 					<object class="IBUIButton" id="573791570">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{13, 420}, {54, 31}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="252366428">
@@ -242,7 +242,7 @@
 					</object>
 					<object class="IBUIButton" id="129931016">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{84, 417}, {71, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="IBUIBackgroundColor" ref="252366428"/>
@@ -645,7 +645,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/SettingViewController.h</string>
+						<string key="minorKey">Classes/GenericSettingViewController.h</string>
 					</object>
 				</object>
 			</object>
