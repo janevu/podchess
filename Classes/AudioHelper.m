@@ -20,7 +20,7 @@
 
 #import "AudioHelper.h"
 
-#define DEFAULT_WAV_SOUND_PATH "sounds/hoxchess-wave"
+#define DEFAULT_WAV_SOUND_PATH "sounds/xqwizard-wave"
 
 //playback callback
 static void playbackCallback (
