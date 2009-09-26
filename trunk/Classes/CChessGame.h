@@ -27,9 +27,6 @@
 #define COLUMN(sq) ((sq) % 16 - 3)
 #define ROW(sq) ((sq) / 16 - 3)
 
-/* Uncomment out to enable the use of AI_HaQiKiD instead of XWQLight */
-//#define USE_AI_HAQIKID
-
 
 /* Possible game result */
 enum{
@@ -42,6 +39,17 @@ enum{
     kXiangQi_OverMoves,
 };
 
+/* Possible AI engines.
+ * TODO: We should use prefix "kPodChess" to make our constants
+ *       unique from others (to avoid naming conflicts).
+ *       Also, once we are done with the AI framework, then there will be
+ *       no need for these constants.
+ */
+enum {
+    kPodChess_AI_xqwlight,
+    kPodChess_AI_haqikid,
+};
+
 @class RectGrid;
 @class Piece;
 
@@ -51,6 +59,7 @@ enum{
     
     NSMutableArray *_pieceBox;
     
+    int _aiType;
     XiangQi *engine;
     AIEngine *_aiEngine;
     
