@@ -143,6 +143,12 @@
         
         game_result = kXiangQi_InPlay;
         
+        _aiType = kPodChess_AI_xqwlight;
+        NSString *aiSelection = [[NSUserDefaults standardUserDefaults] stringForKey:@"AI"];
+        if ([aiSelection isEqualToString:@"AI_haqikid"]) {
+            _aiType = kPodChess_AI_haqikid;
+        }
+        
         engine = [XiangQi getXiangQi];
         _aiEngine = [[AI_HaQiKiD alloc] init];
         [_aiEngine initGame];
@@ -155,17 +161,17 @@
 {
     int move = -1;  // No valid move found.
 
-#ifdef USE_AI_HAQIKID
-    int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
-    [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
-    
-    int sqSrc = TOSQUARE(row1, col1);
-    int sqDst = TOSQUARE(row2, col2);
-    move = MOVE(sqSrc, sqDst);
-#else /* USE AI_XQWLIGHT */
-    [engine SearchMain];
-    move = engine.mvResult;
-#endif
+    if ( _aiType == kPodChess_AI_haqikid ) {
+        int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
+        [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
+        
+        int sqSrc = TOSQUARE(row1, col1);
+        int sqDst = TOSQUARE(row2, col2);
+        move = MOVE(sqSrc, sqDst);
+    } else {
+        [engine SearchMain];
+        move = engine.mvResult;
+    }
 
     if ( ! [engine make_move:move captured:captured] ) {
         return -1;  // No valid move found.
@@ -183,19 +189,20 @@
     if ( ! [engine make_move:m captured:&captured] ) {
         return FALSE;
     }
-#ifdef USE_AI_HAQIKID
-    [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
-#endif
+    if ( _aiType == kPodChess_AI_haqikid ) {
+        [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
+    }
+
     return TRUE;
 }
 
 - (void)setSearchDepth:(int)depth
 {
-#ifdef USE_AI_HAQIKID
-    [_aiEngine setDifficultyLevel:depth];
-#else
-    engine.search_depth = depth;
-#endif
+    if ( _aiType == kPodChess_AI_haqikid ) {
+        [_aiEngine setDifficultyLevel:depth];
+    } else {
+        engine.search_depth = depth;
+    }
 }
 
 - (void)reset_game
