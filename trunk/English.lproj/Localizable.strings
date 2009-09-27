@@ -7,6 +7,14 @@
  */
 
 "About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>About PodChess</h2><div><div><bold>PodChess</bold> is an open source XiangQi application on iPhone/iPod Touch, hosted at <a href=\"http://code.google.com/p/podchess\"> PodChess Google Code Project </a>. Please contact us at <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>Version</h2><div>%@</div></div></body>";
+"Menu" = "Menu";
+"You win,congratulations!" = "You win,congratulations!";
+"Computer wins. Don't give up, please try again!" = "Computer wins. Don't give up, please try again!";
+"You lose. You may try again!" = "You lose. You may try again!";
+"Sorry,we are in draw!" = "Sorry,we are in draw!";
+"Sorry,we made too many moves, please restart again!" = "Sorry,we made too many moves, please restart again!";
+
+/* Other keys (currently unused!) */
 "HOME_Key" = "HOME";
 "DEFAULT_Key" = "DEFAULT";
 "Difficulty_Key" = "Difficulty (AI)";

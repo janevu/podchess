@@ -7,3 +7,9 @@
  */
 
 "About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>关于PodChess</h2><div><div><bold>PodChess</bold> 是一个开放源码象棋应用在iPhone / iPod的触摸, 主办了 <a href=\"http://code.google.com/p/podchess\"> PodChess Google Code Project </a>. 请联系我们 <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>版本</h2><div>%@</div></div></body>";
+"Menu" = "菜单";
+"You win,congratulations!" = "你赢了，祝贺！";
+"Computer wins. Don't give up, please try again!" = "计算机获胜。不要放弃，请再试一次！";
+"You lose. You may try again!" = "你输。您可以再试一次！";
+"Sorry,we are in draw!" = "很抱歉，我们在借鉴！";
+"Sorry,we made too many moves, please restart again!" = "很抱歉，我们犯了太多的动作，请重新启动了！";
