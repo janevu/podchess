@@ -157,7 +157,7 @@
 }
 
 
-- (int)RobotMoveWithCaptured:(int*)captured
+- (int)robotMoveWithCaptured:(int*)captured
 {
     int move = -1;  // No valid move found.
 
@@ -210,6 +210,7 @@
     [self resetCChessPieces];
     [engine reset];
     [_aiEngine initGame];
+    game_result = kXiangQi_InPlay;
 }
 
 - (void)resetCChessPieces

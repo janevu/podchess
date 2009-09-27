@@ -139,6 +139,7 @@
 		AFA63FEE106FAC8F00D7B220 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
 		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AFB08A15106A665300038488 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AFF89D0F106FEF2B00E2136D /* Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +165,7 @@
 			children = (
 				AF75F8D91065B6CD002A371B /* AI */,
 				4BBB5ECA1032FAFD00243E55 /* xiangqi */,
+				AFF89D0F106FEF2B00E2136D /* Enums.h */,
 				1D3623240D0F684500981E51 /* PodChessAppDelegate.h */,
 				1D3623250D0F684500981E51 /* PodChessAppDelegate.m */,
 				4B1D5D14103CE9F800C9C53D /* PodChessVersion.h */,

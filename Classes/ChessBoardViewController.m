@@ -17,6 +17,7 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
+#import "Enums.h"
 #import "ChessBoardViewController.h"
 #import "PodChessAppDelegate.h"
 #import "QuartzUtils.h"
@@ -28,7 +29,6 @@
 #import "CChessGame.h"
 #import "ChessBoardView.h"
 
-#define MAX_MOVES_IN_GAME 100
 
 enum GameEnd {
     kComputerWin,
@@ -290,7 +290,7 @@ static Piece *selected = nil;
 {
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
     int captured = 0;
-    int m = [game RobotMoveWithCaptured:&captured];
+    int m = [game robotMoveWithCaptured:&captured];
     if (m == -1) {  // Invalid move.
         return;
     }
@@ -348,7 +348,9 @@ static Piece *selected = nil;
                 [self _doPieceMove:selected toRow:ROW(sqDst) toCol:COLUMN(sqDst)
                      capturedPiece:piece isAI:NO];
                 // AI's turn.
-                [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
+                if ( game.game_result == kXiangQi_InPlay ) {
+                    [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
+                }
             }
         }
     }
@@ -451,7 +453,7 @@ static Piece *selected = nil;
             game.game_result = vlRep > WIN_VALUE ? kXiangQi_ComputerWin 
                                                  : (vlRep < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
         }
-    } else if(game.engine.nMoveNum > MAX_MOVES_IN_GAME) {
+    } else if(game.engine.nMoveNum > POC_MAX_MOVES_PER_GAME) {
         // Too many moves
         game.game_result = kXiangQi_OverMoves;	 
     } else {

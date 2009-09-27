@@ -70,7 +70,7 @@ enum {
 - (void)x_createPiece: (NSString*)imageName row: (int)row col: (int)col forPlayer: (unsigned)playerNo;
 - (void)x_movePiece:(Piece*)piece toRow:(int)row toCol:(int)col;
 - (Piece*)x_getPieceAtRow:(int)row col:(int)col;
-- (int)RobotMoveWithCaptured:(int*)captured;
+- (int)robotMoveWithCaptured:(int*)captured;
 - (BOOL)humanMove:(int)row1 fromCol:(int)col1
             toRow:(int)row2 toCol:(int)col2;
 - (void)setSearchDepth:(int)depth;

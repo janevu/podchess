@@ -17,46 +17,21 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
+/*
+ *  Enums.h
+ *  Created by Huy Phan on 9/27/09.
+ *
+ *  Containing the common constants that are used throughout the project.
+ */
 
+///////////////////////////////////////////////////////////////////////////////
 //
-//  PodChessAppDelegate.m
-//  PodChess
+//    Common constants
 //
+///////////////////////////////////////////////////////////////////////////////
 
-#import "PodChessAppDelegate.h"
-#import "Enums.h"
-
-@implementation PodChessAppDelegate
-
-@synthesize window;
-@synthesize navigationController;
-
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-
-    // Override point for customization after application launch
-    //set default preferences
-    int nDifficulty = [[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty_setting"];
-    if (nDifficulty < 1 || nDifficulty > 10) {
-        [[NSUserDefaults standardUserDefaults] setInteger:POC_AI_DIFFICULTY_DEFAULT forKey:@"difficulty_setting"];
-    }
-    float setting = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
-    if(setting < 30.0f || setting > 120.0f) {
-        [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
-        //this might be the first time run
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"AI_xqwlight" forKey:@"AI"];
-    }
-    
-    [window addSubview:[navigationController view]];
-    navigationController.navigationBarHidden = YES;
-    [window makeKeyAndVisible];
-}
+#define POC_AI_DIFFICULTY_DEFAULT 5     /* Valid range [1, 10]                */
+#define POC_MAX_MOVES_PER_GAME    100   /* Maximum number of moves per game   */
 
 
-- (void)dealloc {
-    [window release];
-    [super dealloc];
-}
-
-
-@end
+////////////////////// END OF FILE ////////////////////////////////////////////
