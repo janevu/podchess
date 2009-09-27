@@ -188,51 +188,39 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     UIAlertView *alert = [UIAlertView alloc]; 
     if (!alert) return;
     
+    NSString *winMsg = nil;
     switch(game.game_result) {
         case kXiangQi_YouWin:
             [audio_helper play_wav_sound:@"WIN"];
-            [alert initWithTitle:@"PodChess"
-                         message:@"You win,congratulations!"
-                        delegate:self 
-               cancelButtonTitle:nil 
-               otherButtonTitles:@"OK", nil];
+            winMsg = NSLocalizedString(@"You win,congratulations!", @"");
             break;
         case kXiangQi_ComputerWin:
             [audio_helper play_wav_sound:@"LOSS"];
-            [alert initWithTitle:@"PodChess"
-                         message:@"Computer wins. Don't give up, please try again!"
-                        delegate:self 
-               cancelButtonTitle:nil 
-               otherButtonTitles:@"OK", nil];
+            winMsg = NSLocalizedString(@"Computer wins. Don't give up, please try again!", @"");
             break;
         case kXiangqi_YouLose:
             [audio_helper play_wav_sound:@"LOSS"];
-            [alert initWithTitle:@"PodChess"
-                         message:@"You lose. You may try again!"
-                        delegate:self 
-               cancelButtonTitle:nil 
-               otherButtonTitles:@"OK", nil];
+            winMsg = NSLocalizedString(@"You lose. You may try again!", @"");
             break;
         case kXiangQi_Draw:
             [audio_helper play_wav_sound:@"DRAW"];
-            [alert initWithTitle:@"PodChess"
-                         message:@"Sorry,we are in draw!"
-                        delegate:self 
-               cancelButtonTitle:nil 
-               otherButtonTitles:@"OK", nil];
+            winMsg = NSLocalizedString(@"Sorry,we are in draw!", @"");
             break;
         case kXiangQi_OverMoves:
             [audio_helper play_wav_sound:@"ILLEGAL"];
-            [alert initWithTitle:@"PodChess"
-                         message:@"Sorry,we made too many moves, please restart again!"
-                        delegate:self 
-               cancelButtonTitle:nil 
-               otherButtonTitles:@"OK", nil];
+            winMsg = NSLocalizedString(@"Sorry,we made too many moves, please restart again!", @"");
             break;
         case kXiangQi_InPlay:
             break;
     }
-        
+    
+    if (winMsg) {
+        [alert initWithTitle:@"PodChess"
+                     message:winMsg
+                    delegate:self 
+           cancelButtonTitle:nil 
+           otherButtonTitles:@"OK", nil];
+    }
     [alert show];
     [alert release];
 }
