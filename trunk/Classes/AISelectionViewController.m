@@ -99,7 +99,7 @@ static char ai_selections[2][128] = {
 
 - (void)clearCheckMarkState
 {
-    NSArray *cells = [self.view visibleCells];
+    NSArray *cells = [(UITableView *)self.view visibleCells];
     for(UITableViewCell* cell in cells) {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }

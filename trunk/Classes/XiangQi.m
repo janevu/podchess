@@ -1745,13 +1745,14 @@ ret:
     int mvs[MAX_GEN_MOVES], vls[MAX_GEN_MOVES];
     BOOL bMirror;
     BookItem bkToSearch, *lpbk;
-    XiangQi *posMirror = [[XiangQi alloc] init];
     // 搜索开局库的过程有以下几个步骤
     
     // 1. 如果没有开局库，则立即返回
     if (book.nBookSize == 0) {
         return 0;
     }
+
+    XiangQi *posMirror = [[XiangQi alloc] init];
     // 2. 搜索当前局面
     bMirror = FALSE;
     bkToSearch.dwLock = zobr.dwLock1;
@@ -1764,6 +1765,7 @@ ret:
         lpbk = (BookItem *) bsearch(&bkToSearch, book.BookTable, book.nBookSize, sizeof(BookItem), CompareBook);
     }
     // 4. 如果镜像局面也没找到，则立即返回
+    [posMirror release];
     if (lpbk == NULL) {
         return 0;
     }
