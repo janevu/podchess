@@ -71,7 +71,7 @@
 //default search time for iterative-deepening search
 #define DEFAULT_SEARCH_TIME 5
 //default search depth for iterative-deepening search
-#define DEFAULT_SEARCH_DEPTH 7
+#define DEFAULT_SEARCH_DEPTH 5
 
 @class Book;
 
