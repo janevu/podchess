@@ -13,8 +13,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68E710370E24002EB371 /* podchessbg320x480.png */; };
-		4B1E68EF10371863002EB371 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E68ED10371863002EB371 /* board_320x480.png */; };
 		4B34546C1053DB3000362ED5 /* AudioHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B34546B1053DB3000362ED5 /* AudioHelper.m */; };
 		4B3454761053DC6500362ED5 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3454751053DC6500362ED5 /* CoreAudio.framework */; };
 		4B3454AC1053E7EC00362ED5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B3454AB1053E7EC00362ED5 /* AudioToolbox.framework */; };
@@ -34,8 +32,6 @@
 		4BBB5F32103303D500243E55 /* XiangQi.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F23103303D500243E55 /* XiangQi.m */; };
 		4BBB5F33103303D500243E55 /* XiangQiMainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */; };
 		4BBB5F34103303D500243E55 /* ZobristHashGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */; };
-		4BBB5F571033045300243E55 /* hint_move.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F401033045300243E55 /* hint_move.png */; };
-		4BBB5F5E1033045300243E55 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F471033045300243E55 /* reset.png */; };
 		4BBB5F66103304F000243E55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F64103304F000243E55 /* CoreGraphics.framework */; };
 		4BBB5F67103304F000243E55 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBB5F65103304F000243E55 /* QuartzCore.framework */; };
 		4BBB67141035027D004D6412 /* Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BBB67131035027D004D6412 /* Sort.m */; };
@@ -46,16 +42,18 @@
 		4BE40E43106C8BA2006154CC /* AISelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE40E42106C8BA2006154CC /* AISelectionViewController.m */; };
 		4BE40E45106C8C0F006154CC /* AISelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40E44106C8C0F006154CC /* AISelectionView.xib */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
-		4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 4BEEA500103EF5BB0018A6E2 /* logo.png */; };
 		AF0973B8106A7BF40007C208 /* GenericSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973B7106A7BF40007C208 /* GenericSettingViewController.xib */; };
 		AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973D0106A7D820007C208 /* AboutViewController.xib */; };
 		AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */; };
 		AF277D8B106A606F003DF2ED /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */; };
+		AF2A5022106FB3D900CF69D8 /* AI_haqikidHOX.c in Sources */ = {isa = PBXBuildFile; fileRef = AF2A5021106FB3D900CF69D8 /* AI_haqikidHOX.c */; };
 		AF3D9D54106EDCD0005A25A7 /* OptionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF3D9D53106EDCD0005A25A7 /* OptionsView.xib */; };
-		AF75F8E91065B78F002A371B /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F8E81065B78F002A371B /* AIEngine.m */; };
-		AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF75F9291065BE01002A371B /* AI_HaQiKiD.m */; };
-		AF82F6EF1064B51D0039E9E2 /* AI_haqikidHOX.c in Sources */ = {isa = PBXBuildFile; fileRef = AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */; };
+		AF8948BE106FB44800D4E5B6 /* AI_HaQiKiD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */; };
+		AF8948BF106FB44800D4E5B6 /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8948BD106FB44800D4E5B6 /* AIEngine.m */; };
 		AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF8CABE61042F7FC002D6594 /* Entitlements.plist */; };
+		AFA46640106FB2C60006DAFE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA4663F106FB2C60006DAFE /* Icon.png */; };
+		AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */; };
+		AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FEE106FAC8F00D7B220 /* board_320x480.png */; };
 		AFB08A14106A663E00038488 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AFB08A12106A663E00038488 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -70,8 +68,6 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* PodChess_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodChess_Prefix.pch; sourceTree = "<group>"; };
 		4B1D5D14103CE9F800C9C53D /* PodChessVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PodChessVersion.h; sourceTree = "<group>"; };
-		4B1E68E710370E24002EB371 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
-		4B1E68ED10371863002EB371 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
 		4B34546A1053DB3000362ED5 /* AudioHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioHelper.h; sourceTree = "<group>"; };
 		4B34546B1053DB3000362ED5 /* AudioHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioHelper.m; sourceTree = "<group>"; };
 		4B3454751053DC6500362ED5 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
@@ -106,8 +102,6 @@
 		4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiangQiMainMenu.m; sourceTree = "<group>"; };
 		4BBB5F26103303D500243E55 /* ZobristHashGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZobristHashGenerator.h; sourceTree = "<group>"; };
 		4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZobristHashGenerator.m; sourceTree = "<group>"; };
-		4BBB5F401033045300243E55 /* hint_move.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hint_move.png; sourceTree = "<group>"; };
-		4BBB5F471033045300243E55 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		4BBB5F64103304F000243E55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		4BBB5F65103304F000243E55 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4BBB5F881033069500243E55 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ChessBoardViewController.xib; sourceTree = "<group>"; };
@@ -126,21 +120,23 @@
 		4BE40E42106C8BA2006154CC /* AISelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AISelectionViewController.m; sourceTree = "<group>"; };
 		4BE40E44106C8C0F006154CC /* AISelectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AISelectionView.xib; sourceTree = "<group>"; };
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		4BEEA500103EF5BB0018A6E2 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		AF0973BC106A7BFD0007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/GenericSettingViewController.xib; sourceTree = "<group>"; };
 		AF0973D2106A7D870007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		AF277D34106A5C23003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
 		AF277D8C106A6077003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/ChessBoardViewController.xib; sourceTree = "<group>"; };
+		AF2A5021106FB3D900CF69D8 /* AI_haqikidHOX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AI_haqikidHOX.c; path = AI/AI_haqikidHOX.c; sourceTree = "<group>"; };
 		AF3D9D55106EDCD7005A25A7 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/OptionsView.xib; sourceTree = "<group>"; };
-		AF75F8E71065B78F002A371B /* AIEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIEngine.h; sourceTree = "<group>"; };
-		AF75F8E81065B78F002A371B /* AIEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIEngine.m; sourceTree = "<group>"; };
-		AF75F9281065BE01002A371B /* AI_HaQiKiD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AI_HaQiKiD.h; sourceTree = "<group>"; };
-		AF75F9291065BE01002A371B /* AI_HaQiKiD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AI_HaQiKiD.m; sourceTree = "<group>"; };
-		AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AI_haqikidHOX.c; path = ../AI_haqikidHOX.c; sourceTree = "<group>"; };
+		AF8948BA106FB44800D4E5B6 /* AI_HaQiKiD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI_HaQiKiD.h; path = AI/AI_HaQiKiD.h; sourceTree = "<group>"; };
+		AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AI_HaQiKiD.m; path = AI/AI_HaQiKiD.m; sourceTree = "<group>"; };
+		AF8948BC106FB44800D4E5B6 /* AIEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIEngine.h; path = AI/AIEngine.h; sourceTree = "<group>"; };
+		AF8948BD106FB44800D4E5B6 /* AIEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIEngine.m; path = AI/AIEngine.m; sourceTree = "<group>"; };
 		AF8CABE61042F7FC002D6594 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		AF9F2B7C106A71D400D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		AF9F2B7E106A71F700D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GenericSettingViewController.xib; sourceTree = "<group>"; };
+		AFA4663F106FB2C60006DAFE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
+		AFA63FEE106FAC8F00D7B220 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
 		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AFB08A15106A665300038488 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,7 +182,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				AF8CABE61042F7FC002D6594 /* Entitlements.plist */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -208,6 +203,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AFA63FE3106FABD700D7B220 /* images */,
 				4BE40C0B10691A1B006154CC /* books */,
 				4B3454C61054EAFF00362ED5 /* sounds */,
 				4B67330E10423930009DA9E7 /* pieces */,
@@ -217,13 +213,9 @@
 				AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */,
 				AF3D9D53106EDCD0005A25A7 /* OptionsView.xib */,
 				4BE40E44106C8C0F006154CC /* AISelectionView.xib */,
-				4BEEA500103EF5BB0018A6E2 /* logo.png */,
-				4B1E68E710370E24002EB371 /* podchessbg320x480.png */,
-				4B1E68ED10371863002EB371 /* board_320x480.png */,
-				4BBB5F471033045300243E55 /* reset.png */,
-				4BBB5F401033045300243E55 /* hint_move.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* PodChess-Info.plist */,
+				AF8CABE61042F7FC002D6594 /* Entitlements.plist */,
 				4BEB36CA103A4A7000B545FE /* Settings.bundle */,
 				AFB08A12106A663E00038488 /* Localizable.strings */,
 			);
@@ -294,13 +286,23 @@
 		AF75F8D91065B6CD002A371B /* AI */ = {
 			isa = PBXGroup;
 			children = (
-				AF82F6EE1064B51D0039E9E2 /* AI_haqikidHOX.c */,
-				AF75F8E71065B78F002A371B /* AIEngine.h */,
-				AF75F8E81065B78F002A371B /* AIEngine.m */,
-				AF75F9281065BE01002A371B /* AI_HaQiKiD.h */,
-				AF75F9291065BE01002A371B /* AI_HaQiKiD.m */,
+				AF8948BA106FB44800D4E5B6 /* AI_HaQiKiD.h */,
+				AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */,
+				AF8948BC106FB44800D4E5B6 /* AIEngine.h */,
+				AF8948BD106FB44800D4E5B6 /* AIEngine.m */,
+				AF2A5021106FB3D900CF69D8 /* AI_haqikidHOX.c */,
 			);
 			name = AI;
+			sourceTree = "<group>";
+		};
+		AFA63FE3106FABD700D7B220 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				AFA4663F106FB2C60006DAFE /* Icon.png */,
+				AFA63FEE106FAC8F00D7B220 /* board_320x480.png */,
+				AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,6 +331,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = PlayXiangqi;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PodChess" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
@@ -354,14 +359,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
-				4BBB5F571033045300243E55 /* hint_move.png in Resources */,
-				4BBB5F5E1033045300243E55 /* reset.png in Resources */,
 				AF277D8B106A606F003DF2ED /* ChessBoardViewController.xib in Resources */,
 				AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */,
-				4B1E68E810370E24002EB371 /* podchessbg320x480.png in Resources */,
-				4B1E68EF10371863002EB371 /* board_320x480.png in Resources */,
 				4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */,
-				4BEEA501103EF5BB0018A6E2 /* logo.png in Resources */,
 				4B67333210423930009DA9E7 /* pieces in Resources */,
 				4B3454D81054EAFF00362ED5 /* sounds in Resources */,
 				AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */,
@@ -371,6 +371,9 @@
 				AF0973B8106A7BF40007C208 /* GenericSettingViewController.xib in Resources */,
 				AF3D9D54106EDCD0005A25A7 /* OptionsView.xib in Resources */,
 				4BE40E45106C8C0F006154CC /* AISelectionView.xib in Resources */,
+				AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */,
+				AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */,
+				AFA46640106FB2C60006DAFE /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,12 +419,12 @@
 				4BA901E4103AE37A0039C307 /* AboutViewController.m in Sources */,
 				4B67338A104259F5009DA9E7 /* CChessGame.m in Sources */,
 				4B34546C1053DB3000362ED5 /* AudioHelper.m in Sources */,
-				AF82F6EF1064B51D0039E9E2 /* AI_haqikidHOX.c in Sources */,
-				AF75F8E91065B78F002A371B /* AIEngine.m in Sources */,
-				AF75F92A1065BE01002A371B /* AI_HaQiKiD.m in Sources */,
 				4BE4048710690C90006154CC /* Book.m in Sources */,
 				4BE40D95106B5AFB006154CC /* OptionsViewController.m in Sources */,
 				4BE40E43106C8BA2006154CC /* AISelectionViewController.m in Sources */,
+				AF2A5022106FB3D900CF69D8 /* AI_haqikidHOX.c in Sources */,
+				AF8948BE106FB44800D4E5B6 /* AI_HaQiKiD.m in Sources */,
+				AF8948BF106FB44800D4E5B6 /* AIEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
