@@ -38,12 +38,18 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
-    NSString *build_info = [NSString stringWithUTF8String:PODCHESS_BUILD_INFO];
-    NSString *about_page = [NSString stringWithFormat:NSLocalizedString(@"About_PodChess_Key", @""), build_info];
+    NSString *buildInfo = @"";
+#ifdef DEBUG
+    buildInfo = [NSString stringWithUTF8String:PODCHESS_BUILD_INFO];
+#endif
+    NSString *releaseVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSString *about_page = [NSString stringWithFormat:NSLocalizedString(@"About_PodChess_Key", @""),
+                                                                        releaseVersion, buildInfo];
     [webview loadHTMLString:about_page baseURL:baseURL];
 }
 
@@ -56,14 +62,16 @@
 }
 */
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
 	// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 	
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
+- (void)viewDidUnload
+{
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
 }
@@ -81,7 +89,8 @@
 }
 
 #pragma mark WebView delegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
+                                                 navigationType:(UIWebViewNavigationType)navigationType
 {
     if(navigationType == UIWebViewNavigationTypeLinkClicked) {
         //start safari to load in page url
