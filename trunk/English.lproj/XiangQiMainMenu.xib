@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="12"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -57,7 +57,7 @@
 					<object class="IBUIButton" id="220663960">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">316</int>
-						<string key="NSFrame">{{55, 249}, {182, 52}}</string>
+						<string key="NSFrame">{{69, 249}, {182, 52}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -90,7 +90,7 @@
 					<object class="IBUIButton" id="391002685">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{76, 319}, {140, 37}}</string>
+						<string key="NSFrame">{{84, 319}, {152, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -111,8 +111,8 @@
 					</object>
 					<object class="IBUIButton" id="888550255">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{98, 382}, {84, 37}}</string>
+						<int key="NSvFlags">293</int>
+						<string key="NSFrame">{{109, 382}, {102, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -121,7 +121,7 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="215111780"/>
 						<string key="IBUITitleShadowOffset">{1, 0}</string>
-						<string key="IBUINormalTitle">About</string>
+						<string key="IBUINormalTitle">ABOUT</string>
 						<reference key="IBUIHighlightedTitleColor" ref="746675261"/>
 						<reference key="IBUINormalTitleColor" ref="732491805"/>
 						<reference key="IBUINormalTitleShadowColor" ref="593990082"/>
@@ -217,9 +217,9 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="919110211"/>
-							<reference ref="888550255"/>
 							<reference ref="220663960"/>
 							<reference ref="391002685"/>
+							<reference ref="888550255"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>

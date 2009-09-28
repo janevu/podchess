@@ -42,6 +42,7 @@ static char ai_selections[2][128] = {
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithCGColor:GetCGPatternNamed(@"board_320x480.png")];
+    self.title = NSLocalizedString(@"AI", @"");
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
