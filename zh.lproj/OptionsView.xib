@@ -109,7 +109,7 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">引擎选择</string>
+								<string key="IBUIText">AI</string>
 								<reference key="IBUIFont" ref="417721514"/>
 								<reference key="IBUITextColor" ref="720727642"/>
 								<nil key="IBUIHighlightedColor"/>

@@ -53,7 +53,7 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">General Settings</string>
+								<string key="IBUIText">General</string>
 								<object class="NSFont" key="IBUIFont" id="417721514">
 									<string key="NSName">MarkerFelt-Thin</string>
 									<double key="NSSize">24</double>
@@ -109,7 +109,7 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">AI Selections</string>
+								<string key="IBUIText">AI</string>
 								<reference key="IBUIFont" ref="417721514"/>
 								<reference key="IBUITextColor" ref="720727642"/>
 								<nil key="IBUIHighlightedColor"/>

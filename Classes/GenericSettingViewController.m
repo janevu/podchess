@@ -53,6 +53,7 @@
     sound_switch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleSound"];
     BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
     piece_style.selectedSegmentIndex = (toggleWestern ? 1 : 0);
+    self.title = NSLocalizedString(@"General", @"");
     [super viewDidLoad];
 }
 
