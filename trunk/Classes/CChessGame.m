@@ -40,7 +40,7 @@
     position.y = CGRectGetMidY(frame); 
     CGFloat pieceSize = _grid.spacing.width;  // make sure it's even
     //western or Chinese?
-    BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
+    BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"toggle_western"];
     if(toggleWestern) {
         imageName = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"pieces/alfaerie_31x31"];
     } else {

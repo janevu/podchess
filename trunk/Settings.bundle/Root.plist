@@ -10,7 +10,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Difficulty</string>
+			<string>Difficulty (AI)</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -18,11 +18,11 @@
 			<key>Key</key>
 			<string>difficulty_setting</string>
 			<key>DefaultValue</key>
-			<integer>7</integer>
+			<integer>5</integer>
 			<key>MinimumValue</key>
-			<integer>3</integer>
+			<integer>1</integer>
 			<key>MaximumValue</key>
-			<integer>64</integer>
+			<integer>10</integer>
 			<key>MinimumValueImage</key>
 			<string></string>
 			<key>MaximumValueImage</key>
@@ -32,7 +32,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Time</string>
+			<string>Time (mins)</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -54,15 +54,15 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Pieces Style</string>
+			<string>Pieces</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Enable Western Pieces</string>
+			<string>Western Style</string>
 			<key>Key</key>
-			<string>ToggleWestern</string>
+			<string>toggle_western</string>
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
@@ -78,7 +78,7 @@
 			<key>Title</key>
 			<string>Enable Sound</string>
 			<key>Key</key>
-			<string>ToggleSound</string>
+			<string>toggle_sound</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>

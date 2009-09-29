@@ -162,7 +162,7 @@ static void playbackCallback (
 
 - (void)play
 {
-    BOOL toggle_sound = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleSound"];
+    BOOL toggle_sound = [[NSUserDefaults standardUserDefaults] boolForKey:@"toggle_sound"];
     if(toggle_sound)
         AudioQueueStart (
                          mQueue,

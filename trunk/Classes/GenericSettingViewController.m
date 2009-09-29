@@ -25,7 +25,6 @@
 
 @synthesize difficulty_setting;
 @synthesize time_setting;
-@synthesize home;
 @synthesize default_setting;
 @synthesize piece_style;
 @synthesize sound_switch;
@@ -50,8 +49,8 @@
     difficulty_setting.maximumValue = 10.0f;
     time_setting.value = (float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
     difficulty_setting.value = (float)[[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty_setting"];
-    sound_switch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleSound"];
-    BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
+    sound_switch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"toggle_sound"];
+    BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"toggle_western"];
     piece_style.selectedSegmentIndex = (toggleWestern ? 1 : 0);
     self.title = NSLocalizedString(@"General", @"");
     [super viewDidLoad];
@@ -91,8 +90,8 @@
     //save the setting before we leave setting page
     [[NSUserDefaults standardUserDefaults] setInteger:[difficulty_setting value] forKey:@"difficulty_setting"];
     [[NSUserDefaults standardUserDefaults] setInteger:[time_setting value] forKey:@"time_setting"];
-    [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"ToggleSound"];
-    [[NSUserDefaults standardUserDefaults] setBool:(BOOL)piece_style.selectedSegmentIndex forKey:@"ToggleWestern"];
+    [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"toggle_sound"];
+    [[NSUserDefaults standardUserDefaults] setBool:(BOOL)piece_style.selectedSegmentIndex forKey:@"toggle_western"];
 	[super viewWillDisappear:animated];
 }
 
@@ -100,7 +99,6 @@
 {
     [time_setting release];
     [difficulty_setting release];
-    [home release];
     [default_setting release];
     [piece_style release];
     [sound_switch release];
@@ -112,7 +110,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setInteger:POC_AI_DIFFICULTY_DEFAULT forKey:@"difficulty_setting"];
     [[NSUserDefaults standardUserDefaults] setInteger:POC_GAME_TIME_DEFAULT forKey:@"time_setting"];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"toggle_sound"];
     difficulty_setting.value = (float) POC_AI_DIFFICULTY_DEFAULT;
     time_setting.value = (float) POC_GAME_TIME_DEFAULT;
     sound_switch.on = YES;

@@ -43,7 +43,7 @@
     if (nGameTime < 30 || nGameTime > 120) {
         [[NSUserDefaults standardUserDefaults] setInteger:POC_GAME_TIME_DEFAULT forKey:@"time_setting"];
         //this might be the first time run
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"toggle_sound"];
         [[NSUserDefaults standardUserDefaults] setObject:@"AI_xqwlight" forKey:@"AI"];
     }
     
