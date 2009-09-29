@@ -21,9 +21,9 @@
 #import "QuartzUtils.h"
 #import "PodChessAppDelegate.h"
 
-static char ai_selections[2][128] = {
-    "AI_xqwlight",
-    "AI_haqikid",
+static char ai_selections[][128] = {
+    "XQWLight",
+    "HaQiKiD",
 };
 
 @implementation AISelectionViewController

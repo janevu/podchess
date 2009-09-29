@@ -145,7 +145,7 @@
         
         _aiType = kPodChess_AI_xqwlight;
         NSString *aiSelection = [[NSUserDefaults standardUserDefaults] stringForKey:@"AI"];
-        if ([aiSelection isEqualToString:@"AI_haqikid"]) {
+        if ([aiSelection isEqualToString:@"HaQiKiD"]) {
             _aiType = kPodChess_AI_haqikid;
         }
         
