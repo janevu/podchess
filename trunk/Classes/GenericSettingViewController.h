@@ -42,9 +42,6 @@
 
 @property(nonatomic,retain) IBOutlet UISwitch *sound_switch;
 
-- (IBAction)homePressed:(id)sender;
 - (IBAction)defaultSettingPressed:(id)sender;
-
-- (IBAction)valueChanged:(id)sender;
 
 @end
