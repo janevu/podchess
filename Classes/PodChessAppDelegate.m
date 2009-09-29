@@ -39,9 +39,9 @@
     if (nDifficulty < 1 || nDifficulty > 10) {
         [[NSUserDefaults standardUserDefaults] setInteger:POC_AI_DIFFICULTY_DEFAULT forKey:@"difficulty_setting"];
     }
-    float setting = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
-    if(setting < 30.0f || setting > 120.0f) {
-        [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
+    int nGameTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
+    if (nGameTime < 30 || nGameTime > 120) {
+        [[NSUserDefaults standardUserDefaults] setInteger:POC_GAME_TIME_DEFAULT forKey:@"time_setting"];
         //this might be the first time run
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
         [[NSUserDefaults standardUserDefaults] setObject:@"AI_xqwlight" forKey:@"AI"];

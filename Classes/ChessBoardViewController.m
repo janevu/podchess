@@ -96,9 +96,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         //        s = (int)b_total_time % 60;
         //        opn_time.text = [NSString stringWithFormat:@"%d.%d",m,s];
     } else {
-        r_total_time -= 1.0;
-        int m = (int)r_total_time / 60;
-        int s = (int)r_total_time % 60;
+        --r_total_time;
+        int m = r_total_time / 60;
+        int s = r_total_time % 60;
         self_time.text = [NSString stringWithFormat:@"%d.%d",m,s];
     }
 }
@@ -148,14 +148,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self.view bringSubviewToFront:reset];
     [self.view bringSubviewToFront:self_time];
     [self.view bringSubviewToFront:opn_time];
-    r_total_time = b_total_time = floor([[NSUserDefaults standardUserDefaults]floatForKey:@"time_setting"]) * 60.0f;
+    r_total_time = b_total_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"] * 60;
     [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[self_time setBackgroundColor:[UIColor clearColor]];
 	[self_time setTextColor:[UIColor blackColor]];
     [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[opn_time setBackgroundColor:[UIColor clearColor]];
 	[opn_time setTextColor:[UIColor blackColor]];
-    self_time.text = [NSString stringWithFormat:@"%.2f",floor([[NSUserDefaults standardUserDefaults]floatForKey:@"time_setting"])];
+    self_time.text = [NSString stringWithFormat:@"%.2f",(float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"]];
     opn_time.text = @"Robot";
     ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
@@ -366,9 +366,9 @@ static Piece *selected = nil;
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
     selected = nil;
     nMoves = 0;
-    r_total_time = b_total_time = floor([[NSUserDefaults standardUserDefaults]floatForKey:@"time_setting"]) * 60.0f;
+    r_total_time = b_total_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"] * 60;
     memset(moves, 0x0, MAX_GEN_MOVES);
-    self_time.text = [NSString stringWithFormat:@"%.2f",floor([[NSUserDefaults standardUserDefaults]floatForKey:@"time_setting"])];;
+    self_time.text = [NSString stringWithFormat:@"%.2f",(float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"]];
     opn_time.text = @"Robot";
     [ticker invalidate];
     [game reset_game];

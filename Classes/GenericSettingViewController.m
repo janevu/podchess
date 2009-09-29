@@ -48,7 +48,7 @@
     time_setting.maximumValue = 120.0f;
     difficulty_setting.minimumValue = 1.0f;
     difficulty_setting.maximumValue = 10.0f;
-    time_setting.value = [[NSUserDefaults standardUserDefaults] floatForKey:@"time_setting"];
+    time_setting.value = (float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
     difficulty_setting.value = (float)[[NSUserDefaults standardUserDefaults] integerForKey:@"difficulty_setting"];
     sound_switch.on = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleSound"];
     BOOL toggleWestern = [[NSUserDefaults standardUserDefaults] boolForKey:@"ToggleWestern"];
@@ -86,7 +86,15 @@
     [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController setNavigationBarHidden:NO animated:YES];
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated 
+{
+    //save the setting before we leave setting page
+    [[NSUserDefaults standardUserDefaults] setInteger:[difficulty_setting value] forKey:@"difficulty_setting"];
+    [[NSUserDefaults standardUserDefaults] setInteger:[time_setting value] forKey:@"time_setting"];
+    [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"ToggleSound"];
+    [[NSUserDefaults standardUserDefaults] setBool:(BOOL)piece_style.selectedSegmentIndex forKey:@"ToggleWestern"];
+	[super viewWillDisappear:animated];
+}
 
 - (void)dealloc 
 {
@@ -100,31 +108,15 @@
 }
 
 #pragma mark button event
-- (IBAction)homePressed:(id)sender
-{
-    //save the setting before we leave setting page
-    [[NSUserDefaults standardUserDefaults] setInteger:[difficulty_setting value] forKey:@"difficulty_setting"];
-    [[NSUserDefaults standardUserDefaults] setFloat:[time_setting value] forKey:@"time_setting"];
-    [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"ToggleSound"];
-    //[((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
-    //return to HOME(root)
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (IBAction)defaultSettingPressed:(id)sender
 {
     [[NSUserDefaults standardUserDefaults] setInteger:POC_AI_DIFFICULTY_DEFAULT forKey:@"difficulty_setting"];
-    [[NSUserDefaults standardUserDefaults] setFloat:60.0f forKey:@"time_setting"];
+    [[NSUserDefaults standardUserDefaults] setInteger:POC_GAME_TIME_DEFAULT forKey:@"time_setting"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ToggleSound"];
     difficulty_setting.value = (float) POC_AI_DIFFICULTY_DEFAULT;
-    time_setting.value = 60.0f;
+    time_setting.value = (float) POC_GAME_TIME_DEFAULT;
     sound_switch.on = YES;
     piece_style.selectedSegmentIndex = 0;
-}
-
-- (IBAction)valueChanged:(id)sender
-{
-    [[NSUserDefaults standardUserDefaults] setBool:(BOOL)piece_style.selectedSegmentIndex forKey:@"ToggleWestern"];
 }
 
 

@@ -35,8 +35,8 @@
     
     NSThread *robot;
     
-    float r_total_time;
-    float b_total_time;
+    int r_total_time;  /* RED   time (in seconds) */
+    int b_total_time;  /* BLACK time (in seconds) */
     
     AudioHelper * audio_helper;
 }

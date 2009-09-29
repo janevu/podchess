@@ -31,6 +31,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #define POC_AI_DIFFICULTY_DEFAULT 5     /* Valid range [1, 10]                */
+#define POC_GAME_TIME_DEFAULT     60    /* Game time (in minutes)             */
 #define POC_MAX_MOVES_PER_GAME    100   /* Maximum number of moves per game   */
 
 
