@@ -96,16 +96,16 @@
 			<key>Key</key>
 			<string>AI</string>
 			<key>DefaultValue</key>
-			<string>AI_xqwlight</string>
+			<string>XQWLight</string>
 			<key>Values</key>
 			<array>
-				<string>AI_xqwlight</string>
-				<string>AI_haqikid</string>
+				<string>XQWLight</string>
+				<string>HaQiKiD</string>
 			</array>
 			<key>Titles</key>
 			<array>
-				<string>XQWLIGHT</string>
-				<string>HAQIKID</string>
+				<string>XQWLight</string>
+				<string>HaQiKiD</string>
 			</array>
 		</dict>
 	</array>
