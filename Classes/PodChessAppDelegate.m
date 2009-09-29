@@ -44,7 +44,7 @@
         [[NSUserDefaults standardUserDefaults] setInteger:POC_GAME_TIME_DEFAULT forKey:@"time_setting"];
         //this might be the first time run
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"toggle_sound"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"AI_xqwlight" forKey:@"AI"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"XQWLight" forKey:@"AI"];
     }
     
     [window addSubview:[navigationController view]];
