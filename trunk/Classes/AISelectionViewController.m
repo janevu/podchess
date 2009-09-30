@@ -24,6 +24,9 @@
 static char ai_selections[][128] = {
     "XQWLight",
     "HaQiKiD",
+#ifdef ENABLE_XQWLIGHT_OBJC
+    "XQWLightObjc"
+#endif
 };
 
 @implementation AISelectionViewController
@@ -117,7 +120,7 @@ static char ai_selections[][128] = {
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 2;
+    return sizeof(ai_selections)/128;
 }
 
 

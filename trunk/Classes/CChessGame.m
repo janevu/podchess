@@ -154,6 +154,8 @@
             _aiEngine = [[AI_HaQiKiD alloc] init];
         } else if ([aiSelection isEqualToString:@"XQWLight"]) {
             _aiEngine = [[AI_XQWLight alloc] init];
+        } else if ([aiSelection isEqualToString:@"XQWLightObjc"]) {
+            _aiType = kPodChess_AI_xqwlight_objc;
         }
         //create and initialize singleton objective-c AI instance
         //current objective-c AI is still in experimental development, thus keep hidden ATM
