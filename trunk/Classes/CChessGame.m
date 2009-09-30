@@ -24,6 +24,7 @@
 #import "Piece.h"
 #import "QuartzUtils.h"
 #import "AI_HaQiKiD.h"
+#import "AI_XQWLight.h"
 
 @implementation CChessGame
 
@@ -96,6 +97,7 @@
     [_grid release];
     [_pieceBox release];
     [_aiEngine release];
+    [engine release];
     [super dealloc];
 }
 
@@ -143,14 +145,21 @@
         
         game_result = kXiangQi_InPlay;
         
+        //default to xqwlight ai
         _aiType = kPodChess_AI_xqwlight;
         NSString *aiSelection = [[NSUserDefaults standardUserDefaults] stringForKey:@"AI"];
         if ([aiSelection isEqualToString:@"HaQiKiD"]) {
             _aiType = kPodChess_AI_haqikid;
-        }
-        
+            _aiEngine = [[AI_HaQiKiD alloc] init];
+        } else if ([aiSelection isEqualToString:@"XQWLight"]) {
+            _aiEngine = [[AI_XQWLight alloc] init];
+        } 
+        //current objective-c AI is still in experimental development, thus keep hidden ATM
         engine = [XiangQi getXiangQi];
-        _aiEngine = [[AI_HaQiKiD alloc] init];
+        
+        //FIXME: later,we will use uniform interface for AI.
+        //       Here,if _aiEngine is nil (we are using experimental objc ai), the below code should be fine
+        //       since selector sent to nil will be ignored. 
         [_aiEngine initGame];
     }
     return self;
@@ -161,7 +170,7 @@
 {
     int move = -1;  // No valid move found.
 
-    if ( _aiType == kPodChess_AI_haqikid ) {
+    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
         int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
         [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
         
@@ -169,6 +178,7 @@
         int sqDst = TOSQUARE(row2, col2);
         move = MOVE(sqSrc, sqDst);
     } else {
+        //objc ai 
         [engine SearchMain];
         move = engine.mvResult;
     }
@@ -186,11 +196,13 @@
     int sqDst = TOSQUARE(row2, col2);
     int m = MOVE(sqSrc, sqDst);
     int captured = 0;
+
+    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
+        [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
+    } 
+    //objc ai
     if ( ! [engine make_move:m captured:&captured] ) {
         return FALSE;
-    }
-    if ( _aiType == kPodChess_AI_haqikid ) {
-        [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
     }
 
     return TRUE;
@@ -198,9 +210,10 @@
 
 - (void)setSearchDepth:(int)depth
 {
-    if ( _aiType == kPodChess_AI_haqikid ) {
+    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
         [_aiEngine setDifficultyLevel:depth];
     } else {
+        //objc ai
         engine.search_depth = depth;
     }
 }

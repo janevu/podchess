@@ -51,6 +51,8 @@
 		AF8948BE106FB44800D4E5B6 /* AI_HaQiKiD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */; };
 		AF8948BF106FB44800D4E5B6 /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8948BD106FB44800D4E5B6 /* AIEngine.m */; };
 		AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF8CABE61042F7FC002D6594 /* Entitlements.plist */; };
+		AF8CF6681073154E0071CAE2 /* XQWLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF8CF6661073154E0071CAE2 /* XQWLight.cpp */; };
+		AF8CF66B107315E50071CAE2 /* AI_XQWLight.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8CF66A107315E50071CAE2 /* AI_XQWLight.m */; };
 		AFA46640106FB2C60006DAFE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA4663F106FB2C60006DAFE /* Icon.png */; };
 		AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */; };
 		AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FEE106FAC8F00D7B220 /* board_320x480.png */; };
@@ -132,6 +134,9 @@
 		AF8948BC106FB44800D4E5B6 /* AIEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIEngine.h; path = AI/AIEngine.h; sourceTree = "<group>"; };
 		AF8948BD106FB44800D4E5B6 /* AIEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AIEngine.m; path = AI/AIEngine.m; sourceTree = "<group>"; };
 		AF8CABE61042F7FC002D6594 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		AF8CF6661073154E0071CAE2 /* XQWLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XQWLight.cpp; path = AI/XQWLight.cpp; sourceTree = "<group>"; };
+		AF8CF669107315E50071CAE2 /* AI_XQWLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI_XQWLight.h; path = AI/AI_XQWLight.h; sourceTree = "<group>"; };
+		AF8CF66A107315E50071CAE2 /* AI_XQWLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AI_XQWLight.m; path = AI/AI_XQWLight.m; sourceTree = "<group>"; };
 		AF9F2B7C106A71D400D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		AF9F2B7E106A71F700D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/GenericSettingViewController.xib; sourceTree = "<group>"; };
 		AFA4663F106FB2C60006DAFE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -293,6 +298,9 @@
 				AF8948BC106FB44800D4E5B6 /* AIEngine.h */,
 				AF8948BD106FB44800D4E5B6 /* AIEngine.m */,
 				AF2A5021106FB3D900CF69D8 /* AI_haqikidHOX.c */,
+				AF8CF669107315E50071CAE2 /* AI_XQWLight.h */,
+				AF8CF66A107315E50071CAE2 /* AI_XQWLight.m */,
+				AF8CF6661073154E0071CAE2 /* XQWLight.cpp */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -427,6 +435,8 @@
 				AF2A5022106FB3D900CF69D8 /* AI_haqikidHOX.c in Sources */,
 				AF8948BE106FB44800D4E5B6 /* AI_HaQiKiD.m in Sources */,
 				AF8948BF106FB44800D4E5B6 /* AIEngine.m in Sources */,
+				AF8CF6681073154E0071CAE2 /* XQWLight.cpp in Sources */,
+				AF8CF66B107315E50071CAE2 /* AI_XQWLight.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,8 +513,8 @@
 				GCC_PREFIX_HEADER = PodChess_Prefix.pch;
 				INFOPLIST_FILE = "PodChess-Info.plist";
 				PRODUCT_NAME = PodChess;
-				PROVISIONING_PROFILE = "9F335894-1C2F-48CF-8803-6BDBC445EF78";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9F335894-1C2F-48CF-8803-6BDBC445EF78";
+				PROVISIONING_PROFILE = "839482B3-393C-4A83-B64E-4DBBA92F19E2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "839482B3-393C-4A83-B64E-4DBBA92F19E2";
 				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;

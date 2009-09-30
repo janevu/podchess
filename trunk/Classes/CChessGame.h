@@ -48,6 +48,7 @@ enum{
 enum {
     kPodChess_AI_xqwlight,
     kPodChess_AI_haqikid,
+    kPodChess_AI_xqwlight_objc,
 };
 
 @class RectGrid;
