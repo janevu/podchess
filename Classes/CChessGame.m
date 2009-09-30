@@ -97,6 +97,7 @@
     [_grid release];
     [_pieceBox release];
     [_aiEngine release];
+    //release the singleton engine instance 
     [engine release];
     [super dealloc];
 }
@@ -153,7 +154,8 @@
             _aiEngine = [[AI_HaQiKiD alloc] init];
         } else if ([aiSelection isEqualToString:@"XQWLight"]) {
             _aiEngine = [[AI_XQWLight alloc] init];
-        } 
+        }
+        //create and initialize singleton objective-c AI instance
         //current objective-c AI is still in experimental development, thus keep hidden ATM
         engine = [XiangQi getXiangQi];
         
