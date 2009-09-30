@@ -6,13 +6,13 @@
    Copyright 2009 PlayXiangqi. All rights reserved.
  */
 
-"About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>关于PodChess</h2><div><div><bold>PodChess</bold> 是一个开放源码象棋应用在iPhone / iPod的触摸, 主办了 <a href=\"http://podchess.googlecode.com\"> PodChess Google Code Project </a>. 请联系我们 <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>版本 %@</h2><div>%@</div></div></body>";
-"Home" = "家";
+"About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>关于PodChess</h2><div><div><bold>PodChess</bold> 是一个iPhone/iPod touch平台上的中国象棋应用, 项目主页位于 <a href=\"http://podchess.googlecode.com\"> PodChess Google Code Project </a>. 请联系我们 <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>版本 %@</h2><div>%@</div></div></body>";
+"Home" = "主菜单";
 "Settings" = "设置";
-"General" = "一般";
-"AI" = "AI";
-"You win,congratulations!" = "你赢了，祝贺！";
-"Computer wins. Don't give up, please try again!" = "计算机获胜。不要放弃，请再试一次！";
-"You lose. You may try again!" = "你输。您可以再试一次！";
-"Sorry,we are in draw!" = "很抱歉，我们在借鉴！";
-"Sorry,we made too many moves, please restart again!" = "很抱歉，我们犯了太多的动作，请重新启动了！";
+"General" = "一般设置";
+"AI" = "机器对战AI";
+"You win,congratulations!" = "祝贺您，您赢了！";
+"Computer wins. Don't give up, please try again!" = "机器AI获胜。不要放弃，请再试一次！";
+"You lose. You may try again!" = "您输了，您可以再试一次！";
+"Sorry,we are in draw!" = "很抱歉,当前和局！";
+"Sorry,we made too many moves, please restart again!" = "很抱歉，超过最多允许着法，请重新开始了！";
