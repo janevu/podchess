@@ -12,6 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="17"/>
+			<integer value="16"/>
 			<integer value="18"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -36,7 +38,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUITableViewCell" id="703077793">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -53,7 +55,7 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">一般</string>
+								<string key="IBUIText">一般设置</string>
 								<object class="NSFont" key="IBUIFont" id="417721514">
 									<string key="NSName">MarkerFelt-Thin</string>
 									<double key="NSSize">24</double>
@@ -81,6 +83,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -92,7 +95,7 @@
 				<string key="IBUIReuseIdentifier">generic_setting</string>
 			</object>
 			<object class="IBUITableViewCell" id="678921090">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -104,12 +107,12 @@
 							<object class="IBUILabel" id="757922675">
 								<reference key="NSNextResponder" ref="157030644"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{94, 10}, {101, 21}}</string>
+								<string key="NSFrame">{{94, 10}, {117, 27}}</string>
 								<reference key="NSSuperview" ref="157030644"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">AI</string>
+								<string key="IBUIText">机器对战AI</string>
 								<reference key="IBUIFont" ref="417721514"/>
 								<reference key="IBUITextColor" ref="720727642"/>
 								<nil key="IBUIHighlightedColor"/>
@@ -127,6 +130,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">6</int>
 					<string key="NSCatalogName">System</string>
@@ -286,9 +290,9 @@
 					<string>UIResponder</string>
 					<string>{{505, 540}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{600, 434}, {320, 44}}</string>
+					<string>{{498, 464}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{474, 320}, {320, 480}}</string>
+					<string>{{474, 276}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
