@@ -201,13 +201,14 @@
     int m = MOVE(sqSrc, sqDst);
     int captured = 0;
 
-    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
-        [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
-    } 
     //objc ai
     if ( ! [engine make_move:m captured:&captured] ) {
         return FALSE;
     }
+    
+    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
+        [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
+    } 
 
     return TRUE;
 }
