@@ -44,9 +44,9 @@
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
     NSString *buildInfo = @"";
-#ifdef DEBUG
+//#ifdef DEBUG
     buildInfo = [NSString stringWithUTF8String:PODCHESS_BUILD_INFO];
-#endif
+//#endif
     NSString *releaseVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *about_page = [NSString stringWithFormat:NSLocalizedString(@"About_PodChess_Key", @""),
                                                                         releaseVersion, buildInfo];
