@@ -63,4 +63,9 @@
     return "Some unknown AI written by someone";
 }
 
+- (int) loadBook
+{
+    return AI_RC_OK;
+}
+
 @end

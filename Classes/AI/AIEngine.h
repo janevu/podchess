@@ -41,6 +41,7 @@
 - (id) init;
 - (int) setDifficultyLevel: (int)nAILevel;
 - (int) initGame;
+- (int) loadBook;
 - (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
                toRow:(int*)pRow2 toCol:(int*)pCol2;
 - (int) onHumanMove:(int)row1 fromCol:(int)col1
