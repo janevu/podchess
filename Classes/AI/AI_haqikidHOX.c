@@ -22,7 +22,7 @@
 #define ALPHABETA
 #define NULLMOVE
 #define KILLERS 2   /* set to 0 or 2 */
-#define HASH
+#define XHASH
 #define DEPTHPREF
 #define CHECKEXT
 #define XFUTILITY
@@ -590,8 +590,11 @@ int Search(int origAlpha, int beta, int lastPly, int PV, int depth)
     int score, i, j, from, to, step, piece, victim, dir, mustSort, firstMove;
     int bestScore = 0, prevScore = -INF, startScore = -INF, ranKey;
     int saveKeyH = hashKeyH, saveKeyL = hashKeyL;
-    int /*alphaMoves,*/ evalCor, hashMove = 0, origDep = depth, inCheck = 0, xking = pos[stm], king;
+    int /*alphaMoves,*/ evalCor, hashMove = 0, inCheck = 0, xking = pos[stm], king;
+#ifdef HASH
+    int origDep = depth;
     struct _hash *hashEntry = NULL;
+#endif
     int old50 = revMovCnt;
     int savDifEval = difEval;
     //int oldCnt;
@@ -1242,7 +1245,7 @@ const char* HaQiKiD_GenerateNextMove()
 //       Huy Phan 's changes                   //
 /////////////////////////////////////////////////
 
-void DeInitEngine()
+void HaQiKiD_DeInitEngine()
 {
     if ( initDone )
     {
