@@ -26,6 +26,7 @@ extern void XQWLight_init_engine( int searchDepth );
 extern void XQWLight_init_game();
 extern void XQWLight_generate_move( int* pRow1, int* pCol1, int* pRow2, int* pCol2 );
 extern void XQWLight_on_human_move( int row1, int col1, int row2, int col2 );
+extern void XQWLight_load_book( const char *bookfile );
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -65,6 +66,7 @@ extern void XQWLight_on_human_move( int row1, int col1, int row2, int col2 );
 - (int) initGame
 {
     XQWLight_init_game();
+    [self loadBook];
     return AI_RC_OK;
 }
 
@@ -86,6 +88,14 @@ extern void XQWLight_on_human_move( int row1, int col1, int row2, int col2 );
 {
     return "Morning Yellow\n"
             "www.elephantbase.net";
+}
+
+- (int) loadBook
+{
+    XQWLight_load_book([[[NSBundle mainBundle] pathForResource:@"BOOK.DAT" 
+                                                        ofType:nil 
+                                                   inDirectory:@"books/xqwlight"] UTF8String]);
+    return AI_RC_OK;
 }
 
 @end

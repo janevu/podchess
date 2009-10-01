@@ -58,7 +58,7 @@ typedef unsigned int       DWORD;
 // *** Additional variables ***
 static int         s_search_depth = 7; // Search Depth
 static int         s_search_time = 1;  // In seconds (search-time)
-static const char* s_opening_book = "../plugins/BOOK.DAT";
+//static const char* s_opening_book = "../plugins/BOOK.DAT";
 
 ///////          END of  HPHAN's changes                      /////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -1165,7 +1165,7 @@ static struct {
 
 #include <fstream>   // file I/O
 #include <iomanip>
-static void LoadBook(void) {
+static void LoadBook(const char *opening_book) {
     /* CREDITS:
      *    How to read in an entire binary file
      *        http://www.cplusplus.com/doc/tutorial/files.html
@@ -1173,7 +1173,7 @@ static void LoadBook(void) {
 
     using namespace std;
     ifstream fp_in;  // declarations of streams fp_in and fp_out
-    fp_in.open(s_opening_book, ios::in|ios::binary|ios::ate);
+    fp_in.open(opening_book, ios::in|ios::binary|ios::ate);
                                 // open and read til END
     if (!fp_in.is_open()) {
         return;
@@ -1184,12 +1184,14 @@ static void LoadBook(void) {
     if (Search.nBookSize > BOOK_SIZE) {
       Search.nBookSize = BOOK_SIZE;
     }
+    bzero(Search.BookTable, BOOK_SIZE * sizeof(BookItem));
     fp_in.seekg (0, ios::beg);
     fp_in.read ((char*)Search.BookTable, Search.nBookSize * sizeof(BookItem));
     fp_in.close();   // close the streams
-    
-    //printf("%s: Success opening book Size = [%d (of %u)].\n",
-    //    __FUNCTION__, Search.nBookSize, sizeof(BookItem));
+#ifdef DEBUG
+    printf("%s: Success opening book Size = [%d (of %u)].\n",
+        __func__, Search.nBookSize, (unsigned int)sizeof(BookItem));
+#endif
 }
 
 static int CompareBook(const void *lpbk1, const void *lpbk2) {
@@ -1714,7 +1716,6 @@ XQWLight_init_game()
     srand((DWORD) time(NULL));
     InitZobrist();
     //Xqwl.hInst = hInstance;
-    LoadBook();
     //Xqwl.bFlipped = FALSE;
     Startup(NULL /*board*/);
 
@@ -1770,6 +1771,12 @@ extern "C" void
 XQWLight_set_search_time( int nSeconds )
 {
     s_search_time = nSeconds;
+}
+
+extern "C" void
+XQWLight_load_book( const char *bookfile )
+{
+    LoadBook(bookfile);
 }
 
 /************************* END OF FILE ***************************************/
