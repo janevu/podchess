@@ -266,15 +266,13 @@
                 _aiEngine = [[AI_HaQiKiD alloc] init];
                 break;
             case kPodChess_AI_xqwlight_objc:
-                /* NOTE: The Objective-c AI is still in experimental stage.
-                 */
+                // NOTE: The Objective-c AI is still in experimental stage.
                 _aiEngine = [[AI_XQWLightObjC alloc] init];
                 break;
             default:
                 break;
         }
-        
-        // FIXME: later,we will use uniform interface for AI. 
+
         [_aiEngine initGame];
         
         if ( _referee != _aiEngine ) {
