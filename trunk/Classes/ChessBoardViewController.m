@@ -89,7 +89,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void)ticked:(NSTimer*)timer
 {
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    if(game.engine.sd_player) {
+    if ( [game get_sdPlayer] ) {
         //opponent - black
         //        b_total_time -= 1.0;
         //        m = (int)b_total_time / 60;
@@ -326,7 +326,8 @@ static Piece *selected = nil;
             int sqSrc = TOSQUARE(holder._row, holder._column);
             [self _setHighlightCells:game highlighted:NO]; // Clear old highlight.
             
-            nMoves = [game.engine generate_moves:moves square:sqSrc];
+            //nMoves = [game.engine generate_moves:moves square:sqSrc];
+            nMoves = [game generateMoveFrom:sqSrc moves:moves];
             [self _setHighlightCells:game highlighted:YES];
             selected = piece;
             [audio_helper play_wav_sound:@"CLICK"];
@@ -343,14 +344,15 @@ static Piece *selected = nil;
         GridCell *cell = (GridCell*)selected.holder;
         int sqSrc = TOSQUARE(cell._row, cell._column);
         int m = MOVE(sqSrc, sqDst);
-        if([game.engine legal_move:m]) {
-            if ( [game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)] ) {
-                [self _doPieceMove:selected toRow:ROW(sqDst) toCol:COLUMN(sqDst)
-                     capturedPiece:piece isAI:NO];
-                // AI's turn.
-                if ( game.game_result == kXiangQi_InPlay ) {
-                    [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
-                }
+        //if([game.engine legal_move:m]) {
+        if([game isLegalMove:m])
+        {
+            [game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+            [self _doPieceMove:selected toRow:ROW(sqDst) toCol:COLUMN(sqDst)
+                 capturedPiece:piece isAI:NO];
+            // AI's turn.
+            if ( game.game_result == kXiangQi_InPlay ) {
+                [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
             }
         }
     }
@@ -367,7 +369,7 @@ static Piece *selected = nil;
     selected = nil;
     nMoves = 0;
     r_total_time = b_total_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"] * 60;
-    memset(moves, 0x0, MAX_GEN_MOVES);
+    memset(moves, 0x0, sizeof(moves));
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"]];
     opn_time.text = @"Robot";
     [ticker invalidate];
@@ -439,6 +441,11 @@ static Piece *selected = nil;
     [game x_movePiece:piece toRow:row toCol:col];
     
     // Check repeat status
+    int nGameResult = [game checkGameStatus:capture isAI:isAI];
+    if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
+        game.game_result = nGameResult;
+    }
+    /*
     int vlRep = [game.engine rep_status:3];
     if([game.engine is_mate]) {
         game.game_result = (isAI ? kXiangQi_ComputerWin : kXiangQi_YouWin); 
@@ -462,6 +469,7 @@ static Piece *selected = nil;
             [game.engine set_irrev];
         }
     }
+     */
 }
 
 @end

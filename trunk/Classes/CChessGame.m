@@ -20,15 +20,118 @@
 
 
 #import "CChessGame.h"
+#import "Enums.h"
 #import "Grid.h"
 #import "Piece.h"
 #import "QuartzUtils.h"
 #import "AI_HaQiKiD.h"
 #import "AI_XQWLight.h"
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// FIXME: Temporarily place the XQWLight Objective-C based AI here.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#pragma mark -
+#pragma mark XQWLight Objective-C based AI
+
+@implementation AI_XQWLightObjC
+
+- (void)dealloc
+{
+    [_objcEngine release];
+    [super dealloc];
+}
+
+- (id) init
+{
+    if (self = [super init]) {
+        _objcEngine = [XiangQi getXiangQi];
+    }
+    return self;
+}
+
+- (int) setDifficultyLevel: (int)nAILevel
+{
+    _objcEngine.search_depth = nAILevel;
+    return AI_RC_OK;
+}
+
+- (int) initGame
+{
+    [_objcEngine reset];
+    return AI_RC_OK;
+}
+
+- (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
+               toRow:(int*)pRow2 toCol:(int*)pCol2
+{
+    int move = -1;  // No valid move found.
+    [_objcEngine SearchMain];
+    move = _objcEngine.mvResult;
+    int captured = 0;
+    if ( ! [_objcEngine make_move:move captured:&captured] ) {
+        return AI_RC_ERR;  // No valid move found.
+    }
+    
+    int sqSrc = SRC(move);
+    int sqDst = DST(move);
+    *pRow1 = ROW(sqSrc);
+    *pCol1 = COLUMN(sqSrc);
+    *pRow2 = ROW(sqDst);
+    *pCol2 = COLUMN(sqDst);
+    
+    return AI_RC_OK;
+}
+
+- (int) onHumanMove:(int)row1 fromCol:(int)col1
+              toRow:(int)row2 toCol:(int)col2
+{
+    int sqSrc = TOSQUARE(row1, col1);
+    int sqDst = TOSQUARE(row2, col2);
+    int move = MOVE(sqSrc, sqDst);
+    int captured = 0;
+
+    if ( ! [_objcEngine make_move:move captured:&captured] ) {
+        return AI_RC_ERR;
+    }
+    return AI_RC_OK;
+}
+
+- (const char*) getInfo
+{
+    return "The XQWLight Objective-C based AI written by Nevo";
+}
+@end
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Private methods
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#pragma mark -
+#pragma mark The private interface of CChessGame
+
+@interface CChessGame ()
+
+- (int) _convertStringToAIType:(NSString *)aiSelection;
+
+@end
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Implementation of Public methods
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#pragma mark -
+#pragma mark The implementation of the interface of CChessGame
+
 @implementation CChessGame
 
-@synthesize engine;
 @synthesize _grid;
 @synthesize game_result;
 
@@ -97,8 +200,6 @@
     [_grid release];
     [_pieceBox release];
     [_aiEngine release];
-    //release the singleton engine instance 
-    [engine release];
     [super dealloc];
 }
 
@@ -146,25 +247,39 @@
         
         game_result = kXiangQi_InPlay;
         
-        //default to xqwlight ai
-        _aiType = kPodChess_AI_xqwlight;
-        NSString *aiSelection = [[NSUserDefaults standardUserDefaults] stringForKey:@"AI"];
-        if ([aiSelection isEqualToString:@"HaQiKiD"]) {
-            _aiType = kPodChess_AI_haqikid;
-            _aiEngine = [[AI_HaQiKiD alloc] init];
-        } else if ([aiSelection isEqualToString:@"XQWLight"]) {
-            _aiEngine = [[AI_XQWLight alloc] init];
-        } else if ([aiSelection isEqualToString:@"XQWLightObjc"]) {
-            _aiType = kPodChess_AI_xqwlight_objc;
-        }
-        //create and initialize singleton objective-c AI instance
-        //current objective-c AI is still in experimental development, thus keep hidden ATM
-        engine = [XiangQi getXiangQi];
+        /* TODO: We need a referee to manage the game (independently of AI).
+         *       Because we do NOT have a Referee, we temporarily use the
+         *       original (C-based) "XQWLight" AI as the Referee.
+         */
+        _referee = [[AI_XQWLight alloc] init];
         
-        //FIXME: later,we will use uniform interface for AI.
-        //       Here,if _aiEngine is nil (we are using experimental objc ai), the below code should be fine
-        //       since selector sent to nil will be ignored. 
+        // Determine the type of AI.
+        NSString *aiSelection = [[NSUserDefaults standardUserDefaults] stringForKey:@"AI"];
+        _aiType = [self _convertStringToAIType:aiSelection];
+
+        switch (_aiType) {
+            case kPodChess_AI_xqwlight:
+                // NOTE: In this case, the AI is also the Referee.
+                _aiEngine = _referee;
+                break;
+            case kPodChess_AI_haqikid:
+                _aiEngine = [[AI_HaQiKiD alloc] init];
+                break;
+            case kPodChess_AI_xqwlight_objc:
+                /* NOTE: The Objective-c AI is still in experimental stage.
+                 */
+                _aiEngine = [[AI_XQWLightObjC alloc] init];
+                break;
+            default:
+                break;
+        }
+        
+        // FIXME: later,we will use uniform interface for AI. 
         [_aiEngine initGame];
+        
+        if ( _referee != _aiEngine ) {
+            [_referee initGame];
+        }
     }
     return self;
 }
@@ -174,26 +289,20 @@
 {
     int move = -1;  // No valid move found.
 
-    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
-        int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
-        [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
-        
-        int sqSrc = TOSQUARE(row1, col1);
-        int sqDst = TOSQUARE(row2, col2);
-        move = MOVE(sqSrc, sqDst);
-    } else {
-        //objc ai 
-        [engine SearchMain];
-        move = engine.mvResult;
-    }
+    int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
+    [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
+    
+    int sqSrc = TOSQUARE(row1, col1);
+    int sqDst = TOSQUARE(row2, col2);
+    move = MOVE(sqSrc, sqDst);
 
-    if ( ! [engine make_move:move captured:captured] ) {
-        return -1;  // No valid move found.
+    if ( _referee != _aiEngine ) {
+        [_referee makeMove:move captured:captured];
     }
     return move;
 }
 
-- (BOOL)humanMove:(int)row1 fromCol:(int)col1
+- (void)humanMove:(int)row1 fromCol:(int)col1
             toRow:(int)row2 toCol:(int)col2
 {
     int sqSrc = TOSQUARE(row1, col1);
@@ -201,33 +310,68 @@
     int m = MOVE(sqSrc, sqDst);
     int captured = 0;
 
-    //objc ai
-    if ( ! [engine make_move:m captured:&captured] ) {
-        return FALSE;
-    }
+    [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
     
-    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
-        [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
-    } 
-
-    return TRUE;
+    if ( _referee != _aiEngine ) {
+        [_referee makeMove:m captured:&captured];
+    }
 }
 
 - (void)setSearchDepth:(int)depth
 {
-    if ( _aiType == kPodChess_AI_haqikid || _aiType == kPodChess_AI_xqwlight ) {
-        [_aiEngine setDifficultyLevel:depth];
-    } else {
-        //objc ai
-        engine.search_depth = depth;
+    [_aiEngine setDifficultyLevel:depth];
+}
+
+- (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs
+{
+    return [_referee generateMoveFrom:sqSrc moves:mvs];
+}
+
+- (BOOL) isLegalMove:(int)mv
+{
+    return [_referee isLegalMove:mv];
+}
+
+- (int) checkGameStatus:(Piece *)capture
+                   isAI:(BOOL)isAI
+{
+    int nGameResult = kXiangQi_Unknown;
+    
+    if ([_referee isMate]) {
+        return (isAI ? kXiangQi_ComputerWin : kXiangQi_YouWin);
     }
+    
+    // Check repeat status
+    int nRepVal = 0;
+    if( [_referee repStatus:3 repValue:&nRepVal] > 0) {
+        if (isAI) {
+            nGameResult = nRepVal < -WIN_VALUE ? kXiangQi_ComputerWin 
+                : (nRepVal > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+        } else {
+            nGameResult = nRepVal > WIN_VALUE ? kXiangQi_ComputerWin 
+                : (nRepVal < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+        }
+    } else if ([_referee get_nMoveNum] > POC_MAX_MOVES_PER_GAME) {
+        nGameResult = kXiangQi_OverMoves; // Too many moves
+    }
+
+    return nGameResult;
+}
+
+- (int) get_sdPlayer
+{
+    return [_referee get_sdPlayer];
 }
 
 - (void)reset_game
 {
     [self resetCChessPieces];
-    [engine reset];
     [_aiEngine initGame];
+
+    if ( _referee != _aiEngine ) {
+        [_referee initGame];
+    }
+    
     game_result = kXiangQi_InPlay;
 }
 
@@ -331,6 +475,25 @@
     [self x_createPiece:@"rpawn.png" row:6 col:8 forPlayer:1];
 }
 
+///////////////////////////////////////////////////////////////////////////////
+//
+//    Implementation of Private methods
+//
+///////////////////////////////////////////////////////////////////////////////
 
+#pragma mark -
+#pragma mark Private methods
+
+- (int) _convertStringToAIType:(NSString *)aiSelection;
+{
+    if ([aiSelection isEqualToString:@"XQWLight"]) {
+        return kPodChess_AI_xqwlight;
+    } else if ([aiSelection isEqualToString:@"HaQiKiD"]) {
+        return kPodChess_AI_haqikid;
+    } else if ([aiSelection isEqualToString:@"XQWLightObjc"]) {
+        return kPodChess_AI_xqwlight_objc;
+    }
+    return kPodChess_AI_xqwlight; // Default!
+}
 
 @end

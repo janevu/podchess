@@ -30,6 +30,7 @@
 
 /* Possible game result */
 enum{
+    kXiangQi_Unknown = -1,
     kXiangQi_InPlay,
     kXiangQi_YouWin,
     kXiangQi_ComputerWin,
@@ -51,6 +52,27 @@ enum {
     kPodChess_AI_xqwlight_objc,
 };
 
+//////////////////////////////////////////////////////////////////////////////
+// FIXME: Temporarily place the XQWLight Objective-C based AI here.
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@interface AI_XQWLightObjC : AIEngine
+{
+    XiangQi *_objcEngine; // The XQWlight Objective-C based AI engine.
+}
+
+- (id) init;
+- (int) setDifficultyLevel: (int)nAILevel;
+- (int) initGame;
+- (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
+               toRow:(int*) pRow2 toCol:(int*) pCol2;
+- (int) onHumanMove:(int)row1 fromCol:(int)col1
+              toRow:(int)row2 toCol:(int)col2;
+- (const char*) getInfo;
+
+@end
+///////////////////////////////////////////////////////////////////////////////
+
+
 @class RectGrid;
 @class Piece;
 
@@ -61,9 +83,9 @@ enum {
     NSMutableArray *_pieceBox;
     
     int _aiType;
-    XiangQi *engine;
+    AIEngine *_referee;
     AIEngine *_aiEngine;
-    
+
     int game_result;
 }
 
@@ -72,13 +94,16 @@ enum {
 - (void)x_movePiece:(Piece*)piece toRow:(int)row toCol:(int)col;
 - (Piece*)x_getPieceAtRow:(int)row col:(int)col;
 - (int)robotMoveWithCaptured:(int*)captured;
-- (BOOL)humanMove:(int)row1 fromCol:(int)col1
+- (void)humanMove:(int)row1 fromCol:(int)col1
             toRow:(int)row2 toCol:(int)col2;
 - (void)setSearchDepth:(int)depth;
+- (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs;
+- (BOOL)isLegalMove:(int)mv;
+- (int)checkGameStatus:(Piece *)capture isAI:(BOOL)isAI;
+- (int) get_sdPlayer;
 - (void)resetCChessPieces;
 - (void)reset_game;
 
-@property (nonatomic,readonly)    XiangQi *engine;
 @property (nonatomic,readonly)    RectGrid *_grid;
 
 @property (nonatomic,assign) int game_result;
