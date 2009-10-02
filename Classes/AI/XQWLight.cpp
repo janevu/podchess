@@ -655,7 +655,7 @@ struct PositionStruct {
   }
   int MovePiece(int mv);                      // 搬一步棋的棋子
   void UndoMovePiece(int mv, int pcCaptured); // 撤消搬一步棋的棋子
-  BOOL MakeMove(int mv);                      // 走一步棋
+  BOOL MakeMove(int mv, int* ppcCaptured = NULL);            // 走一步棋
   void UndoMakeMove(void) {                   // 撤消走一步棋
     nDistance --;
     nMoveNum --;
@@ -677,6 +677,7 @@ struct PositionStruct {
   }
   // 生成所有走法，如果"bCapture"为"TRUE"则只生成吃子走法
   int GenerateMoves(int *mvs, BOOL bCapture = FALSE) const;
+  int GenerateMovesFrom(int sqSrc, int *mvs, BOOL bCapture = FALSE) const;
   BOOL LegalMove(int mv) const;               // 判断走法是否合理
   BOOL Checked(void) const;                   // 判断是否被将军
   BOOL IsMate(void);                          // 判断是否被杀
@@ -752,7 +753,7 @@ void PositionStruct::UndoMovePiece(int mv, int pcCaptured) {
 }
 
 // 走一步棋
-BOOL PositionStruct::MakeMove(int mv) {
+BOOL PositionStruct::MakeMove(int mv, int* ppcCaptured /*= NULL*/) {
   int pcCaptured;
   DWORD dwKey;
 
@@ -766,27 +767,46 @@ BOOL PositionStruct::MakeMove(int mv) {
   mvsList[nMoveNum].Set(mv, pcCaptured, Checked(), dwKey);
   nMoveNum ++;
   nDistance ++;
+    
+  // (HPHAN) Return the captured piece as well.
+  if ( ppcCaptured != NULL ) {
+    *ppcCaptured = pcCaptured;
+  }
   return TRUE;
 }
 
 // "GenerateMoves"参数
 const BOOL GEN_CAPTURE = TRUE;
 
-// 生成所有走法，如果"bCapture"为"TRUE"则只生成吃子走法
 int PositionStruct::GenerateMoves(int *mvs, BOOL bCapture) const {
-  int i, j, nGenMoves, nDelta, sqSrc, sqDst;
+    int nGenMoves = 0;
+    int nMoves = 0;
+    int *startMvs = mvs;
+    for (int sqSrc = 0; sqSrc < 256; sqSrc++) {
+        nMoves = GenerateMovesFrom(sqSrc, startMvs, bCapture);
+        if (nMoves > 0) {
+            nGenMoves += nMoves;
+            startMvs += nMoves;
+        }
+    }
+    return nGenMoves;
+}
+
+// 生成所有走法，如果"bCapture"为"TRUE"则只生成吃子走法
+int PositionStruct::GenerateMovesFrom(int sqSrc, int *mvs, BOOL bCapture) const {
+  int i, j, nGenMoves, nDelta, sqDst;
   int pcSelfSide, pcOppSide, pcSrc, pcDst;
   // 生成所有走法，需要经过以下几个步骤：
 
   nGenMoves = 0;
   pcSelfSide = SIDE_TAG(sdPlayer);
   pcOppSide = OPP_SIDE_TAG(sdPlayer);
-  for (sqSrc = 0; sqSrc < 256; sqSrc ++) {
+  if (sqSrc >= 0 && sqSrc < 256) {
 
     // 1. 找到一个本方棋子，再做以下判断：
     pcSrc = ucpcSquares[sqSrc];
     if ((pcSrc & pcSelfSide) == 0) {
-      continue;
+      return nGenMoves;
     }
 
     // 2. 根据棋子确定走法
@@ -1677,14 +1697,14 @@ static void SearchMain(void) {
     }
     // 超过一秒，就终止搜索
     //if (clock() - t > CLOCKS_PER_SEC) {
-    float elapse = ((float) clock() - t) / CLOCKS_PER_SEC;
-    printf("%s: Search depth DONE = [%d]. elapse=[%.02f]\n", __FUNCTION__, i, elapse);
+    //float elapse = ((float) clock() - t) / CLOCKS_PER_SEC;
+    //printf("%s: Search depth DONE = [%d]. elapse=[%.02f]\n", __FUNCTION__, i, elapse);
     if ( clock() - t > (CLOCKS_PER_SEC * s_search_time) ) {
       break;
     }
-    printf("%s: Search depth START = [%d].\n", __FUNCTION__, i+1);
+    //printf("%s: Search depth START = [%d].\n", __FUNCTION__, i+1);
   }
-  printf("%s: Search depth = *** [%d].\n", __FUNCTION__, i);
+  //printf("%s: Search depth = *** [%d].\n", __FUNCTION__, i);
 }
 
 // 初始化棋局
@@ -1777,6 +1797,68 @@ extern "C" void
 XQWLight_load_book( const char *bookfile )
 {
     LoadBook(bookfile);
+}
+
+extern "C" int
+XQWLight_generate_move_from( int sqSrc, int *mvs )
+{
+    BOOL bCapture = FALSE;
+    return pos.GenerateMovesFrom( sqSrc, mvs, bCapture );
+}
+
+/////////////
+extern "C" int
+XQWLight_is_legal_move( int mv )
+{
+    int bLegal = 1; /* Default: legal */
+
+    if ( ! pos.LegalMove( mv ) ) {
+        return 0; /* illegal */
+    }
+    
+    /* Make sure you are not in check after you make your move. */
+    int pcCaptured = pos.MovePiece(mv);
+    if ( pos.Checked() ) {
+        bLegal = 0;
+    }
+    pos.UndoMovePiece(mv, pcCaptured);
+    return bLegal;
+}
+
+extern "C" void
+XQWLight_make_move( int mv, int* ppcCaptured )
+{
+    Search.mvResult = mv;  // TODO: Is this assignment necessary?
+    pos.MakeMove( Search.mvResult, ppcCaptured );
+}
+
+extern "C" int
+XQWLight_rep_status(int nRecur, int *repValue)
+{
+    int vl = pos.RepStatus(nRecur);
+    if (vl != 0) {
+        *repValue = pos.RepValue(vl);
+    }
+    return vl;
+}
+
+extern "C" int
+XQWLight_is_mate()
+{
+    BOOL bMated = pos.IsMate();
+    return (bMated ? 1 : 0);
+}
+
+extern "C" int
+XQWLight_get_nMoveNum()
+{
+    return pos.nMoveNum;
+}
+
+extern "C" int
+XQWLight_get_sdPlayer()
+{
+    return pos.sdPlayer;
 }
 
 /************************* END OF FILE ***************************************/

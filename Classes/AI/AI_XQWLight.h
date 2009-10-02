@@ -32,6 +32,8 @@
                toRow:(int*) pRow2 toCol:(int*) pCol2;
 - (int) onHumanMove:(int)row1 fromCol:(int)col1
               toRow:(int)row2 toCol:(int)col2;
+- (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs;
+- (BOOL) isLegalMove:(int)mv;
 - (const char*) getInfo;
 
 @end
