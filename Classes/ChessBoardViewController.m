@@ -30,12 +30,6 @@
 #import "ChessBoardView.h"
 
 
-enum GameEnd {
-    kComputerWin,
-    kYouWin,
-    kDraw
-};
-
 static BOOL layerIsBit( CALayer* layer )        {return [layer isKindOfClass: [Bit class]];}
 static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtocol: @protocol(BitHolder)];}
 
@@ -148,16 +142,19 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self.view bringSubviewToFront:reset];
     [self.view bringSubviewToFront:self_time];
     [self.view bringSubviewToFront:opn_time];
-    r_total_time = b_total_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"] * 60;
+    _initial_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
+    r_total_time = b_total_time = _initial_time * 60;
     [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[self_time setBackgroundColor:[UIColor clearColor]];
 	[self_time setTextColor:[UIColor blackColor]];
     [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[opn_time setBackgroundColor:[UIColor clearColor]];
 	[opn_time setTextColor:[UIColor blackColor]];
-    self_time.text = [NSString stringWithFormat:@"%.2f",(float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"]];
+    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initial_time];
     opn_time.text = @"Robot";
-    ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+                                            selector:@selector(ticked:)
+                                            userInfo:nil repeats:YES];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
     
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
@@ -171,7 +168,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void)viewWillAppear:(BOOL)animated
 {
     if(![ticker isValid]) {
-         ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+         ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+                                                 selector:@selector(ticked:)
+                                                 userInfo:nil repeats:YES];
     }
 }
 
@@ -231,15 +230,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
 }
 
-
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
 
 - (void)didReceiveMemoryWarning
 {
@@ -325,8 +315,7 @@ static Piece *selected = nil;
         if(!selected || (selected && selected._owner == piece._owner)) {
             int sqSrc = TOSQUARE(holder._row, holder._column);
             [self _setHighlightCells:game highlighted:NO]; // Clear old highlight.
-            
-            //nMoves = [game.engine generate_moves:moves square:sqSrc];
+
             nMoves = [game generateMoveFrom:sqSrc moves:moves];
             [self _setHighlightCells:game highlighted:YES];
             selected = piece;
@@ -344,7 +333,6 @@ static Piece *selected = nil;
         GridCell *cell = (GridCell*)selected.holder;
         int sqSrc = TOSQUARE(cell._row, cell._column);
         int m = MOVE(sqSrc, sqDst);
-        //if([game.engine legal_move:m]) {
         if([game isLegalMove:m])
         {
             [game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
@@ -368,9 +356,9 @@ static Piece *selected = nil;
     CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
     selected = nil;
     nMoves = 0;
-    r_total_time = b_total_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"] * 60;
+    r_total_time = b_total_time = _initial_time * 60;
     memset(moves, 0x0, sizeof(moves));
-    self_time.text = [NSString stringWithFormat:@"%.2f",(float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"]];
+    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initial_time];
     opn_time.text = @"Robot";
     [ticker invalidate];
     [game reset_game];
@@ -445,31 +433,6 @@ static Piece *selected = nil;
     if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
         game.game_result = nGameResult;
     }
-    /*
-    int vlRep = [game.engine rep_status:3];
-    if([game.engine is_mate]) {
-        game.game_result = (isAI ? kXiangQi_ComputerWin : kXiangQi_YouWin); 
-    } else if(vlRep > 0) {
-        //长打
-        vlRep = [game.engine rep_value:vlRep];
-        
-        if (isAI) {
-            game.game_result = vlRep < -WIN_VALUE ? kXiangQi_ComputerWin 
-                                                  : (vlRep > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
-        } else {
-            game.game_result = vlRep > WIN_VALUE ? kXiangQi_ComputerWin 
-                                                 : (vlRep < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
-        }
-    } else if(game.engine.nMoveNum > POC_MAX_MOVES_PER_GAME) {
-        // Too many moves
-        game.game_result = kXiangQi_OverMoves;	 
-    } else {
-        // Normal move.
-        if(capture != nil) {
-            [game.engine set_irrev];
-        }
-    }
-     */
 }
 
 @end
