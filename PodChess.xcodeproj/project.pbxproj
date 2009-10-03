@@ -268,22 +268,14 @@
 				4BBB5F1F103303D500243E55 /* Piece.m */,
 				4BBB5F20103303D500243E55 /* QuartzUtils.h */,
 				4BBB5F21103303D500243E55 /* QuartzUtils.m */,
-				4BBB5F22103303D500243E55 /* XiangQi.h */,
-				4BBB5F23103303D500243E55 /* XiangQi.m */,
 				4BBB5F24103303D500243E55 /* XiangQiMainMenu.h */,
 				4BBB5F25103303D500243E55 /* XiangQiMainMenu.m */,
-				4BBB5F26103303D500243E55 /* ZobristHashGenerator.h */,
-				4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */,
-				4BBB67121035027D004D6412 /* Sort.h */,
-				4BBB67131035027D004D6412 /* Sort.m */,
 				4BD8E8B21039AB250021A5ED /* GenericSettingViewController.h */,
 				4BD8E8B31039AB250021A5ED /* GenericSettingViewController.m */,
 				4BA901E1103AE37A0039C307 /* AboutViewController.h */,
 				4BA901E2103AE37A0039C307 /* AboutViewController.m */,
 				4B34546A1053DB3000362ED5 /* AudioHelper.h */,
 				4B34546B1053DB3000362ED5 /* AudioHelper.m */,
-				4BE4048510690C90006154CC /* Book.h */,
-				4BE4048610690C90006154CC /* Book.m */,
 				4BE40E41106C8BA2006154CC /* AISelectionViewController.h */,
 				4BE40E42106C8BA2006154CC /* AISelectionViewController.m */,
 			);
@@ -301,8 +293,24 @@
 				AF8CF669107315E50071CAE2 /* AI_XQWLight.h */,
 				AF8CF66A107315E50071CAE2 /* AI_XQWLight.m */,
 				AF8CF6661073154E0071CAE2 /* XQWLight.cpp */,
+				AFA507EF1076D4DA00A25169 /* XQWLightObjC */,
 			);
 			name = AI;
+			sourceTree = "<group>";
+		};
+		AFA507EF1076D4DA00A25169 /* XQWLightObjC */ = {
+			isa = PBXGroup;
+			children = (
+				4BBB5F22103303D500243E55 /* XiangQi.h */,
+				4BBB5F23103303D500243E55 /* XiangQi.m */,
+				4BBB67121035027D004D6412 /* Sort.h */,
+				4BBB67131035027D004D6412 /* Sort.m */,
+				4BE4048510690C90006154CC /* Book.h */,
+				4BE4048610690C90006154CC /* Book.m */,
+				4BBB5F26103303D500243E55 /* ZobristHashGenerator.h */,
+				4BBB5F27103303D500243E55 /* ZobristHashGenerator.m */,
+			);
+			name = XQWLightObjC;
 			sourceTree = "<group>";
 		};
 		AFA63FE3106FABD700D7B220 /* images */ = {
