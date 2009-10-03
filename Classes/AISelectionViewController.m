@@ -120,7 +120,7 @@ static char ai_selections[][128] = {
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return sizeof(ai_selections)/128;
+    return sizeof(ai_selections) / sizeof(ai_selections[0]);
 }
 
 

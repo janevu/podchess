@@ -91,7 +91,8 @@
     [[NSUserDefaults standardUserDefaults] setInteger:[difficulty_setting value] forKey:@"difficulty_setting"];
     [[NSUserDefaults standardUserDefaults] setInteger:[time_setting value] forKey:@"time_setting"];
     [[NSUserDefaults standardUserDefaults] setBool:sound_switch.on forKey:@"toggle_sound"];
-    [[NSUserDefaults standardUserDefaults] setBool:(BOOL)piece_style.selectedSegmentIndex forKey:@"toggle_western"];
+    BOOL bToggleWestern = ( piece_style.selectedSegmentIndex == 1 );
+    [[NSUserDefaults standardUserDefaults] setBool:bToggleWestern forKey:@"toggle_western"];
 	[super viewWillDisappear:animated];
 }
 
