@@ -168,11 +168,11 @@ CGImageRef CreateCGImageFromFile( NSString *path )
     CFURLRef url = (CFURLRef) [NSURL fileURLWithPath: path];
     CGDataProviderRef provider = CGDataProviderCreateWithURL(url);
     if( provider ) {
-        image = CGImageCreateWithJPEGDataProvider(provider, NULL, NO, kCGRenderingIntentDefault);
+        image = CGImageCreateWithPNGDataProvider(provider, NULL, NO, kCGRenderingIntentDefault);
         if(!image) { 
-            NSLog(@"Warning: CGImageSourceCreateImageAtIndex failed on file %@ (ptr size=%u)",path,sizeof(void*));
-            //fall back to PNG 
-            image = CGImageCreateWithPNGDataProvider(provider, NULL, NO, kCGRenderingIntentDefault);
+            NSLog(@"INFO: Cannot load image as PNG file %@ (ptr size=%u)",path,sizeof(void*));
+            //fall back to JPEG 
+            image = CGImageCreateWithJPEGDataProvider(provider, NULL, NO, kCGRenderingIntentDefault);
         }
         CFRelease(provider);
     }
