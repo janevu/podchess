@@ -19,6 +19,7 @@
 
 
 #import <UIKit/UIKit.h>
+#import "CChessGame.h"
 #import "AudioHelper.h"
 
 @interface ChessBoardViewController : UIViewController {
@@ -32,14 +33,16 @@
     IBOutlet UIActivityIndicatorView *activity;
     
     NSTimer *ticker;
-    
+
     NSThread *robot;
+
+    AudioHelper *audio_helper;
     
-    int _initial_time; /* The initial time (in seconds) */
-    int r_total_time;  /* RED   time (in seconds)       */
-    int b_total_time;  /* BLACK time (in seconds)       */
-    
-    AudioHelper * audio_helper;
+    CChessGame *_game;
+
+    int _initialTime; /* The initial time (in seconds) */
+    int _redTime;     /* RED   time (in seconds)       */
+    int _blackTime;   /* BLACK time (in seconds)       */
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *home;
