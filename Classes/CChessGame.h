@@ -23,9 +23,10 @@
 #import "XiangQi.h"
 #import "AIEngine.h"
 
-#define TOSQUARE(row, col) (16 * ((row) + 3) + ((col) + 3))
-#define COLUMN(sq) ((sq) % 16 - 3)
-#define ROW(sq) ((sq) / 16 - 3)
+#define INVALID_MOVE         (-1)
+#define TOSQUARE(row, col)   (16 * ((row) + 3) + ((col) + 3))
+#define COLUMN(sq)           ((sq) % 16 - 3)
+#define ROW(sq)              ((sq) / 16 - 3)
 
 
 /* Possible game result */
@@ -104,7 +105,7 @@ enum {
 - (void)resetCChessPieces;
 - (void)reset_game;
 
-@property (nonatomic,readonly)    RectGrid *_grid;
+@property (nonatomic,readonly) RectGrid *_grid;
+@property (nonatomic,readonly) int game_result;
 
-@property (nonatomic,assign) int game_result;
 @end

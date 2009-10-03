@@ -285,7 +285,7 @@
 
 - (int)robotMoveWithCaptured:(int*)captured
 {
-    int move = -1;  // No valid move found.
+    int move = INVALID_MOVE;  // No valid move found.
 
     int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
     [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
@@ -334,22 +334,27 @@
 {
     int nGameResult = kXiangQi_Unknown;
     
-    if ([_referee isMate]) {
-        return (isAI ? kXiangQi_ComputerWin : kXiangQi_YouWin);
+    if ( [_referee isMate] ) {
+        nGameResult = (isAI ? kXiangQi_ComputerWin : kXiangQi_YouWin);
     }
-    
-    // Check repeat status
-    int nRepVal = 0;
-    if( [_referee repStatus:3 repValue:&nRepVal] > 0) {
-        if (isAI) {
-            nGameResult = nRepVal < -WIN_VALUE ? kXiangQi_ComputerWin 
-                : (nRepVal > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
-        } else {
-            nGameResult = nRepVal > WIN_VALUE ? kXiangQi_ComputerWin 
-                : (nRepVal < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+    else {
+        // Check repeat status
+        int nRepVal = 0;
+        if( [_referee repStatus:3 repValue:&nRepVal] > 0) {
+            if (isAI) {
+                nGameResult = nRepVal < -WIN_VALUE ? kXiangQi_ComputerWin 
+                    : (nRepVal > WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+            } else {
+                nGameResult = nRepVal > WIN_VALUE ? kXiangQi_ComputerWin 
+                    : (nRepVal < -WIN_VALUE ? kXiangQi_YouWin : kXiangQi_Draw);
+            }
+        } else if ([_referee get_nMoveNum] > POC_MAX_MOVES_PER_GAME) {
+            nGameResult = kXiangQi_OverMoves; // Too many moves
         }
-    } else if ([_referee get_nMoveNum] > POC_MAX_MOVES_PER_GAME) {
-        nGameResult = kXiangQi_OverMoves; // Too many moves
+    }
+
+    if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
+        game_result = nGameResult;
     }
 
     return nGameResult;

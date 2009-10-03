@@ -40,12 +40,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @interface ChessBoardViewController ()
 
 - (void) _setHighlightCells:(BOOL)bHighlight;
-
-- (void) _doPieceMove:(int)row1 fromCol:(int)col1 
-                toRow:(int)row2 toCol:(int)col2
-                 isAI:(BOOL)isAI;
-
+- (void) _onNewMove:(int)move fromAI:(BOOL)isAI;
 - (void) _handleEndGameInUI;
+- (void) _saveGame;
+- (void) _loadPendingGame:(NSString *)sPendingGame;
 
 @end
 
@@ -75,6 +73,12 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         [self install_cchess_sounds];
         _game = (CChessGame*)((ChessBoardView*)self.view).game;
         _moves = [[NSMutableArray alloc] initWithCapacity: POC_MAX_MOVES_PER_GAME];
+
+        // Restore pending game, if any.
+        NSString *sPendingGame = [[NSUserDefaults standardUserDefaults] stringForKey:@"pending_game"];
+        if ( sPendingGame != nil && [sPendingGame length]) {
+            [self _loadPendingGame:sPendingGame];
+        }
     }
     
     return self;
@@ -113,7 +117,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)resetRobot:(id)restart
 {
-    [self reset_board];
     [activity stopAnimating];
     if(restart) {
         ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
@@ -201,6 +204,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:NO];
     [activity startAnimating];
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:nil waitUntilDone:NO];
+    [self _saveGame];
+    [self reset_board];
 }
 
 - (IBAction)resetPressed:(id)sender
@@ -208,6 +213,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:NO];
     [activity startAnimating];
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
+    [self reset_board];
 }
 
 static int moves[MAX_GEN_MOVES];
@@ -218,16 +224,13 @@ static Piece *selected = nil;
 - (void)AIMove:(void*)unused_param
 {
     int captured = 0;
-    int m = [_game robotMoveWithCaptured:&captured];
-    if (m == -1) {  // Invalid move.
+    int move = [_game robotMoveWithCaptured:&captured];
+    if (move == INVALID_MOVE) {
+        NSLog(@"ERROR: %s: Invalid move [%d].", __FUNCTION__, move); 
         return;
     }
-    
-    int sqSrc = SRC(m);
-    int sqDst = DST(m);
-    int row = ROW(sqDst);
-    int col = COLUMN(sqDst);
-    [self _doPieceMove:ROW(sqSrc) fromCol:COLUMN(sqSrc) toRow:row toCol:col isAI:YES];
+
+    [self _onNewMove:move fromAI:YES];
 }
 
 #pragma mark Touch event handling
@@ -262,16 +265,16 @@ static Piece *selected = nil;
         holder = (GridCell*)[view hitTestPoint:p LayerMatchCallback:layerIsBitHolder offset:NULL];
     }
     
-    // Make a move from the last selected cell to the current selected cell.
+    // Make a Move from the last selected cell to the current selected cell.
     if(holder && holder._highlighted && selected != nil && nMoves > 0) {
         int sqDst = TOSQUARE(holder._row, holder._column);
         GridCell *cell = (GridCell*)selected.holder;
         int sqSrc = TOSQUARE(cell._row, cell._column);
-        int m = MOVE(sqSrc, sqDst);
-        if([_game isLegalMove:m])
+        int move = MOVE(sqSrc, sqDst);
+        if([_game isLegalMove:move])
         {
             [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-            [self _doPieceMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst) isAI:NO];
+            [self _onNewMove:move fromAI:NO];
             // AI's turn.
             if ( _game.game_result == kXiangQi_InPlay ) {
                 [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
@@ -284,7 +287,6 @@ static Piece *selected = nil;
     nMoves = 0;
 }
 
-
 - (void)reset_board
 {
     selected = nil;
@@ -295,21 +297,18 @@ static Piece *selected = nil;
     opn_time.text = @"Robot";
     [ticker invalidate];
     [_game reset_game];
+    [_moves removeAllObjects];
 }
 
 - (void)install_cchess_sounds
 {
-    [audio_helper load_wav_sound:@"CAPTURE"];
-    [audio_helper load_wav_sound:@"CAPTURE2"];
-    [audio_helper load_wav_sound:@"DRAW"];
-    [audio_helper load_wav_sound:@"LOSS"];
-    [audio_helper load_wav_sound:@"CLICK"];
-    [audio_helper load_wav_sound:@"CHECK"];
-    [audio_helper load_wav_sound:@"CHECK2"];
-    [audio_helper load_wav_sound:@"MOVE"];
-    [audio_helper load_wav_sound:@"MOVE2"];
-    [audio_helper load_wav_sound:@"WIN"];
-    [audio_helper load_wav_sound:@"ILLEGAL"];
+    NSArray *soundList = [NSArray arrayWithObjects:@"CAPTURE", @"CAPTURE2",
+                          @"DRAW", @"LOSS", @"CHECK", @"CHECK2",
+                          @"MOVE", @"MOVE2", @"WIN", @"ILLEGAL",
+                          nil];
+    for (NSString *sound in soundList) {
+        [audio_helper load_wav_sound:sound];
+    }
 }
 
 
@@ -336,11 +335,16 @@ static Piece *selected = nil;
     }
 }
 
-
-- (void) _doPieceMove:(int)row1 fromCol:(int)col1
-                toRow:(int)row2 toCol:(int)col2
-                 isAI:(BOOL)isAI
+- (void) _onNewMove:(int)move fromAI:(BOOL)isAI
 {
+    int sqSrc = SRC(move);
+    int sqDst = DST(move);
+
+    int row1 = ROW(sqSrc);
+    int col1 = COLUMN(sqSrc);
+    int row2 = ROW(sqDst);
+    int col2 = COLUMN(sqDst);
+    
     NSString *sound = @"MOVE";
 
     Piece *capture = [_game x_getPieceAtRow:row2 col:col2];
@@ -360,14 +364,16 @@ static Piece *selected = nil;
     Piece *piece = [_game x_getPieceAtRow:row1 col:col1];
     [_game x_movePiece:piece toRow:row2 toCol:col2];
     
-    // Check repeat status
+    // Check End-Game status.
     int nGameResult = [_game checkGameStatus:isAI];
     if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
-        _game.game_result = nGameResult;
-        
         [self performSelectorOnMainThread:@selector(_handleEndGameInUI)
                                withObject:nil waitUntilDone:NO];
     }
+    
+    // Add this new Move to the Move-History.
+    NSNumber *pMove = [NSNumber numberWithInteger:move];
+    [_moves addObject:pMove];
 }
 
 - (void) _handleEndGameInUI
@@ -413,4 +419,36 @@ static Piece *selected = nil;
     [alert release];
 }
 
+- (void) _saveGame
+{
+    NSMutableString *sMoves = [NSMutableString new];
+    for (NSNumber *pMove in _moves) {
+        if ([sMoves length]) [sMoves appendString:@","];
+        [sMoves appendFormat:@"%d",[pMove integerValue]];
+    }
+    NSLog(@"The Moves (in string): [%@]", sMoves);
+    [[NSUserDefaults standardUserDefaults] setObject:sMoves forKey:@"pending_game"];
+    [sMoves release];
+}
+
+- (void) _loadPendingGame:(NSString *)sPendingGame
+{
+    NSLog(@"The pending game: [%@]", sPendingGame);
+    NSArray *moves = [sPendingGame componentsSeparatedByString:@","];
+    int toggleTurn = 0;  // 0 = Human, 1 = AI
+
+    for (NSNumber *pMove in moves) {
+        int move = [pMove integerValue];
+        NSLog(@"%s: %d", __FUNCTION__, move);
+        
+        int sqSrc = SRC(move);
+        int sqDst = DST(move);
+
+        [_game humanMove:ROW(sqSrc) fromCol:COLUMN(sqSrc)
+                   toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+        [self _onNewMove:move fromAI:( toggleTurn == 1 )];
+        toggleTurn = 1 - toggleTurn;
+    }
+}
+        
 @end
