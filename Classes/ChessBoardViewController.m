@@ -41,10 +41,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void) _setHighlightCells:(BOOL)bHighlight;
 
-- (void) _doPieceMove: (Piece *)piece 
-                toRow:(int)row toCol:(int)col
-        capturedPiece:(Piece *)capture
+- (void) _doPieceMove:(int)row1 fromCol:(int)col1 
+                toRow:(int)row2 toCol:(int)col2
                  isAI:(BOOL)isAI;
+
+- (void) _handleEndGameInUI;
 
 @end
 
@@ -73,6 +74,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         audio_helper = [[AudioHelper alloc] init];
         [self install_cchess_sounds];
         _game = (CChessGame*)((ChessBoardView*)self.view).game;
+        _moves = [[NSMutableArray alloc] initWithCapacity: POC_MAX_MOVES_PER_GAME];
     }
     
     return self;
@@ -149,12 +151,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                                             selector:@selector(ticked:)
                                             userInfo:nil repeats:YES];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
-
-    [_game addObserver: self 
-           forKeyPath: @"game_result"
-              options: (NSKeyValueObservingOptionNew |
-                        NSKeyValueObservingOptionOld)
-              context: NULL];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -164,55 +160,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                                                  selector:@selector(ticked:)
                                                  userInfo:nil repeats:YES];
     }
-}
-
-#pragma mark Game result change notification handler
-- (void)observeValueForKeyPath:(NSString *)keyPath 
-                      ofObject:(id)object 
-                        change:(NSDictionary *)change
-                       context:(void *)context
-{
-    if ( object != _game ) return;
-    
-
-    UIAlertView *alert = [UIAlertView alloc]; 
-    if (!alert) return;
-    
-    NSString *winMsg = nil;
-    switch (_game.game_result) {
-        case kXiangQi_YouWin:
-            [audio_helper play_wav_sound:@"WIN"];
-            winMsg = NSLocalizedString(@"You win,congratulations!", @"");
-            break;
-        case kXiangQi_ComputerWin:
-            [audio_helper play_wav_sound:@"LOSS"];
-            winMsg = NSLocalizedString(@"Computer wins. Don't give up, please try again!", @"");
-            break;
-        case kXiangqi_YouLose:
-            [audio_helper play_wav_sound:@"LOSS"];
-            winMsg = NSLocalizedString(@"You lose. You may try again!", @"");
-            break;
-        case kXiangQi_Draw:
-            [audio_helper play_wav_sound:@"DRAW"];
-            winMsg = NSLocalizedString(@"Sorry,we are in draw!", @"");
-            break;
-        case kXiangQi_OverMoves:
-            [audio_helper play_wav_sound:@"ILLEGAL"];
-            winMsg = NSLocalizedString(@"Sorry,we made too many moves, please restart again!", @"");
-            break;
-        case kXiangQi_InPlay:
-            break;
-    }
-    
-    if (winMsg) {
-        [alert initWithTitle:@"PodChess"
-                     message:winMsg
-                    delegate:self 
-           cancelButtonTitle:nil 
-           otherButtonTitles:@"OK", nil];
-    }
-    [alert show];
-    [alert release];
 }
 
 - (void)alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
@@ -245,6 +192,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [opn_time release];
     [audio_helper release];
     [activity release];
+    [_moves release];
     [super dealloc];
 }
 
@@ -277,11 +225,9 @@ static Piece *selected = nil;
     
     int sqSrc = SRC(m);
     int sqDst = DST(m);
-    Piece *piece = [_game x_getPieceAtRow:ROW(sqSrc) col:COLUMN(sqSrc)];
     int row = ROW(sqDst);
     int col = COLUMN(sqDst);
-    Piece *capture = [_game x_getPieceAtRow:row col:col];
-    [self _doPieceMove:piece toRow:row toCol:col capturedPiece:capture isAI:YES];
+    [self _doPieceMove:ROW(sqSrc) fromCol:COLUMN(sqSrc) toRow:row toCol:col isAI:YES];
 }
 
 #pragma mark Touch event handling
@@ -325,8 +271,7 @@ static Piece *selected = nil;
         if([_game isLegalMove:m])
         {
             [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-            [self _doPieceMove:selected toRow:ROW(sqDst) toCol:COLUMN(sqDst)
-                 capturedPiece:piece isAI:NO];
+            [self _doPieceMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst) isAI:NO];
             // AI's turn.
             if ( _game.game_result == kXiangQi_InPlay ) {
                 [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
@@ -392,13 +337,14 @@ static Piece *selected = nil;
 }
 
 
-- (void) _doPieceMove: (Piece *)piece
-                toRow:(int)row toCol:(int)col
-        capturedPiece:(Piece *)capture
+- (void) _doPieceMove:(int)row1 fromCol:(int)col1
+                toRow:(int)row2 toCol:(int)col2
                  isAI:(BOOL)isAI
 {
     NSString *sound = @"MOVE";
 
+    Piece *capture = [_game x_getPieceAtRow:row2 col:col2];
+    
     if (capture != nil) {
         [capture removeFromSuperlayer];
         sound = (isAI ? @"CAPTURE2" : @"CAPTURE");
@@ -411,13 +357,60 @@ static Piece *selected = nil;
         [audio_helper play_wav_sound:sound];
     }
 
-    [_game x_movePiece:piece toRow:row toCol:col];
+    Piece *piece = [_game x_getPieceAtRow:row1 col:col1];
+    [_game x_movePiece:piece toRow:row2 toCol:col2];
     
     // Check repeat status
-    int nGameResult = [_game checkGameStatus:capture isAI:isAI];
+    int nGameResult = [_game checkGameStatus:isAI];
     if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
         _game.game_result = nGameResult;
+        
+        [self performSelectorOnMainThread:@selector(_handleEndGameInUI)
+                               withObject:nil waitUntilDone:NO];
     }
+}
+
+- (void) _handleEndGameInUI
+{
+    NSString *sound = nil;
+    NSString *msg   = nil;
+
+    switch ( _game.game_result ) {
+        case kXiangQi_YouWin:
+            sound = @"WIN";
+            msg = NSLocalizedString(@"You win,congratulations!", @"");
+            break;
+        case kXiangQi_ComputerWin:
+            sound = @"LOSS";
+            msg = NSLocalizedString(@"Computer wins. Don't give up, please try again!", @"");
+            break;
+        case kXiangqi_YouLose:
+            sound = @"LOSS";
+            msg = NSLocalizedString(@"You lose. You may try again!", @"");
+            break;
+        case kXiangQi_Draw:
+            sound = @"DRAW";
+            msg = NSLocalizedString(@"Sorry,we are in draw!", @"");
+            break;
+        case kXiangQi_OverMoves:
+            sound = @"ILLEGAL";
+            msg = NSLocalizedString(@"Sorry,we made too many moves, please restart again!", @"");
+            break;
+        default:
+            break; /* Do nothing */
+    }
+    
+    if ( !sound ) return;
+
+    [audio_helper play_wav_sound:sound];
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"PodChess"
+                                                    message:msg
+                                                   delegate:self 
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
+    [alert show];
+    [alert release];
 }
 
 @end

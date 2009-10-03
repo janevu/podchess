@@ -330,8 +330,7 @@
     return [_referee isLegalMove:mv];
 }
 
-- (int) checkGameStatus:(Piece *)capture
-                   isAI:(BOOL)isAI
+- (int) checkGameStatus:(BOOL)isAI
 {
     int nGameResult = kXiangQi_Unknown;
     
