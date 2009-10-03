@@ -17,16 +17,14 @@
  *  along with PodChess.  If not, see <http://www.gnu.org/licenses/>.      *
  ***************************************************************************/
 
-#import "Enums.h"
 #import "ChessBoardViewController.h"
+#import "Enums.h"
 #import "PodChessAppDelegate.h"
 #import "QuartzUtils.h"
 #import "Bit.h"
 #import "BitHolder.h"
 #import "Grid.h"
 #import "Piece.h"
-#import "XiangQi.h"
-#import "CChessGame.h"
 #import "ChessBoardView.h"
 
 
@@ -41,7 +39,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
  
 @interface ChessBoardViewController ()
 
-- (void) _setHighlightCells: (CChessGame *)game highlighted:(BOOL)bHighlight;
+- (void) _setHighlightCells:(BOOL)bHighlight;
 
 - (void) _doPieceMove: (Piece *)piece 
                 toRow:(int)row toCol:(int)col
@@ -74,6 +72,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         audio_helper = [[AudioHelper alloc] init];
         [self install_cchess_sounds];
+        _game = (CChessGame*)((ChessBoardView*)self.view).game;
     }
     
     return self;
@@ -82,24 +81,19 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)ticked:(NSTimer*)timer
 {
-    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    if ( [game get_sdPlayer] ) {
-        //opponent - black
-        //        b_total_time -= 1.0;
-        //        m = (int)b_total_time / 60;
-        //        s = (int)b_total_time % 60;
-        //        opn_time.text = [NSString stringWithFormat:@"%d.%d",m,s];
+    if ( [_game get_sdPlayer] ) {
+        // The opponent is AI, playing BLACK. Do nothing for now!
     } else {
-        --r_total_time;
-        int m = r_total_time / 60;
-        int s = r_total_time % 60;
+        --_redTime;
+        int m = _redTime / 60;
+        int s = _redTime % 60;
         self_time.text = [NSString stringWithFormat:@"%d.%d",m,s];
     }
 }
 
 - (void)robotThread:(void*)param
 {
- 	NSAutoreleasePool*  pool = [[NSAutoreleasePool alloc] init];
+ 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	
     robot = [NSThread currentThread];
     //set the priority to the highest so that Robot can utilize more time to think
@@ -117,7 +111,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)resetRobot:(id)restart
 {
-    //place holder
     [self reset_board];
     [activity stopAnimating];
     if(restart) {
@@ -142,23 +135,22 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self.view bringSubviewToFront:reset];
     [self.view bringSubviewToFront:self_time];
     [self.view bringSubviewToFront:opn_time];
-    _initial_time = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
-    r_total_time = b_total_time = _initial_time * 60;
+    _initialTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
+    _redTime = _blackTime = _initialTime * 60;
     [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[self_time setBackgroundColor:[UIColor clearColor]];
 	[self_time setTextColor:[UIColor blackColor]];
     [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[opn_time setBackgroundColor:[UIColor clearColor]];
 	[opn_time setTextColor:[UIColor blackColor]];
-    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initial_time];
+    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
     opn_time.text = @"Robot";
     ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                             selector:@selector(ticked:)
                                             userInfo:nil repeats:YES];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
-    
-    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    [game addObserver: self 
+
+    [_game addObserver: self 
            forKeyPath: @"game_result"
               options: (NSKeyValueObservingOptionNew |
                         NSKeyValueObservingOptionOld)
@@ -174,21 +166,20 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
 }
 
-#pragma mark game result change notification handler
+#pragma mark Game result change notification handler
 - (void)observeValueForKeyPath:(NSString *)keyPath 
                       ofObject:(id)object 
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
-    if ( object != game ) return;
+    if ( object != _game ) return;
     
 
     UIAlertView *alert = [UIAlertView alloc]; 
     if (!alert) return;
     
     NSString *winMsg = nil;
-    switch(game.game_result) {
+    switch (_game.game_result) {
         case kXiangQi_YouWin:
             [audio_helper play_wav_sound:@"WIN"];
             winMsg = NSLocalizedString(@"You win,congratulations!", @"");
@@ -278,19 +269,18 @@ static Piece *selected = nil;
 #pragma mark AI move 
 - (void)AIMove:(void*)unused_param
 {
-    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
     int captured = 0;
-    int m = [game robotMoveWithCaptured:&captured];
+    int m = [_game robotMoveWithCaptured:&captured];
     if (m == -1) {  // Invalid move.
         return;
     }
     
     int sqSrc = SRC(m);
     int sqDst = DST(m);
-    Piece *piece = [game x_getPieceAtRow:ROW(sqSrc) col:COLUMN(sqSrc)];
+    Piece *piece = [_game x_getPieceAtRow:ROW(sqSrc) col:COLUMN(sqSrc)];
     int row = ROW(sqDst);
     int col = COLUMN(sqDst);
-    Piece *capture = [game x_getPieceAtRow:row col:col];
+    Piece *capture = [_game x_getPieceAtRow:row col:col];
     [self _doPieceMove:piece toRow:row toCol:col capturedPiece:capture isAI:YES];
 }
 
@@ -303,7 +293,6 @@ static Piece *selected = nil;
     }
     
     ChessBoardView *view = (ChessBoardView*) self.view;
-    CChessGame *game = (CChessGame*) view.game;
     GridCell *holder = nil;
     
     UITouch *touch = [[touches allObjects] objectAtIndex:0];
@@ -314,10 +303,10 @@ static Piece *selected = nil;
         holder = (GridCell*)piece.holder;
         if(!selected || (selected && selected._owner == piece._owner)) {
             int sqSrc = TOSQUARE(holder._row, holder._column);
-            [self _setHighlightCells:game highlighted:NO]; // Clear old highlight.
+            [self _setHighlightCells:NO]; // Clear old highlight.
 
-            nMoves = [game generateMoveFrom:sqSrc moves:moves];
-            [self _setHighlightCells:game highlighted:YES];
+            nMoves = [_game generateMoveFrom:sqSrc moves:moves];
+            [self _setHighlightCells:YES];
             selected = piece;
             [audio_helper play_wav_sound:@"CLICK"];
             return;
@@ -333,35 +322,34 @@ static Piece *selected = nil;
         GridCell *cell = (GridCell*)selected.holder;
         int sqSrc = TOSQUARE(cell._row, cell._column);
         int m = MOVE(sqSrc, sqDst);
-        if([game isLegalMove:m])
+        if([_game isLegalMove:m])
         {
-            [game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+            [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
             [self _doPieceMove:selected toRow:ROW(sqDst) toCol:COLUMN(sqDst)
                  capturedPiece:piece isAI:NO];
             // AI's turn.
-            if ( game.game_result == kXiangQi_InPlay ) {
+            if ( _game.game_result == kXiangQi_InPlay ) {
                 [self performSelector:@selector(AIMove:) onThread:robot withObject:nil waitUntilDone:NO];
             }
         }
     }
     
     selected = nil; // Reset selected state.
-    [self _setHighlightCells:game highlighted:NO]; // Clear highlighted.
+    [self _setHighlightCells:NO]; // Clear highlighted.
     nMoves = 0;
 }
 
 
 - (void)reset_board
 {
-    CChessGame *game = (CChessGame*)((ChessBoardView*)self.view).game;
     selected = nil;
     nMoves = 0;
-    r_total_time = b_total_time = _initial_time * 60;
+    _redTime = _blackTime = _initialTime * 60;
     memset(moves, 0x0, sizeof(moves));
-    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initial_time];
+    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
     opn_time.text = @"Robot";
     [ticker invalidate];
-    [game reset_game];
+    [_game reset_game];
 }
 
 - (void)install_cchess_sounds
@@ -389,9 +377,8 @@ static Piece *selected = nil;
 #pragma mark -
 #pragma mark Private methods
 
-- (void) _setHighlightCells: (CChessGame *)game highlighted:(BOOL)bHighlight
-{    
-    assert(game);
+- (void) _setHighlightCells:(BOOL)bHighlight
+{
     // Set (or Clear) highlighted cells.
     for(int i = 0; i < nMoves; ++i) {
         int sqDst = DST(moves[i]);
@@ -400,7 +387,7 @@ static Piece *selected = nil;
         if ( ! bHighlight ) {
             moves[i] = 0;
         }
-        ((XiangQiSquare*)[game._grid cellAtRow:row column:col])._highlighted = bHighlight;
+        ((XiangQiSquare*)[_game._grid cellAtRow:row column:col])._highlighted = bHighlight;
     }
 }
 
@@ -410,8 +397,6 @@ static Piece *selected = nil;
         capturedPiece:(Piece *)capture
                  isAI:(BOOL)isAI
 {
-    ChessBoardView *view = (ChessBoardView*) self.view;
-    CChessGame *game = (CChessGame*) view.game;
     NSString *sound = @"MOVE";
 
     if (capture != nil) {
@@ -426,12 +411,12 @@ static Piece *selected = nil;
         [audio_helper play_wav_sound:sound];
     }
 
-    [game x_movePiece:piece toRow:row toCol:col];
+    [_game x_movePiece:piece toRow:row toCol:col];
     
     // Check repeat status
-    int nGameResult = [game checkGameStatus:capture isAI:isAI];
+    int nGameResult = [_game checkGameStatus:capture isAI:isAI];
     if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
-        game.game_result = nGameResult;
+        _game.game_result = nGameResult;
     }
 }
 
