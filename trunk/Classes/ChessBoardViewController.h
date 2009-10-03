@@ -43,6 +43,8 @@
     int _initialTime; /* The initial time (in seconds) */
     int _redTime;     /* RED   time (in seconds)       */
     int _blackTime;   /* BLACK time (in seconds)       */
+    
+    NSMutableArray *_moves;  /* MOVE history    */
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *home;

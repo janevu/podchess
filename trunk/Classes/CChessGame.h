@@ -99,7 +99,7 @@ enum {
 - (void)setSearchDepth:(int)depth;
 - (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs;
 - (BOOL)isLegalMove:(int)mv;
-- (int)checkGameStatus:(Piece *)capture isAI:(BOOL)isAI;
+- (int)checkGameStatus:(BOOL)isAI;
 - (int) get_sdPlayer;
 - (void)resetCChessPieces;
 - (void)reset_game;
