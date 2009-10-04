@@ -42,7 +42,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _setHighlightCells:(BOOL)bHighlight;
 - (void) _onNewMove:(int)move fromAI:(BOOL)isAI;
 - (void) _handleEndGameInUI;
-- (void) _saveGame;
+
 - (void) _loadPendingGame:(NSString *)sPendingGame;
 
 @end
@@ -208,7 +208,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:NO];
     [activity startAnimating];
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:nil waitUntilDone:NO];
-    [self _saveGame];
+    [self saveGame];
     [self _resetBoard];
 }
 
@@ -423,13 +423,17 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [alert release];
 }
 
-- (void) _saveGame
+- (void) saveGame
 {
     NSMutableString *sMoves = [NSMutableString new];
-    for (NSNumber *pMove in _moves) {
-        if ([sMoves length]) [sMoves appendString:@","];
-        [sMoves appendFormat:@"%d",[pMove integerValue]];
+
+    if ( _game.game_result == kXiangQi_InPlay ) {
+        for (NSNumber *pMove in _moves) {
+            if ([sMoves length]) [sMoves appendString:@","];
+            [sMoves appendFormat:@"%d",[pMove integerValue]];
+        }
     }
+
     [[NSUserDefaults standardUserDefaults] setObject:sMoves forKey:@"pending_game"];
     [sMoves release];
 }
