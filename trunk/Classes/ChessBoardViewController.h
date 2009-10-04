@@ -38,7 +38,7 @@
 
     AudioHelper *_audioHelper;
     
-    // Members to keep track of (H)igh(L)ight moves (e.g., move-hints).
+    /* Members to keep track of (H)igh(L)ight moves (e.g., move-hints). */
     int    _hl_moves[MAX_GEN_MOVES];
     int    _hl_nMoves;
 
@@ -61,6 +61,8 @@
 
 - (IBAction)homePressed:(id)sender;
 - (IBAction)resetPressed:(id)sender;
+
+- (void) saveGame;
 
 - (void) _resetBoard;
 - (id)   _initSoundSystem;

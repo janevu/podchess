@@ -68,7 +68,7 @@
 							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<string key="IBUINormalTitle">NEW GAME</string>
+						<string key="IBUINormalTitle">PLAY</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="746675261">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>

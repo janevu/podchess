@@ -25,6 +25,7 @@
 
 #import "PodChessAppDelegate.h"
 #import "Enums.h"
+#import "ChessBoardViewController.h"
 
 @implementation PodChessAppDelegate
 
@@ -53,6 +54,14 @@
     [window makeKeyAndVisible];
 }
 
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    UIViewController *topController = [navigationController topViewController];
+    if ([topController isKindOfClass:[ChessBoardViewController class]]) {
+        ChessBoardViewController* chessController = (ChessBoardViewController*)topController;
+        [chessController saveGame];
+    }
+}
 
 - (void)dealloc {
     [window release];
