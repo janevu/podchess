@@ -16,6 +16,9 @@
 "You lose. You may try again!" = "You lose. You may try again!";
 "Sorry,we are in draw!" = "Sorry,we are in draw!";
 "Sorry,we made too many moves, please restart again!" = "Sorry,we made too many moves, please restart again!";
+"Resume game?" = "Resume game?";
+"Yes" = "Yes";
+"No" = "No";
 
 /* Other keys (currently unused!) */
 "HOME_Key" = "HOME";
