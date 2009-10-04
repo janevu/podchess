@@ -32,7 +32,7 @@
     
     IBOutlet UIActivityIndicatorView *activity;
     
-    NSTimer *ticker;
+    NSTimer *_timer;
 
     NSThread *robot;
 
