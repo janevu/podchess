@@ -73,6 +73,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        _timer = nil;
         _audioHelper = [self _initSoundSystem];
 
         memset(_hl_moves, 0x0, sizeof(_hl_moves));
@@ -127,7 +128,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 {
     [activity stopAnimating];
     if(restart) {
-        ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }else{
         [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
     }
@@ -158,29 +159,27 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 	[opn_time setTextColor:[UIColor blackColor]];
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
     opn_time.text = @"Robot";
-    ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                             selector:@selector(ticked:)
                                             userInfo:nil repeats:YES];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
 }
 
+/**
+ * Called when the view is about to made visible. Default does nothing
+ */
 - (void)viewWillAppear:(BOOL)animated
 {
-    if(![ticker isValid]) {
-         ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
-                                                 selector:@selector(ticked:)
-                                                 userInfo:nil repeats:YES];
-    }
 }
 
 /**
- * Handle the "OK" button in the END-GAME alert dialog.
+ * Handle the "OK" button in the END-GAME and RESUME-GAME alert dialogs. 
  */
 - (void)alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
     if ( alertView.tag == POC_ALERT_END_GAME ) {
         [self _resetBoard];
-        ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }
     else if (    alertView.tag == POC_ALERT_RESUME_GAME
               && buttonIndex != [alertView cancelButtonIndex] ) {
@@ -226,7 +225,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity startAnimating];
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:nil waitUntilDone:NO];
     [self saveGame];
-    [self _resetBoard];
+    // Not needed: [self _resetBoard];
 }
 
 - (IBAction)resetPressed:(id)sender
@@ -311,7 +310,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     memset(_hl_moves, 0x0, sizeof(_hl_moves));
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
     opn_time.text = @"Robot";
-    [ticker invalidate];
+    [_timer invalidate];
     [_game reset_game];
     [_moves removeAllObjects];
 }
