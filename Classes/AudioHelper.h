@@ -24,18 +24,18 @@
 #define kNumberBuffers 3
 
 @interface AudioData : NSObject {
-    UInt32							bufferByteSize;						// the number of bytes to use in each audio queue buffer
-	UInt32							numPacketsToRead;					// the number of audio data packets to read into each audio queue buffer
+    UInt32                          bufferByteSize; // the number of bytes to use in each audio queue buffer
+	UInt32                          numPacketsToRead; // the number of audio data packets to read into each audio queue buffer
 	
-	Float32							gain;								// the gain (relative audio level) for the playback audio queue
+	Float32                         gain; // the gain (relative audio level) for the playback audio queue
     
-	AudioQueueRef					mQueue;
-	AudioQueueBufferRef				mBuffers[kNumberBuffers];  
+	AudioQueueRef                   mQueue;
+	AudioQueueBufferRef             mBuffers[kNumberBuffers];  
     
-    AudioFileID						audioFileID;					// the identifier for the audio file to play
-	AudioStreamBasicDescription		audioFormat;
-	AudioQueueLevelMeterState		*audioLevels;
-	SInt64							startingPacketNumber;			// the current packet number in the playback file
+    AudioFileID                     audioFileID; // the identifier for the audio file to play
+	AudioStreamBasicDescription     audioFormat;
+	AudioQueueLevelMeterState      *audioLevels;
+	SInt64                          startingPacketNumber; // the current packet number in the playback file
 }
 
 - (id)initWithSoundFile:(NSString*)path;
@@ -45,17 +45,17 @@
 - (void)enableLevelMetering;
 - (void)calculateSizesFor:(Float64)seconds;
 
-@property(readwrite) UInt32							bufferByteSize;						// the number of bytes to use in each audio queue buffer
-@property(readwrite) UInt32							numPacketsToRead;					// the number of audio data packets to read into each audio queue buffer
+@property(readwrite) UInt32  bufferByteSize;   // the number of bytes to use in each audio queue buffer
+@property(readwrite) UInt32  numPacketsToRead; // the number of audio data packets to read into each audio queue buffer
 
-@property(readwrite) Float32							gain;								// the gain (relative audio level) for the playback audio queue
+@property(readwrite) Float32 gain; // the gain (relative audio level) for the playback audio queue
 
-@property(readwrite)  AudioQueueRef					mQueue;  
+@property(readwrite)  AudioQueueRef	mQueue;  
 
-@property(readwrite) AudioFileID						audioFileID;					// the identifier for the audio file to play
-@property(readwrite) AudioStreamBasicDescription		audioFormat;
-@property(readwrite) AudioQueueLevelMeterState		*audioLevels;
-@property(readwrite) SInt64		startingPacketNumber;			// the current packet number in the playback file
+@property(readwrite) AudioFileID                 audioFileID; // the identifier for the audio file to play
+@property(readwrite) AudioStreamBasicDescription audioFormat;
+@property(readwrite) AudioQueueLevelMeterState  *audioLevels;
+@property(readwrite) SInt64		startingPacketNumber; // the current packet number in the playback file
 
 @end
 
@@ -64,6 +64,5 @@
 }
 
 - (void)load_wav_sound:(NSString*)sound;
-
 - (void)play_wav_sound:(NSString*)sound;
 @end

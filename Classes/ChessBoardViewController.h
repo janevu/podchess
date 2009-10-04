@@ -36,7 +36,13 @@
 
     NSThread *robot;
 
-    AudioHelper *audio_helper;
+    AudioHelper *_audioHelper;
+    
+    // Members to keep track of (H)igh(L)ight moves (e.g., move-hints).
+    int    _hl_moves[MAX_GEN_MOVES];
+    int    _hl_nMoves;
+
+    Piece *_selectedPiece;
     
     CChessGame *_game;
 
@@ -56,7 +62,7 @@
 - (IBAction)homePressed:(id)sender;
 - (IBAction)resetPressed:(id)sender;
 
-- (void)reset_board;
-- (void)install_cchess_sounds;
+- (void) _resetBoard;
+- (id)   _initSoundSystem;
 
 @end

@@ -283,19 +283,18 @@
 }
 
 
-- (int)robotMoveWithCaptured:(int*)captured
+- (int)getRobotMove
 {
-    int move = INVALID_MOVE;  // No valid move found.
-
     int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
     [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
     
     int sqSrc = TOSQUARE(row1, col1);
     int sqDst = TOSQUARE(row2, col2);
-    move = MOVE(sqSrc, sqDst);
+    int move = MOVE(sqSrc, sqDst);
+    int captured = 0;
 
     if ( _referee != _aiEngine ) {
-        [_referee makeMove:move captured:captured];
+        [_referee makeMove:move captured:&captured];
     }
     return move;
 }
@@ -305,13 +304,13 @@
 {
     int sqSrc = TOSQUARE(row1, col1);
     int sqDst = TOSQUARE(row2, col2);
-    int m = MOVE(sqSrc, sqDst);
+    int move = MOVE(sqSrc, sqDst);
     int captured = 0;
 
     [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
     
     if ( _referee != _aiEngine ) {
-        [_referee makeMove:m captured:&captured];
+        [_referee makeMove:move captured:&captured];
     }
 }
 

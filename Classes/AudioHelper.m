@@ -244,7 +244,8 @@ static void playbackCallback (
 
 - (void)load_wav_sound:(NSString*)sound
 {
-    NSString *path = [[NSBundle  mainBundle] pathForResource:sound ofType:@"WAV" inDirectory:[NSString stringWithUTF8String:DEFAULT_WAV_SOUND_PATH]];
+    NSString *path = [[NSBundle  mainBundle] pathForResource:sound ofType:@"WAV"
+                                                 inDirectory:[NSString stringWithUTF8String:DEFAULT_WAV_SOUND_PATH]];
     AudioData *snd = [[AudioData alloc] initWithSoundFile:path];
     [loaded_sounds setObject:snd forKey:sound];
     [snd release];
