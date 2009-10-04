@@ -27,6 +27,10 @@
 #import "Piece.h"
 #import "ChessBoardView.h"
 
+enum _AlertViewEnum {
+    POC_ALERT_END_GAME,
+    POC_ALERT_RESUME_GAME
+};
 
 static BOOL layerIsBit( CALayer* layer )        {return [layer isKindOfClass: [Bit class]];}
 static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtocol: @protocol(BitHolder)];}
@@ -42,7 +46,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _setHighlightCells:(BOOL)bHighlight;
 - (void) _onNewMove:(int)move fromAI:(BOOL)isAI;
 - (void) _handleEndGameInUI;
-
+- (void) _displayResumeGameAlert;
 - (void) _loadPendingGame:(NSString *)sPendingGame;
 
 @end
@@ -81,7 +85,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         // Restore pending game, if any.
         NSString *sPendingGame = [[NSUserDefaults standardUserDefaults] stringForKey:@"pending_game"];
         if ( sPendingGame != nil && [sPendingGame length]) {
-            [self _loadPendingGame:sPendingGame];
+            [self _displayResumeGameAlert];
         }
     }
     
@@ -169,10 +173,23 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
 }
 
+/**
+ * Handle the "OK" button in the END-GAME alert dialog.
+ */
 - (void)alertView: (UIAlertView *)alertView clickedButtonAtIndex: (NSInteger)buttonIndex
 {
-    [self _resetBoard];
-    ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    if ( alertView.tag == POC_ALERT_END_GAME ) {
+        [self _resetBoard];
+        ticker = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    }
+    else if (    alertView.tag == POC_ALERT_RESUME_GAME
+              && buttonIndex != [alertView cancelButtonIndex] ) {
+        NSString *sPendingGame = [[NSUserDefaults standardUserDefaults] stringForKey:@"pending_game"];
+        if ( sPendingGame != nil && [sPendingGame length]) {
+            [self _loadPendingGame:sPendingGame];
+        }
+    }
+
 }
 
 
@@ -419,6 +436,20 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                                                    delegate:self 
                                           cancelButtonTitle:nil
                                           otherButtonTitles:@"OK", nil];
+    alert.tag = POC_ALERT_END_GAME;
+    [alert show];
+    [alert release];
+}
+
+- (void) _displayResumeGameAlert
+{
+    UIAlertView *alert =
+        [[UIAlertView alloc] initWithTitle:@"PodChess"
+                                   message:NSLocalizedString(@"Resume game?", @"")
+                                  delegate:self 
+                         cancelButtonTitle:NSLocalizedString(@"No", @"")
+                         otherButtonTitles:NSLocalizedString(@"Yes", @""), nil];
+    alert.tag = POC_ALERT_RESUME_GAME;
     [alert show];
     [alert release];
 }

@@ -16,3 +16,6 @@
 "You lose. You may try again!" = "您输了，您可以再试一次！";
 "Sorry,we are in draw!" = "很抱歉,当前和局！";
 "Sorry,we made too many moves, please restart again!" = "很抱歉，超过最多允许着法，请重新开始了！";
+"Resume game?" = "继续游戏？";
+"Yes" = "是";
+"No" = "否";
