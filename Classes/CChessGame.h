@@ -22,6 +22,7 @@
 #import "Game.h"
 #import "XiangQi.h"
 #import "AIEngine.h"
+#import "Referee.h"
 
 #define INVALID_MOVE         (-1)
 #define TOSQUARE(row, col)   (16 * ((row) + 3) + ((col) + 3))
@@ -84,7 +85,7 @@ enum {
     NSMutableArray *_pieceBox;
     
     int _aiType;
-    AIEngine *_referee;
+    Referee  *_referee;
     AIEngine *_aiEngine;
 
     int game_result;

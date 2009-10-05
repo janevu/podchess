@@ -199,6 +199,7 @@
     [_grid removeAllCells];
     [_grid release];
     [_pieceBox release];
+    [_referee release];
     [_aiEngine release];
     [super dealloc];
 }
@@ -247,11 +248,9 @@
         
         game_result = kXiangQi_InPlay;
         
-        /* TODO: We need a referee to manage the game (independently of AI).
-         *       Because we do NOT have a Referee, we temporarily use the
-         *       original (C-based) "XQWLight" AI as the Referee.
-         */
-        _referee = [[AI_XQWLight alloc] init];
+        // Create a Referee to manage the Game.
+        _referee = [[Referee alloc] init];
+        [_referee initGame];
         
         // Determine the type of AI.
         NSString *aiSelection = [[NSUserDefaults standardUserDefaults] stringForKey:@"AI"];
@@ -259,8 +258,7 @@
 
         switch (_aiType) {
             case kPodChess_AI_xqwlight:
-                // NOTE: In this case, the AI is also the Referee.
-                _aiEngine = _referee;
+                _aiEngine = [[AI_XQWLight alloc] init];
                 break;
             case kPodChess_AI_haqikid:
                 _aiEngine = [[AI_HaQiKiD alloc] init];
@@ -274,10 +272,6 @@
         }
 
         [_aiEngine initGame];
-        
-        if ( _referee != _aiEngine ) {
-            [_referee initGame];
-        }
     }
     return self;
 }
@@ -293,9 +287,7 @@
     int move = MOVE(sqSrc, sqDst);
     int captured = 0;
 
-    if ( _referee != _aiEngine ) {
-        [_referee makeMove:move captured:&captured];
-    }
+    [_referee makeMove:move captured:&captured];
     return move;
 }
 
@@ -309,9 +301,7 @@
 
     [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
     
-    if ( _referee != _aiEngine ) {
-        [_referee makeMove:move captured:&captured];
-    }
+    [_referee makeMove:move captured:&captured];
 }
 
 - (void)setSearchDepth:(int)depth
@@ -367,12 +357,8 @@
 - (void)reset_game
 {
     [self resetCChessPieces];
+    [_referee initGame];
     [_aiEngine initGame];
-
-    if ( _referee != _aiEngine ) {
-        [_referee initGame];
-    }
-    
     game_result = kXiangQi_InPlay;
 }
 

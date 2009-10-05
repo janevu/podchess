@@ -42,6 +42,8 @@
 		4BE40E43106C8BA2006154CC /* AISelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4BE40E42106C8BA2006154CC /* AISelectionViewController.m */; };
 		4BE40E45106C8C0F006154CC /* AISelectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BE40E44106C8C0F006154CC /* AISelectionView.xib */; };
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
+		AF07E7F0107A272200FE19B7 /* XQWLight_Referee.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF07E7EF107A272200FE19B7 /* XQWLight_Referee.cpp */; };
+		AF07E8C1107A30F700FE19B7 /* Referee.m in Sources */ = {isa = PBXBuildFile; fileRef = AF07E8C0107A30F700FE19B7 /* Referee.m */; };
 		AF0973B8106A7BF40007C208 /* GenericSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973B7106A7BF40007C208 /* GenericSettingViewController.xib */; };
 		AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973D0106A7D820007C208 /* AboutViewController.xib */; };
 		AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */; };
@@ -123,6 +125,9 @@
 		4BE40E44106C8C0F006154CC /* AISelectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AISelectionView.xib; sourceTree = "<group>"; };
 		4BEB36CA103A4A7000B545FE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* PodChess-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "PodChess-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AF07E7EF107A272200FE19B7 /* XQWLight_Referee.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XQWLight_Referee.cpp; path = AI/XQWLight_Referee.cpp; sourceTree = "<group>"; };
+		AF07E8BF107A30F700FE19B7 /* Referee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Referee.h; path = AI/Referee.h; sourceTree = "<group>"; };
+		AF07E8C0107A30F700FE19B7 /* Referee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Referee.m; path = AI/Referee.m; sourceTree = "<group>"; };
 		AF0973BC106A7BFD0007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/GenericSettingViewController.xib; sourceTree = "<group>"; };
 		AF0973D2106A7D870007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		AF277D34106A5C23003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AF07E8A8107A302B00FE19B7 /* Referee */,
 				AF75F8D91065B6CD002A371B /* AI */,
 				4BBB5ECA1032FAFD00243E55 /* xiangqi */,
 				AFF89D0F106FEF2B00E2136D /* Enums.h */,
@@ -280,6 +286,16 @@
 				4BE40E42106C8BA2006154CC /* AISelectionViewController.m */,
 			);
 			name = xiangqi;
+			sourceTree = "<group>";
+		};
+		AF07E8A8107A302B00FE19B7 /* Referee */ = {
+			isa = PBXGroup;
+			children = (
+				AF07E8BF107A30F700FE19B7 /* Referee.h */,
+				AF07E8C0107A30F700FE19B7 /* Referee.m */,
+				AF07E7EF107A272200FE19B7 /* XQWLight_Referee.cpp */,
+			);
+			name = Referee;
 			sourceTree = "<group>";
 		};
 		AF75F8D91065B6CD002A371B /* AI */ = {
@@ -445,6 +461,8 @@
 				AF8948BF106FB44800D4E5B6 /* AIEngine.m in Sources */,
 				AF8CF6681073154E0071CAE2 /* XQWLight.cpp in Sources */,
 				AF8CF66B107315E50071CAE2 /* AI_XQWLight.m in Sources */,
+				AF07E7F0107A272200FE19B7 /* XQWLight_Referee.cpp in Sources */,
+				AF07E8C1107A30F700FE19B7 /* Referee.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
