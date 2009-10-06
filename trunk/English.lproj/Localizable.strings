@@ -35,3 +35,6 @@
 "NewGame_Key" = "NEW GAME";
 "Options_Key" = "OPTIONS";
 "About_Key" = "ABOUT";
+
+/*move review label*/
+"MOVE" = "move";
