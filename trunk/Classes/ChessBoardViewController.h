@@ -32,6 +32,14 @@
     
     IBOutlet UIActivityIndicatorView *activity;
     
+    /*move review UI*/
+    IBOutlet UISlider *moveSlider;
+    IBOutlet UILabel *moveLabel;
+    IBOutlet UIButton *moveForward;
+    IBOutlet UIButton *moveBackward;
+    IBOutlet UIButton *firstMove;
+    IBOutlet UIButton *lastMove;
+    
     NSTimer *_timer;
 
     NSThread *robot;
@@ -59,8 +67,20 @@
 @property (nonatomic, retain) IBOutlet UITextField *self_time;
 @property (nonatomic, retain) IBOutlet UITextField *opn_time;
 
+@property (nonatomic, retain) IBOutlet UISlider *moveSlider;
+@property (nonatomic, retain) IBOutlet UILabel *moveLabel;
+@property (nonatomic, retain) IBOutlet UIButton *moveForward;
+@property (nonatomic, retain) IBOutlet UIButton *moveBackward;
+@property (nonatomic, retain) IBOutlet UIButton *firstMove;
+@property (nonatomic, retain) IBOutlet UIButton *lastMove;
+
 - (IBAction)homePressed:(id)sender;
 - (IBAction)resetPressed:(id)sender;
+- (IBAction)moveForwardPressed:(id)sender;
+- (IBAction)moveBackwardPressed:(id)sender;
+- (IBAction)firstMovePressed:(id)sender;
+- (IBAction)lastMovePressed:(id)sender;
+- (IBAction)sliderAction:(id)sender;
 
 - (void) saveGame;
 
