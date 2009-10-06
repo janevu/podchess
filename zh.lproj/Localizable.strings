@@ -19,3 +19,5 @@
 "Resume game?" = "继续游戏？";
 "Yes" = "是";
 "No" = "否";
+/*move review label*/
+"MOVE" = "步";
