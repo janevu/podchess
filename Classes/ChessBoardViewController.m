@@ -48,7 +48,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _handleEndGameInUI;
 - (void) _displayResumeGameAlert;
 - (void) _loadPendingGame:(NSString *)sPendingGame;
-- (void) _updateMoveSlider;
 
 @end
 
@@ -65,12 +64,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @synthesize reset;
 @synthesize self_time;
 @synthesize opn_time;
-@synthesize moveSlider;
-@synthesize moveLabel;
-@synthesize moveForward;
-@synthesize moveBackward;
-@synthesize firstMove;
-@synthesize lastMove;
+@synthesize movePrev;
+@synthesize moveNext;
 
 /**
  * The designated initializer.
@@ -159,12 +154,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self.view bringSubviewToFront:reset];
     [self.view bringSubviewToFront:self_time];
     [self.view bringSubviewToFront:opn_time];
-    [self.view bringSubviewToFront:moveSlider];
-    [self.view bringSubviewToFront:moveLabel];
-    [self.view bringSubviewToFront:moveForward];
-    [self.view bringSubviewToFront:moveBackward];
-    [self.view bringSubviewToFront:firstMove];
-    [self.view bringSubviewToFront:lastMove];
+    [self.view bringSubviewToFront:movePrev];
+    [self.view bringSubviewToFront:moveNext];
     _initialTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
     _redTime = _blackTime = _initialTime * 60;
     [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
@@ -175,10 +166,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 	[opn_time setTextColor:[UIColor blackColor]];
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
     opn_time.text = @"Robot";
-    //move review UI initialize
-    moveSlider.minimumValue = 0.0f;
-    [moveLabel setFont:[UIFont fontWithName:@"Times New Roman" size:15.0]];
-    [self _updateMoveSlider];
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                             selector:@selector(ticked:)
                                             userInfo:nil repeats:YES];
@@ -234,14 +221,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self_time release];
     [opn_time release];
     [activity release];
+    [movePrev release];
+    [moveNext release];
     [_audioHelper release];
     [_moves release];
-    [moveSlider release];
-    [moveLabel release];
-    [moveForward release];
-    [moveBackward release];
-    [firstMove release];
-    [lastMove release];
     [super dealloc];
 }
 
@@ -264,46 +247,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self _resetBoard];
 }
 
-/**
- * watch/review one move forward
- */
-- (IBAction)moveForwardPressed:(id)sender
+- (IBAction)movePrevPressed:(id)sender
 {
-    
+    NSLog(@"%s: ENTER.", __FUNCTION__);
 }
 
-/**
- * watch/review one move backward
- */
-- (IBAction)moveBackwardPressed:(id)sender
+- (IBAction)moveNextPressed:(id)sender
 {
-    
-}
-
-/**
- * fast backward to the first move 
- */
-- (IBAction)firstMovePressed:(id)sender
-{
-    
-}
-
-/**
- * fast forward to the last move
- */
-- (IBAction)lastMovePressed:(id)sender
-{
-    
-}
-
-/**
- * watch/review move repeatedly when user is dragging the slider
- */
-- (IBAction)sliderAction:(id)sender
-{
-    UISlider* slider = (UISlider*)sender;
-    int value = (int)[slider value];
-    moveLabel.text = [NSString stringWithFormat:@"%d moves", value];
+    NSLog(@"%s: ENTER.", __FUNCTION__);
 }
 
 #pragma mark AI move 
@@ -383,7 +334,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [_timer invalidate];
     [_game reset_game];
     [_moves removeAllObjects];
-    [self _updateMoveSlider];
 }
 
 - (id) _initSoundSystem
@@ -465,7 +415,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     // Add this new Move to the Move-History.
     NSNumber *pMove = [NSNumber numberWithInteger:move];
     [_moves addObject:pMove];
-    [self _updateMoveSlider];
 }
 
 - (void) _handleEndGameInUI
@@ -558,14 +507,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         [self _onNewMove:move fromAI:( toggleTurn == 1 )];
         toggleTurn = 1 - toggleTurn;
     }
-}
-
-- (void)_updateMoveSlider
-{
-    int count = [_moves count];
-    moveSlider.maximumValue = (float)count;
-    moveSlider.value = (float)count;
-    moveLabel.text = [NSString stringWithFormat:@"%d %@", count, NSLocalizedString(@"MOVE", @"")];
 }
         
 @end
