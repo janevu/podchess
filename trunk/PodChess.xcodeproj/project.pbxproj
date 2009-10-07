@@ -49,6 +49,8 @@
 		AF277D33106A5BC8003DF2ED /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D32106A5BC8003DF2ED /* XiangQiMainMenu.xib */; };
 		AF277D8B106A606F003DF2ED /* ChessBoardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF277D8A106A606F003DF2ED /* ChessBoardViewController.xib */; };
 		AF2A5022106FB3D900CF69D8 /* AI_haqikidHOX.c in Sources */ = {isa = PBXBuildFile; fileRef = AF2A5021106FB3D900CF69D8 /* AI_haqikidHOX.c */; };
+		AF32D2A4107BA45E000C356A /* go-next.png in Resources */ = {isa = PBXBuildFile; fileRef = AF32D2A0107BA45E000C356A /* go-next.png */; };
+		AF32D2A5107BA45E000C356A /* go-previous.png in Resources */ = {isa = PBXBuildFile; fileRef = AF32D2A1107BA45E000C356A /* go-previous.png */; };
 		AF3D9D54106EDCD0005A25A7 /* OptionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF3D9D53106EDCD0005A25A7 /* OptionsView.xib */; };
 		AF8948BE106FB44800D4E5B6 /* AI_HaQiKiD.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */; };
 		AF8948BF106FB44800D4E5B6 /* AIEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8948BD106FB44800D4E5B6 /* AIEngine.m */; };
@@ -133,6 +135,8 @@
 		AF277D34106A5C23003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/XiangQiMainMenu.xib; sourceTree = "<group>"; };
 		AF277D8C106A6077003DF2ED /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/ChessBoardViewController.xib; sourceTree = "<group>"; };
 		AF2A5021106FB3D900CF69D8 /* AI_haqikidHOX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = AI_haqikidHOX.c; path = AI/AI_haqikidHOX.c; sourceTree = "<group>"; };
+		AF32D2A0107BA45E000C356A /* go-next.png */ = {isa = PBXFileReference; comments = "This icon is downloaded from Tango Desktop Project at http://tango.freedesktop.org"; lastKnownFileType = image.png; path = "go-next.png"; sourceTree = "<group>"; };
+		AF32D2A1107BA45E000C356A /* go-previous.png */ = {isa = PBXFileReference; comments = "This icon is downloaded from Tango Desktop Project at http://tango.freedesktop.org"; lastKnownFileType = image.png; path = "go-previous.png"; sourceTree = "<group>"; };
 		AF3D9D55106EDCD7005A25A7 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/OptionsView.xib; sourceTree = "<group>"; };
 		AF8948BA106FB44800D4E5B6 /* AI_HaQiKiD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI_HaQiKiD.h; path = AI/AI_HaQiKiD.h; sourceTree = "<group>"; };
 		AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AI_HaQiKiD.m; path = AI/AI_HaQiKiD.m; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 		AFA63FE3106FABD700D7B220 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				AF32D2A0107BA45E000C356A /* go-next.png */,
+				AF32D2A1107BA45E000C356A /* go-previous.png */,
 				AFA4663F106FB2C60006DAFE /* Icon.png */,
 				AFA63FEE106FAC8F00D7B220 /* board_320x480.png */,
 				AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */,
@@ -408,6 +414,8 @@
 				AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */,
 				AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */,
 				AFA46640106FB2C60006DAFE /* Icon.png in Resources */,
+				AF32D2A4107BA45E000C356A /* go-next.png in Resources */,
+				AF32D2A5107BA45E000C356A /* go-previous.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
