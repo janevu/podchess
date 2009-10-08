@@ -55,6 +55,8 @@
     int _blackTime;   /* BLACK time (in seconds)       */
     
     NSMutableArray *_moves;  /* MOVE history    */
+    int _nthMove; /*pivot for the move review*/
+    BOOL _inReview;
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *home;

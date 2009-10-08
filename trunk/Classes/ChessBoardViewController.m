@@ -51,6 +51,42 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 @end
 
+/*move review holder unit*/
+@interface MoveAtom : NSObject {
+    id move;
+    id srcPiece;
+    id capturedPiece;
+}
+
+@property(nonatomic,retain) id move;
+@property(nonatomic,retain) id srcPiece;
+@property(nonatomic,retain) id capturedPiece;
+
+@end
+
+@implementation MoveAtom
+
+@synthesize move;
+@synthesize srcPiece;
+@synthesize capturedPiece;
+
+- (id)init
+{
+    self = [super init];
+    return self;
+}
+
+- (void)dealloc
+{
+    [move release];
+    [srcPiece release];
+    [capturedPiece release];
+    [super dealloc];
+}
+
+@end
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -84,6 +120,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
         _game = (CChessGame*)((ChessBoardView*)self.view).game;
         _moves = [[NSMutableArray alloc] initWithCapacity: POC_MAX_MOVES_PER_GAME];
+        _nthMove = -1;
+        _inReview = NO;
 
         // Restore pending game, if any.
         NSString *sPendingGame = [[NSUserDefaults standardUserDefaults] stringForKey:@"pending_game"];
@@ -249,12 +287,57 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (IBAction)movePrevPressed:(id)sender
 {
-    NSLog(@"%s: ENTER.", __FUNCTION__);
+    if (_nthMove > 0) {
+        MoveAtom *pMove = [_moves objectAtIndex:--_nthMove];
+        int mv = [(NSNumber*)pMove.move intValue];
+        int sqSrc = SRC(mv);
+        int sqDst = DST(mv);
+        int row1 = ROW(sqSrc);
+        int col1 = COLUMN(sqSrc);
+        int row2 = ROW(sqDst);
+        int col2 = COLUMN(sqDst);
+        //TODO: add sound
+        //for move review, just reverse the move order (sqDst->sqSrc)
+        //Since it's only a review, no need to make acutal move in underlying game logic
+        [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row1 toCol:col1];
+        if (pMove.capturedPiece) {
+            [_game x_movePiece:(Piece*)pMove.capturedPiece toRow:row2 toCol:col2];
+        }
+        _inReview = YES;
+        //invalidate the timer
+        if([_timer isValid]) {
+            [_timer invalidate];
+            _timer = nil;
+        }
+    }
 }
 
 - (IBAction)moveNextPressed:(id)sender
 {
-    NSLog(@"%s: ENTER.", __FUNCTION__);
+    int nMoves = [_moves count]; 
+    if (_nthMove >= 0 && _nthMove < nMoves) {
+        MoveAtom *pMove = [_moves objectAtIndex:_nthMove++];
+        int mv = [(NSNumber*)pMove.move intValue];
+        int sqDst = DST(mv);
+        int row2 = ROW(sqDst);
+        int col2 = COLUMN(sqDst);
+        //TODO: add sound
+        if (pMove.capturedPiece) {
+            [pMove.capturedPiece removeFromSuperlayer];
+        }
+        [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row2 toCol:col2];
+        _inReview = YES;   
+        if([_timer isValid]) {
+            [_timer invalidate];
+            _timer = nil;
+        }
+    } 
+    if (_nthMove == nMoves) {
+        //we are reaching the latest move end
+        _inReview = NO;
+        if (![_timer isValid])
+            _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    }
 }
 
 #pragma mark AI move 
@@ -274,6 +357,12 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 {
     // Valid for single touch only
     if ([[event allTouches] count] != 1) {
+        return;
+    }
+    
+    //FIXME: if we are in the middle of move/review, alert the user 
+    if (_inReview) {
+        //TODO: alert
         return;
     }
     
@@ -325,6 +414,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void) _resetBoard
 {
+    [self _setHighlightCells:NO];
     _selectedPiece = nil;
     _hl_nMoves = 0;
     _redTime = _blackTime = _initialTime * 60;
@@ -334,6 +424,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [_timer invalidate];
     [_game reset_game];
     [_moves removeAllObjects];
+    _nthMove = -1;
+    _inReview = NO;
 }
 
 - (id) _initSoundSystem
@@ -413,8 +505,16 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
     
     // Add this new Move to the Move-History.
-    NSNumber *pMove = [NSNumber numberWithInteger:move];
+    MoveAtom *pMove = [[MoveAtom alloc] init];
+    pMove.srcPiece = piece;
+    pMove.capturedPiece = capture;
+    pMove.move = [NSNumber numberWithInteger:move];
     [_moves addObject:pMove];
+    [pMove release];
+    _nthMove = [_moves count];
+    _inReview = NO;
+    if (![_timer isValid])
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
 }
 
 - (void) _handleEndGameInUI
@@ -479,9 +579,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     NSMutableString *sMoves = [NSMutableString new];
 
     if ( _game.game_result == kXiangQi_InPlay ) {
-        for (NSNumber *pMove in _moves) {
+        for (MoveAtom *pMove in _moves) {
+            NSNumber *move = pMove.move;
             if ([sMoves length]) [sMoves appendString:@","];
-            [sMoves appendFormat:@"%d",[pMove integerValue]];
+            [sMoves appendFormat:@"%d",[move integerValue]];
         }
     }
 
