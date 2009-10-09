@@ -296,7 +296,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int col1 = COLUMN(sqSrc);
         int row2 = ROW(sqDst);
         int col2 = COLUMN(sqDst);
-        //TODO: add sound
+        //FIXME: mono-type "move" sound
+        [_audioHelper play_wav_sound:@"MOVE"];
         //for move review, just reverse the move order (sqDst->sqSrc)
         //Since it's only a review, no need to make acutal move in underlying game logic
         [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row1 toCol:col1];
@@ -321,7 +322,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int sqDst = DST(mv);
         int row2 = ROW(sqDst);
         int col2 = COLUMN(sqDst);
-        //TODO: add sound
+        //FIXME: mono-type "move" sound
+        [_audioHelper play_wav_sound:@"MOVE"];
         if (pMove.capturedPiece) {
             [pMove.capturedPiece removeFromSuperlayer];
         }
@@ -433,7 +435,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     AudioHelper* audioHelper = [[AudioHelper alloc] init];
 
     if ( audioHelper != nil ) {
-        NSArray *soundList = [NSArray arrayWithObjects:@"CAPTURE", @"CAPTURE2",
+        NSArray *soundList = [NSArray arrayWithObjects:@"CAPTURE", @"CAPTURE2", @"CLICK",
                               @"DRAW", @"LOSS", @"CHECK", @"CHECK2",
                               @"MOVE", @"MOVE2", @"WIN", @"ILLEGAL",
                               nil];
