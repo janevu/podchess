@@ -58,51 +58,9 @@
     return AI_RC_OK;
 }
 
-- (const char*) getInfo
+- (NSString *) getInfo
 {
-    return "Some unknown AI written by someone";
+    return @"Some unknown AI written by someone";
 }
-
-- (int) loadBook
-{
-    return AI_RC_OK;
-}
-
-- (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs
-{
-    return 0;
-}
-
-- (BOOL) isLegalMove:(int)mv
-{
-    return YES;
-}
-
-////////////
-- (void) makeMove:(int)mv captured:(int*) ppcCaptured
-{
-}
-
-- (int) repStatus:(int)nRecur repValue:(int*)repVal
-{
-    return 0;
-}
-
-- (int) isMate
-{
-    return NO;
-}
-
-- (int) get_nMoveNum
-{
-    return 0;
-}
-
-- (int) get_sdPlayer
-{
-    return 0;
-}
-////////////
-
 
 @end

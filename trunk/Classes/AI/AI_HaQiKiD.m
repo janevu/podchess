@@ -126,9 +126,9 @@ _HaQiKiDToMove( const char* szMove,
     return AI_RC_OK;
 }
 
-- (const char*) getInfo
+- (NSString *) getInfo
 {
-    return "H.G. Muller\n"
+    return @"H.G. Muller\n"
             "home.hccnet.nl/h.g.muller/XQhaqikid.html";
 }
 
