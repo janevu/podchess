@@ -19,7 +19,7 @@
 
 #import "AI_XQWLight.h"
 
-#define XQWLight_DEFAULT_LEVEL 3  /* AI Default defficulty level */
+#define XQWLight_DEFAULT_LEVEL 3  /* AI Default difficulty level */
 
 /** Declarations of methods defined under "XQWLight.cpp" */
 extern void XQWLight_init_engine( int searchDepth );
@@ -27,14 +27,6 @@ extern void XQWLight_init_game();
 extern void XQWLight_generate_move( int* pRow1, int* pCol1, int* pRow2, int* pCol2 );
 extern void XQWLight_on_human_move( int row1, int col1, int row2, int col2 );
 extern void XQWLight_load_book( const char *bookfile );
-extern int  XQWLight_generate_move_from( int sqSrc, int *mvs );
-extern int  XQWLight_is_legal_move( int mv );
-
-extern void XQWLight_make_move( int mv, int* ppcCaptured );
-extern int XQWLight_rep_status(int nRecur, int *repValue);
-extern int XQWLight_is_mate();
-extern int XQWLight_get_nMoveNum();
-extern int XQWLight_get_sdPlayer();
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -74,7 +66,11 @@ extern int XQWLight_get_sdPlayer();
 - (int) initGame
 {
     XQWLight_init_game();
-    [self loadBook];
+    const char *szBookPath =
+        [[[NSBundle mainBundle] pathForResource:@"BOOK.DAT"
+                                         ofType:nil
+                                    inDirectory:@"books/xqwlight"] UTF8String];
+    XQWLight_load_book(szBookPath);
     return AI_RC_OK;
 }
 
@@ -92,57 +88,10 @@ extern int XQWLight_get_sdPlayer();
     return AI_RC_OK;
 }
 
-- (const char*) getInfo
+- (NSString *) getInfo
 {
-    return "Morning Yellow\n"
+    return @"Morning Yellow\n"
             "www.elephantbase.net";
 }
-
-- (int) loadBook
-{
-    XQWLight_load_book([[[NSBundle mainBundle] pathForResource:@"BOOK.DAT" 
-                                                        ofType:nil 
-                                                   inDirectory:@"books/xqwlight"] UTF8String]);
-    return AI_RC_OK;
-}
-
-- (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs
-{
-    return XQWLight_generate_move_from(sqSrc, mvs);
-}
-
-- (BOOL) isLegalMove:(int)mv
-{
-    int bLegal = XQWLight_is_legal_move( mv );
-    return ( bLegal ? YES : NO );
-}
-
-////////////
-- (void) makeMove:(int)mv captured:(int*) ppcCaptured
-{
-    XQWLight_make_move(mv, ppcCaptured);
-}
-
-- (int) repStatus:(int)nRecur repValue:(int*)repVal
-{
-    return XQWLight_rep_status(nRecur, repVal);
-}
-
-- (int) isMate
-{
-    return XQWLight_is_mate();
-}
-
-- (int) get_nMoveNum
-{
-    return XQWLight_get_nMoveNum();
-}
-
-- (int) get_sdPlayer
-{
-    return XQWLight_get_sdPlayer();
-}
-
-////////////
 
 @end

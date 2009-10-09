@@ -32,6 +32,6 @@
                toRow:(int*) pRow2 toCol:(int*) pCol2;
 - (int) onHumanMove:(int)row1 fromCol:(int)col1
               toRow:(int)row2 toCol:(int)col2;
-- (const char*) getInfo;
+- (NSString *) getInfo;
 
 @end

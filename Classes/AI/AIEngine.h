@@ -29,7 +29,6 @@
 #define AI_RC_NOT_FOUND      2  /* Something not found     */
 #define AI_RC_NOT_SUPPORTED  3  /* Something not supported */
 
-
 /**
  * Abstract superclass for all AI Engines.
  */
@@ -41,20 +40,10 @@
 - (id) init;
 - (int) setDifficultyLevel: (int)nAILevel;
 - (int) initGame;
-- (int) loadBook;
 - (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
                toRow:(int*)pRow2 toCol:(int*)pCol2;
 - (int) onHumanMove:(int)row1 fromCol:(int)col1
               toRow:(int)row2 toCol:(int)col2;
-- (int) generateMoveFrom:(int)sqSrc moves:(int*)mvs;
-- (BOOL) isLegalMove:(int)mv; 
-- (const char*) getInfo;
-////////////
-- (void) makeMove:(int)mv captured:(int*) ppcCaptured;
-- (int) repStatus:(int)nRecur repValue:(int*)repVal;
-- (int) isMate;
-- (int) get_nMoveNum;
-- (int) get_sdPlayer;
-////////////
+- (NSString *) getInfo;
 
 @end

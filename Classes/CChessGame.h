@@ -20,7 +20,6 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
 #import "Game.h"
-#import "XiangQi.h"
 #import "AIEngine.h"
 #import "Referee.h"
 
@@ -53,26 +52,6 @@ enum {
     kPodChess_AI_haqikid,
     kPodChess_AI_xqwlight_objc,
 };
-
-//////////////////////////////////////////////////////////////////////////////
-// FIXME: Temporarily place the XQWLight Objective-C based AI here.
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-@interface AI_XQWLightObjC : AIEngine
-{
-    XiangQi *_objcEngine; // The XQWlight Objective-C based AI engine.
-}
-
-- (id) init;
-- (int) setDifficultyLevel: (int)nAILevel;
-- (int) initGame;
-- (int) generateMove:(int*)pRow1 fromCol:(int*)pCol1
-               toRow:(int*) pRow2 toCol:(int*) pCol2;
-- (int) onHumanMove:(int)row1 fromCol:(int)col1
-              toRow:(int)row2 toCol:(int)col2;
-- (const char*) getInfo;
-
-@end
-///////////////////////////////////////////////////////////////////////////////
 
 
 @class RectGrid;
