@@ -149,17 +149,25 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void)robotThread:(void*)param
 {
  	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-	
+	BOOL done = NO;
+    
     robot = [NSThread currentThread];
-
+    _robotLoop = CFRunLoopGetCurrent();
+    
     // Set the priority to the highest so that Robot can utilize more time to think
     [NSThread setThreadPriority:1.0f];
     
+    // connect myself to the controller
+    [[NSRunLoop currentRunLoop] addPort:_robotPort forMode:NSDefaultRunLoopMode];
+    
     do   // Let the run loop process things.
     {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-								 beforeDate:[NSDate distantFuture]];
-    } while (YES);
+        // Start the run loop but return after each source is handled.
+        SInt32 result = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 60, NO);
+        // If a source explicitly stopped the run loop, go and exit the loop
+        if (result == kCFRunLoopRunStopped)
+            done = YES;
+    } while (!done);
 	
     [pool release];   
 }
@@ -168,11 +176,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 {
     [activity stopAnimating];
     if(restart) {
+        [[NSRunLoop currentRunLoop] cancelPerformSelectorsWithTarget:self];
+        //only after or before AI induce begins
+        [self _resetBoard];
         _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }else{
         //FIXME: in case of "resetRobot" is invoked before "AIMove", the app might crash thereafter due to the background AI 
-        //       thinking is still on going. So trying to cancel the pending selector for AI thread 
-        [[NSRunLoop currentRunLoop] cancelPerformSelectorsWithTarget:self];
+        //       thinking is still on going. So trying to stop the runloop
+        CFRunLoopStop(_robotLoop);
         [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
     }
 }
@@ -211,6 +222,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                             selector:@selector(ticked:)
                                             userInfo:nil repeats:YES];
+    
+    //Robot
+    _robotPort = [[NSMachPort port] retain]; //retain here otherwise it will be autoreleased
+    [_robotPort setDelegate:self];
     [NSThread detachNewThreadSelector:@selector(robotThread:) toTarget:self withObject:nil];
 }
 
@@ -267,6 +282,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [moveNext release];
     [_audioHelper release];
     [_moves release];
+    [_robotPort release];
     [super dealloc];
 }
 
@@ -286,7 +302,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:NO];
     [activity startAnimating];
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
-    [self _resetBoard];
 }
 
 - (IBAction)movePrevPressed:(id)sender
@@ -614,6 +629,13 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         [self _onNewMove:move fromAI:( toggleTurn == 1 )];
         toggleTurn = 1 - toggleTurn;
     }
+}
+
+#pragma mark NSMachPort message handle 
+// Handle messages from the controller thread.
+- (void)handlePortMessage:(NSPortMessage *)portMessage
+{
+    //TODO: implement communication message between robot and controller
 }
         
 @end
