@@ -139,8 +139,8 @@
 		AF32D2A0107BA45E000C356A /* go-next.png */ = {isa = PBXFileReference; comments = "This icon is downloaded from Tango Desktop Project at http://tango.freedesktop.org"; lastKnownFileType = image.png; path = "go-next.png"; sourceTree = "<group>"; };
 		AF32D2A1107BA45E000C356A /* go-previous.png */ = {isa = PBXFileReference; comments = "This icon is downloaded from Tango Desktop Project at http://tango.freedesktop.org"; lastKnownFileType = image.png; path = "go-previous.png"; sourceTree = "<group>"; };
 		AF3D9D55106EDCD7005A25A7 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/OptionsView.xib; sourceTree = "<group>"; };
-		AF44924A10810C5B00CBB9AE /* go-home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "go-home.png"; sourceTree = "<group>"; };
-		AF4492A2108119AD00CBB9AE /* edit-clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-clear.png"; sourceTree = "<group>"; };
+		AF44924A10810C5B00CBB9AE /* go-home.png */ = {isa = PBXFileReference; comments = "This icon is downloaded from Tango Desktop Project at http://tango.freedesktop.org"; lastKnownFileType = image.png; path = "go-home.png"; sourceTree = "<group>"; };
+		AF4492A2108119AD00CBB9AE /* edit-clear.png */ = {isa = PBXFileReference; comments = "This icon is downloaded from Tango Desktop Project at http://tango.freedesktop.org"; lastKnownFileType = image.png; path = "edit-clear.png"; sourceTree = "<group>"; };
 		AF8948BA106FB44800D4E5B6 /* AI_HaQiKiD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI_HaQiKiD.h; path = AI/AI_HaQiKiD.h; sourceTree = "<group>"; };
 		AF8948BB106FB44800D4E5B6 /* AI_HaQiKiD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AI_HaQiKiD.m; path = AI/AI_HaQiKiD.m; sourceTree = "<group>"; };
 		AF8948BC106FB44800D4E5B6 /* AIEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIEngine.h; path = AI/AIEngine.h; sourceTree = "<group>"; };
