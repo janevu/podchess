@@ -617,7 +617,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     int move = 0;
     int sqSrc = 0;
     int sqDst = 0;
-    int toggleTurn = 0;  // 0 = Human, 1 = AI
+    BOOL bAIturn = NO;
 
     for (NSNumber *pMove in moves) {
         move  = [pMove integerValue];
@@ -626,8 +626,13 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
         [_game humanMove:ROW(sqSrc) fromCol:COLUMN(sqSrc)
                    toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-        [self _onNewMove:move fromAI:( toggleTurn == 1 )];
-        toggleTurn = 1 - toggleTurn;
+        [self _onNewMove:move fromAI:bAIturn];
+        bAIturn = !bAIturn;
+    }
+    
+    // If it is AI's turn after the game is loaded, then inform the AI.
+    if ( bAIturn && _game.game_result == kXiangQi_InPlay ) {
+        [self performSelector:@selector(AIMove) onThread:robot withObject:nil waitUntilDone:NO];
     }
 }
 
