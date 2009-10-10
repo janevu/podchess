@@ -8,6 +8,8 @@
 
 "About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>关于PodChess</h2><div><div><bold>PodChess</bold> 是一个iPhone/iPod touch平台上的中国象棋应用, 项目主页位于 <a href=\"http://podchess.googlecode.com\"> PodChess Google Code Project </a>. 请联系我们 <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>版本 %@</h2><div>%@</div></div></body>";
 "Home" = "主菜单";
+"HOME" = "主菜单";
+"RESET" = "重新开始";
 "Settings" = "设置";
 "General" = "一般设置";
 "AI" = "机器对战AI";

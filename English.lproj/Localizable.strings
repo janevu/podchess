@@ -8,6 +8,8 @@
 
 "About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>About PodChess</h2><div><div><bold>PodChess</bold> is an open source XiangQi application on iPhone/iPod touch, hosted at <a href=\"http://podchess.googlecode.com\"> PodChess Google Code Project </a>. Please contact us at <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>Version %@</h2><div>%@</div></div></body>";
 "Home" = "Home";
+"HOME" = "HOME";
+"RESET" = "RESET";
 "Settings" = "Settings";
 "General" = "General";
 "AI" = "AI";
