@@ -43,6 +43,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
  
 @interface ChessBoardViewController (PrivateMethods)
 
+- (void) _updateTimer:(int)color;
 - (void) _setHighlightCells:(BOOL)bHighlight;
 - (void) _onNewMove:(int)move fromAI:(BOOL)isAI;
 - (void) _handleEndGameInUI;
@@ -96,9 +97,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 @implementation ChessBoardViewController
 
-@synthesize home;
-@synthesize reset;
+@synthesize navBar;
+@synthesize red_label;
+@synthesize black_label;
 @synthesize self_time;
+@synthesize opn_time;
 @synthesize movePrev;
 @synthesize moveNext;
 
@@ -135,14 +138,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)ticked:(NSTimer*)timer
 {
-    if ( [_game get_sdPlayer] ) {
-        // The opponent is AI, playing BLACK. Do nothing for now!
-    } else {
-        --_redTime;
-        int min = _redTime / 60;
-        int sec = _redTime % 60;
-        self_time.text = [NSString stringWithFormat:@"%d.%d", min, sec];
-    }
+    [self _updateTimer:[_game get_sdPlayer]];
 }
 
 - (void)robotThread:(void*)param
@@ -198,20 +194,20 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:YES];
     [activity stopAnimating];
     [self.view bringSubviewToFront:activity];
-    [self.view bringSubviewToFront:home];
-    [self.view bringSubviewToFront:reset];
+    [self.view bringSubviewToFront:navBar];
+    [self.view bringSubviewToFront:red_label];
+    [self.view bringSubviewToFront:black_label];
     [self.view bringSubviewToFront:self_time];
+    [self.view bringSubviewToFront:opn_time];
     [self.view bringSubviewToFront:movePrev];
     [self.view bringSubviewToFront:moveNext];
     _initialTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
     _redTime = _blackTime = _initialTime * 60;
-    [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
-	[self_time setBackgroundColor:[UIColor clearColor]];
-	[self_time setTextColor:[UIColor blackColor]];
-    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
-    
-    [home setTitle:NSLocalizedString(@"HOME", @"") forState:UIControlStateNormal];
-    [reset setTitle:NSLocalizedString(@"RESET", @"") forState:UIControlStateNormal];
+    [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
+    self_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
+
+    [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
+    opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
 
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                             selector:@selector(ticked:)
@@ -267,9 +263,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)dealloc
 {
-    [home release];
-    [reset release];
+    [navBar release];
+    [red_label release];
+    [black_label release];
     [self_time release];
+    [opn_time release];
     [activity release];
     [movePrev release];
     [moveNext release];
@@ -433,7 +431,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     _hl_nMoves = 0;
     _redTime = _blackTime = _initialTime * 60;
     memset(_hl_moves, 0x0, sizeof(_hl_moves));
-    self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
+    self_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
+    opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
     [_timer invalidate];
     [_game reset_game];
     [_moves removeAllObjects];
@@ -466,6 +465,22 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 #pragma mark -
 #pragma mark Private methods
+
+- (void) _updateTimer:(int)color
+{
+    if ( color == 1 ) {
+        // The opponent is AI, playing BLACK. Do nothing for now!
+        --_blackTime;
+        int min = _blackTime / 60;
+        int sec = _blackTime % 60;
+        opn_time.text = [NSString stringWithFormat:@"%02d:%d", min, sec];
+    } else {
+        --_redTime;
+        int min = _redTime / 60;
+        int sec = _redTime % 60;
+        self_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
+    }
+}
 
 - (void) _setHighlightCells:(BOOL)bHighlight
 {

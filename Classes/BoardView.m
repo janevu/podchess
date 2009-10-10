@@ -91,11 +91,13 @@
 - (CGRect) gameBoardFrame
 {
     CGRect bounds = self.layer.bounds;
+#if 0
     bounds.origin.x += 2;
     bounds.origin.y += 2;
     bounds.size.width -= 4;
     bounds.size.height -= 24;
     self.layer.bounds = bounds;
+#endif
     return bounds;
 }
 
