@@ -99,7 +99,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @synthesize home;
 @synthesize reset;
 @synthesize self_time;
-@synthesize opn_time;
 @synthesize movePrev;
 @synthesize moveNext;
 
@@ -202,7 +201,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self.view bringSubviewToFront:home];
     [self.view bringSubviewToFront:reset];
     [self.view bringSubviewToFront:self_time];
-    [self.view bringSubviewToFront:opn_time];
     [self.view bringSubviewToFront:movePrev];
     [self.view bringSubviewToFront:moveNext];
     _initialTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
@@ -210,11 +208,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
 	[self_time setBackgroundColor:[UIColor clearColor]];
 	[self_time setTextColor:[UIColor blackColor]];
-    [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:15.0]];
-	[opn_time setBackgroundColor:[UIColor clearColor]];
-	[opn_time setTextColor:[UIColor blackColor]];
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
-    opn_time.text = @"Robot";
     
     [home setTitle:NSLocalizedString(@"HOME", @"") forState:UIControlStateNormal];
     [reset setTitle:NSLocalizedString(@"RESET", @"") forState:UIControlStateNormal];
@@ -276,7 +270,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [home release];
     [reset release];
     [self_time release];
-    [opn_time release];
     [activity release];
     [movePrev release];
     [moveNext release];
@@ -441,7 +434,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     _redTime = _blackTime = _initialTime * 60;
     memset(_hl_moves, 0x0, sizeof(_hl_moves));
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
-    opn_time.text = @"Robot";
     [_timer invalidate];
     [_game reset_game];
     [_moves removeAllObjects];

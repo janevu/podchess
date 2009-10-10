@@ -28,7 +28,6 @@
     IBOutlet UIButton *reset;
     
     IBOutlet UITextField *self_time;
-    IBOutlet UITextField *opn_time;
     
     IBOutlet UIActivityIndicatorView *activity;
     
@@ -65,7 +64,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *reset;
 
 @property (nonatomic, retain) IBOutlet UITextField *self_time;
-@property (nonatomic, retain) IBOutlet UITextField *opn_time;
 
 @property (nonatomic, retain) IBOutlet UIButton *movePrev;
 @property (nonatomic, retain) IBOutlet UIButton *moveNext;
