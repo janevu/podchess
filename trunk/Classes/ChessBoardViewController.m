@@ -204,6 +204,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 	[opn_time setTextColor:[UIColor blackColor]];
     self_time.text = [NSString stringWithFormat:@"%.2f",(float)_initialTime];
     opn_time.text = @"Robot";
+    
+    [home setTitle:NSLocalizedString(@"HOME", @"") forState:UIControlStateNormal];
+    [reset setTitle:NSLocalizedString(@"RESET", @"") forState:UIControlStateNormal];
+
     _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
                                             selector:@selector(ticked:)
                                             userInfo:nil repeats:YES];
