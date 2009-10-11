@@ -33,10 +33,6 @@
     
     IBOutlet UIActivityIndicatorView *activity;
     
-    /*move review UI*/
-    IBOutlet UIButton *movePrev;
-    IBOutlet UIButton *moveNext;
-    
     NSTimer *_timer;
 
     NSThread *robot;
@@ -68,9 +64,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *black_label;
 @property (nonatomic, retain) IBOutlet UITextField *self_time;
 @property (nonatomic, retain) IBOutlet UITextField *opn_time;
-
-@property (nonatomic, retain) IBOutlet UIButton *movePrev;
-@property (nonatomic, retain) IBOutlet UIButton *moveNext;
 
 - (IBAction)homePressed:(id)sender;
 - (IBAction)resetPressed:(id)sender;

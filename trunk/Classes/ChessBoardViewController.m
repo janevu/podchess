@@ -102,8 +102,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @synthesize black_label;
 @synthesize self_time;
 @synthesize opn_time;
-@synthesize movePrev;
-@synthesize moveNext;
 
 /**
  * The designated initializer.
@@ -199,8 +197,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self.view bringSubviewToFront:black_label];
     [self.view bringSubviewToFront:self_time];
     [self.view bringSubviewToFront:opn_time];
-    [self.view bringSubviewToFront:movePrev];
-    [self.view bringSubviewToFront:moveNext];
     _initialTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
     _redTime = _blackTime = _initialTime * 60;
     [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
@@ -269,8 +265,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self_time release];
     [opn_time release];
     [activity release];
-    [movePrev release];
-    [moveNext release];
     [_audioHelper release];
     [_moves release];
     [_robotPort release];
@@ -473,7 +467,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         --_blackTime;
         int min = _blackTime / 60;
         int sec = _blackTime % 60;
-        opn_time.text = [NSString stringWithFormat:@"%02d:%d", min, sec];
+        opn_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
     } else {
         --_redTime;
         int min = _redTime / 60;
