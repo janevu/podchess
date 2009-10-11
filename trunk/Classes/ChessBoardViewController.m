@@ -20,9 +20,6 @@
 #import "ChessBoardViewController.h"
 #import "Enums.h"
 #import "PodChessAppDelegate.h"
-#import "QuartzUtils.h"
-#import "Bit.h"
-#import "BitHolder.h"
 #import "Grid.h"
 #import "Piece.h"
 #import "ChessBoardView.h"
@@ -102,6 +99,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 @synthesize black_label;
 @synthesize self_time;
 @synthesize opn_time;
+@synthesize _timer;
 
 /**
  * The designated initializer.
@@ -119,6 +117,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         _selectedPiece = nil;
 
         _game = (CChessGame*)((ChessBoardView*)self.view).game;
+        [_game retain];
         _moves = [[NSMutableArray alloc] initWithCapacity: POC_MAX_MOVES_PER_GAME];
         _nthMove = -1;
         _inReview = NO;
@@ -136,7 +135,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)ticked:(NSTimer*)timer
 {
-    [self _updateTimer:[_game get_sdPlayer]];
+    if ( _game.game_result == kXiangQi_InPlay ) {
+        [self _updateTimer:[_game get_sdPlayer]];
+    }
 }
 
 - (void)robotThread:(void*)param
@@ -171,10 +172,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     if(restart) {
         [[NSRunLoop currentRunLoop] cancelPerformSelectorsWithTarget:self];
         //only after or before AI induce begins
+        // NOTE: We "reset" the Board's data *here* inside the AI Thread to
+        //       avoid clearing data while the AI is thinking of a Move.
         [self _resetBoard];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }else{
-        //FIXME: in case of "resetRobot" is invoked before "AIMove", the app might crash thereafter due to the background AI 
+        //FIXME: in case of this function is invoked before "AIMove", the app might crash thereafter due to the background AI 
         //       thinking is still on going. So trying to stop the runloop
         CFRunLoopStop(_robotLoop);
         [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
@@ -205,9 +207,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
     opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
 
-    _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self
-                                            selector:@selector(ticked:)
-                                            userInfo:nil repeats:YES];
+    self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     
     //Robot
     _robotPort = [[NSMachPort port] retain]; //retain here otherwise it will be autoreleased
@@ -229,7 +229,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 {
     if ( alertView.tag == POC_ALERT_END_GAME ) {
         [self _resetBoard];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }
     else if (    alertView.tag == POC_ALERT_RESUME_GAME
               && buttonIndex != [alertView cancelButtonIndex] ) {
@@ -265,7 +264,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [self_time release];
     [opn_time release];
     [activity release];
+    [_timer release];
     [_audioHelper release];
+    [_game release];
     [_moves release];
     [_robotPort release];
     [super dealloc];
@@ -277,6 +278,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 {
     [activity setHidden:NO];
     [activity startAnimating];
+
+    if (self._timer) [self._timer invalidate];
+    self._timer = nil;
+
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:nil waitUntilDone:NO];
     [self saveGame];
     // Not needed: [self _resetBoard];
@@ -286,6 +291,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 {
     [activity setHidden:NO];
     [activity startAnimating];
+
+    if (self._timer) [self._timer invalidate];
+    self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+
     [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
 }
 
@@ -309,11 +318,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
             [_game x_movePiece:(Piece*)pMove.capturedPiece toRow:row2 toCol:col2];
         }
         _inReview = YES;
-        //invalidate the timer
-        if([_timer isValid]) {
-            [_timer invalidate];
-            _timer = nil;
-        }
     }
 }
 
@@ -332,17 +336,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
             [pMove.capturedPiece removeFromSuperlayer];
         }
         [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row2 toCol:col2];
-        _inReview = YES;   
-        if([_timer isValid]) {
-            [_timer invalidate];
-            _timer = nil;
-        }
+        _inReview = YES;
     } 
     if (_nthMove == nMoves) {
         //we are reaching the latest move end
         _inReview = NO;
-        if (![_timer isValid])
-            _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
     }
 }
 
@@ -427,7 +425,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     memset(_hl_moves, 0x0, sizeof(_hl_moves));
     self_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
     opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
-    [_timer invalidate];
+
     [_game reset_game];
     [_moves removeAllObjects];
     _nthMove = -1;
@@ -535,8 +533,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [pMove release];
     _nthMove = [_moves count];
     _inReview = NO;
-    if (![_timer isValid])
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
 }
 
 - (void) _handleEndGameInUI

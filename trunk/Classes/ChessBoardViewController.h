@@ -65,6 +65,8 @@
 @property (nonatomic, retain) IBOutlet UITextField *self_time;
 @property (nonatomic, retain) IBOutlet UITextField *opn_time;
 
+@property (nonatomic, retain) NSTimer* _timer;
+
 - (IBAction)homePressed:(id)sender;
 - (IBAction)resetPressed:(id)sender;
 
