@@ -26,7 +26,8 @@
 
 enum _AlertViewEnum {
     POC_ALERT_END_GAME,
-    POC_ALERT_RESUME_GAME
+    POC_ALERT_RESUME_GAME,
+    POC_ALERT_RESET_GAME
 };
 
 static BOOL layerIsBit( CALayer* layer )        {return [layer isKindOfClass: [Bit class]];}
@@ -231,13 +232,24 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         [self _resetBoard];
     }
     else if (    alertView.tag == POC_ALERT_RESUME_GAME
-              && buttonIndex != [alertView cancelButtonIndex] ) {
+              && buttonIndex != [alertView cancelButtonIndex] )
+    {
         NSString *sPendingGame = [[NSUserDefaults standardUserDefaults] stringForKey:@"pending_game"];
         if ( sPendingGame != nil && [sPendingGame length]) {
             [self _loadPendingGame:sPendingGame];
         }
     }
-
+    else if (    alertView.tag == POC_ALERT_RESET_GAME
+             && buttonIndex != [alertView cancelButtonIndex] )
+    {
+        [activity setHidden:NO];
+        [activity startAnimating];
+        
+        if (self._timer) [self._timer invalidate];
+        self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+        
+        [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
+    }
 }
 
 
@@ -289,13 +301,17 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (IBAction)resetPressed:(id)sender
 {
-    [activity setHidden:NO];
-    [activity startAnimating];
+    if ( [_moves count] == 0 ) return; // Do nothing if game not yet started.
 
-    if (self._timer) [self._timer invalidate];
-    self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
-
-    [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
+    UIAlertView *alert =
+        [[UIAlertView alloc] initWithTitle:@"PodChess"
+                                   message:NSLocalizedString(@"Reset game?", @"")
+                                  delegate:self 
+                         cancelButtonTitle:NSLocalizedString(@"No", @"")
+                         otherButtonTitles:NSLocalizedString(@"Yes", @""), nil];
+    alert.tag = POC_ALERT_RESET_GAME;
+    [alert show];
+    [alert release];
 }
 
 - (IBAction)movePrevPressed:(id)sender
