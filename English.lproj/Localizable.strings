@@ -30,6 +30,7 @@
 "Hard_Key" = "hard";
 "Mins_Key" = "mins";
 "Time_Key" = "Time (mins)";
+"AI_Setting_Key" = "AI Setting";
 "Sound_Key" = "Sound";
 "PieceStyle_Key" = "Piece Style";
 "Chinese_Key" = "Chinese";

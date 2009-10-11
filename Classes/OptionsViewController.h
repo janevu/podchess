@@ -21,8 +21,6 @@
 
 
 @interface OptionsViewController : UITableViewController {
-    IBOutlet UITableViewCell *generic_options;
-    IBOutlet UITableViewCell *AI_selections;
 
 }
 

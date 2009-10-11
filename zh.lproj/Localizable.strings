@@ -21,5 +21,10 @@
 "Resume game?" = "继续游戏？";
 "Yes" = "是";
 "No" = "否";
+"AI_Setting_Key" = "AI设置";
+"Chinese_Key" = "中国";
+"Western_Key" = "西方";
+"Time_Key" = "时间 (分钟)";
+"Difficulty_Key" = "难度 (AI)";
 /*move review label*/
 "MOVE" = "步";
