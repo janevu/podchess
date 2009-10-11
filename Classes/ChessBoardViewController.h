@@ -53,9 +53,9 @@
     int _redTime;     /* RED   time (in seconds)       */
     int _blackTime;   /* BLACK time (in seconds)       */
     
-    NSMutableArray *_moves;  /* MOVE history    */
-    int _nthMove; /*pivot for the move review*/
-    BOOL _inReview;
+    NSMutableArray *_moves;     /* MOVE history              */
+    int             _nthMove;   /* pivot for the Move Review */
+    BOOL            _inReview;
 }
 
 @property (nonatomic, retain) IBOutlet UIToolbar *navBar;
