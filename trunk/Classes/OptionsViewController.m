@@ -113,16 +113,31 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+    UITableViewCell *cell;
     // section 0
     if (indexPath.row == 0) {
-        return generic_options;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"generic_setting"];
+        if(!cell) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"generic_setting"] autorelease];
+        }
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0f];
+        cell.textLabel.text = NSLocalizedString(@"General", @"");
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        return cell;
     }
     
     if (indexPath.row == 1) {
-        return AI_selections;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"ai_setting"];
+        if(!cell) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ai_setting"] autorelease];
+        }
+        cell.textLabel.font = [UIFont systemFontOfSize:20.0f];
+        cell.textLabel.text = NSLocalizedString(@"AI_Setting_Key", @"");
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"AI"];
+        return cell;
     }
-    
-    return generic_options;
+    return cell;
 }
 
 
@@ -191,8 +206,6 @@
 
 - (void)dealloc 
 {
-    [generic_options release];
-    [AI_selections release];
     [super dealloc];
 }
 

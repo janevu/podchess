@@ -20,14 +20,12 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SettingViewController : UIViewController {
+@interface SettingViewController : UITableViewController {
     IBOutlet UISlider *difficulty_setting;
     IBOutlet UISlider *time_setting;
 
     IBOutlet UIButton *default_setting;
-    
     IBOutlet UISegmentedControl *piece_style;
-    
     IBOutlet UISwitch *sound_switch;
 }
 

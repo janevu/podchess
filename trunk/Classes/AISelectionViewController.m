@@ -127,13 +127,12 @@ static char ai_selections[][128] = {
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    
     NSString *user_select = [[NSUserDefaults standardUserDefaults] objectForKey:@"AI"];
     NSString *CellIdentifier = [NSString stringWithUTF8String:ai_selections[indexPath.row]];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1  reuseIdentifier:CellIdentifier] autorelease];
         cell.textLabel.font = [UIFont fontWithName:@"Marker Felt" size:24.0f];
     }
     
