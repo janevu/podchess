@@ -205,7 +205,7 @@
             _min = (UILabel*)[cell.contentView viewWithTag:10];
             _max = (UILabel*)[cell.contentView viewWithTag:11];
             time_setting.frame = CGRectMake(9.0, 9.0, 284, 23);
-            _max.frame = CGRectMake(250, 26, 40, 21);
+            _max.frame = CGRectMake(270, 26, 30, 21);
             [cell.contentView addSubview:time_setting];
             _min.text = @"5";
             _max.text = @"90";
