@@ -68,7 +68,7 @@
 							<double key="NSSize">24</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<string key="IBUINormalTitle">玩</string>
+						<string key="IBUINormalTitle">开始游戏</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="746675261">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -273,7 +273,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>XiangQiMainMenu</string>
 					<string>UIResponder</string>
-					<string>{{173, 292}, {320, 480}}</string>
+					<string>{{173, 276}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

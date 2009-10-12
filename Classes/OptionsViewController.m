@@ -49,6 +49,11 @@
 - (void)viewWillAppear:(BOOL)animated 
 {
     [super viewWillAppear:animated];
+    NSArray *cells = [(UITableView*)self.view visibleCells];
+    if([cells count] > 0) {
+        UITableViewCell *cell = [cells objectAtIndex:1];
+        cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"AI"];
+    }
     [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController setNavigationBarHidden:NO animated:NO];
 }
 
