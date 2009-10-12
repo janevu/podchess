@@ -55,8 +55,8 @@
     self.navigationItem.rightBarButtonItem = defaultButtonItem;
     [defaultButtonItem release];
     
-    time_setting.minimumValue = 30.0f;
-    time_setting.maximumValue = 120.0f;
+    time_setting.minimumValue = 5.0f;
+    time_setting.maximumValue = 90.0f;
     difficulty_setting.minimumValue = 1.0f;
     difficulty_setting.maximumValue = 10.0f;
     time_setting.value = (float)[[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
@@ -207,8 +207,8 @@
             time_setting.frame = CGRectMake(9.0, 9.0, 284, 23);
             _max.frame = CGRectMake(250, 26, 40, 21);
             [cell.contentView addSubview:time_setting];
-            _min.text = @"30";
-            _max.text = @"120";
+            _min.text = @"5";
+            _max.text = @"90";
             return cell;
             break;
         case 2:
