@@ -44,7 +44,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _ticked:(NSTimer*)timer;
 - (void) _updateTimer:(int)color;
 - (void) _setHighlightCells:(BOOL)bHighlight;
-- (void) _onNewMove:(int)move fromAI:(BOOL)isAI;
+- (void) _onNewMove:(int)move fromAI:(BOOL)isAI captured:(int)captured;
 - (void) _handleEndGameInUI;
 - (void) _displayResumeGameAlert;
 - (void) _loadPendingGame:(NSString *)sPendingGame;
@@ -200,7 +200,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:YES];
     [activity stopAnimating];
     [self.view bringSubviewToFront:activity];
-    [self.view bringSubviewToFront:_ai_thinkingProgress];
     [self.view bringSubviewToFront:nav_toolbar];
     [self.view bringSubviewToFront:red_label];
     [self.view bringSubviewToFront:black_label];
@@ -287,7 +286,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [_game release];
     [_moves release];
     [_robotPort release];
-    [_ai_thinkingProgress release];
     [super dealloc];
 }
 
@@ -323,7 +321,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (IBAction)movePrevPressed:(id)sender
 {
-    if (_nthMove > 0 && ![_game get_sdPlayer]) {
+    if (_nthMove > 0) {
         MoveAtom *pMove = [_moves objectAtIndex:--_nthMove];
         int mv = [(NSNumber*)pMove.move intValue];
         int sqSrc = SRC(mv);
@@ -347,7 +345,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (IBAction)moveNextPressed:(id)sender
 {
     int nMoves = [_moves count]; 
-    if (_nthMove >= 0 && _nthMove < nMoves && ![_game get_sdPlayer]) {
+    if (_nthMove >= 0 && _nthMove < nMoves) {
         MoveAtom *pMove = [_moves objectAtIndex:_nthMove++];
         int mv = [(NSNumber*)pMove.move intValue];
         int sqDst = DST(mv);
@@ -355,8 +353,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int col2 = COLUMN(sqDst);
         //FIXME: mono-type "move" sound
         [_audioHelper play_wav_sound:@"MOVE"];
-        if (pMove.capturedPiece) {
-            [pMove.capturedPiece removeFromSuperlayer];
+        Piece *capture = [_game x_getPieceAtRow:row2 col:col2];
+        if (capture) {
+            [capture removeFromSuperlayer];
         }
         [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row2 toCol:col2];
         _inReview = YES;
@@ -370,13 +369,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 #pragma mark AI move 
 - (void)AIMove
 {
-    int move = [_game getRobotMove];
+    int captured = 0;
+    int move = [_game getRobotMove:&captured];
     if (move == INVALID_MOVE) {
         NSLog(@"ERROR: %s: Invalid move [%d].", __FUNCTION__, move); 
         return;
     }
 
-    [self _onNewMove:move fromAI:YES];
+    [self _onNewMove:move fromAI:YES captured:captured];
 }
 
 #pragma mark Touch event handling
@@ -430,8 +430,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int move = MOVE(sqSrc, sqDst);
         if([_game isLegalMove:move])
         {
-            [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-            [self _onNewMove:move fromAI:NO];
+            int captured = [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+            [self _onNewMove:move fromAI:NO captured:captured];
             // AI's turn.
             if ( _game.game_result == kXiangQi_InPlay ) {
                 [self performSelector:@selector(AIMove) onThread:robot withObject:nil waitUntilDone:NO];
@@ -489,12 +489,10 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _updateTimer:(int)color
 {
     if ( color == 1 ) {
-        // The opponent is AI, playing BLACK. Do nothing for now!
         --_blackTime;
         int min = _blackTime / 60;
         int sec = _blackTime % 60;
         black_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
-        _ai_thinkingProgress.progress += 1.0f/sec;
     } else {
         --_redTime;
         int min = _redTime / 60;
@@ -517,7 +515,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
 }
 
-- (void) _onNewMove:(int)move fromAI:(BOOL)isAI
+- (void) _onNewMove:(int)move fromAI:(BOOL)isAI captured:(int)captured
 {
     int sqSrc = SRC(move);
     int sqDst = DST(move);
@@ -530,25 +528,24 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     NSString *sound = @"MOVE";
 
     Piece *capture = [_game x_getPieceAtRow:row2 col:col2];
-    
-    if (capture != nil) {
-        [capture removeFromSuperlayer];
-        sound = (isAI ? @"CAPTURE2" : @"CAPTURE");
-    }
-
-    if ( isAI ) {
-        //ai thinking finishes
-        _ai_thinkingProgress.progress = 1.0f;
-        [_audioHelper performSelectorOnMainThread:@selector(play_wav_sound:) 
-                                       withObject:sound waitUntilDone:NO];
-    } else {
-        //ai thinking will begin shortly
-        _ai_thinkingProgress.progress = 0.0f;
-        [_audioHelper play_wav_sound:sound];
-    }
-
     Piece *piece = [_game x_getPieceAtRow:row1 col:col1];
-    [_game x_movePiece:piece toRow:row2 toCol:col2];
+    
+    if (!_inReview) {
+        // While in review mode, the AI move would not be drawn on the board
+        if (capture != nil) {
+            [capture removeFromSuperlayer];
+            sound = (isAI ? @"CAPTURE2" : @"CAPTURE");
+        }
+
+        if ( isAI ) {
+            [_audioHelper performSelectorOnMainThread:@selector(play_wav_sound:) 
+                                           withObject:sound waitUntilDone:NO];
+        } else {
+            [_audioHelper play_wav_sound:sound];
+        }
+    
+        [_game x_movePiece:piece toRow:row2 toCol:col2];        
+    }
     
     // Check End-Game status.
     int nGameResult = [_game checkGameStatus:isAI];
@@ -560,12 +557,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     // Add this new Move to the Move-History.
     MoveAtom *pMove = [[MoveAtom alloc] init];
     pMove.srcPiece = piece;
-    pMove.capturedPiece = capture;
+    //check if AI is really capturing
+    if(captured)
+        pMove.capturedPiece = capture;
     pMove.move = [NSNumber numberWithInteger:move];
     [_moves addObject:pMove];
     [pMove release];
-    _nthMove = [_moves count];
-    _inReview = NO;
+    if(!_inReview)
+        _nthMove = [_moves count];
 }
 
 - (void) _handleEndGameInUI
@@ -654,9 +653,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         sqSrc = SRC(move);
         sqDst = DST(move);
 
-        [_game humanMove:ROW(sqSrc) fromCol:COLUMN(sqSrc)
-                   toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-        [self _onNewMove:move fromAI:bAIturn];
+        int captured = [_game humanMove:ROW(sqSrc) fromCol:COLUMN(sqSrc)
+                                  toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+        [self _onNewMove:move fromAI:bAIturn captured:captured];
         bAIturn = !bAIturn;
     }
     

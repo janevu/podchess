@@ -200,7 +200,7 @@
 }
 
 
-- (int)getRobotMove
+- (int)getRobotMove:(int*)captured
 {
     int row1 = 0, col1 = 0, row2 = 0, col2 = 0;
     [_aiEngine generateMove:&row1 fromCol:&col1 toRow:&row2 toCol:&col2];
@@ -208,13 +208,12 @@
     int sqSrc = TOSQUARE(row1, col1);
     int sqDst = TOSQUARE(row2, col2);
     int move = MOVE(sqSrc, sqDst);
-    int captured = 0;
 
-    [_referee makeMove:move captured:&captured];
+    [_referee makeMove:move captured:captured];
     return move;
 }
 
-- (void)humanMove:(int)row1 fromCol:(int)col1
+- (int)humanMove:(int)row1 fromCol:(int)col1
             toRow:(int)row2 toCol:(int)col2
 {
     int sqSrc = TOSQUARE(row1, col1);
@@ -223,8 +222,9 @@
     int captured = 0;
 
     [_aiEngine onHumanMove:row1 fromCol:col1 toRow:row2 toCol:col2];
-    
     [_referee makeMove:move captured:&captured];
+    
+    return captured;
 }
 
 - (void)setSearchDepth:(int)depth

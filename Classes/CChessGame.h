@@ -75,8 +75,8 @@ enum {
 - (void)x_movePiece:(Piece*)piece toRow:(int)row toCol:(int)col;
 - (Piece*)x_getPieceAtRow:(int)row col:(int)col;
 
-- (int)  getRobotMove;
-- (void) humanMove:(int)row1 fromCol:(int)col1
+- (int)  getRobotMove:(int*)captured;
+- (int) humanMove:(int)row1 fromCol:(int)col1
              toRow:(int)row2   toCol:(int)col2;
 
 - (void)setSearchDepth:(int)depth;
