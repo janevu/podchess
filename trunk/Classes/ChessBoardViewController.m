@@ -41,6 +41,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
  
 @interface ChessBoardViewController (PrivateMethods)
 
+- (void) _ticked:(NSTimer*)timer;
 - (void) _updateTimer:(int)color;
 - (void) _setHighlightCells:(BOOL)bHighlight;
 - (void) _onNewMove:(int)move fromAI:(BOOL)isAI;
@@ -133,10 +134,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     return self;
 }
 
-
-- (void)ticked:(NSTimer*)timer
+- (void)_ticked:(NSTimer*)timer
 {
-    if ( _game.game_result == kXiangQi_InPlay ) {
+    /* NOTE: On networked games, at least one Move made by EACH player before
+     *       the timer is started. However, it is more user-friendly for
+     *       this App (with AI only) to start the timer right after one Move
+     *       is made (by RED).
+     */
+    if ( _game.game_result == kXiangQi_InPlay && [_moves count] > 0 ) {
         [self _updateTimer:[_game get_sdPlayer]];
     }
 }
@@ -208,7 +213,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
     opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
 
-    self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+    self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(_ticked:) userInfo:nil repeats:YES];
     
     //Robot
     _robotPort = [[NSMachPort port] retain]; //retain here otherwise it will be autoreleased
@@ -246,7 +251,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         [activity startAnimating];
         
         if (self._timer) [self._timer invalidate];
-        self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(ticked:) userInfo:nil repeats:YES];
+        self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(_ticked:) userInfo:nil repeats:YES];
         
         [self performSelector:@selector(resetRobot:) onThread:robot withObject:self waitUntilDone:NO];
     }
