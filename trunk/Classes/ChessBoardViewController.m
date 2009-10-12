@@ -96,11 +96,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 @implementation ChessBoardViewController
 
-@synthesize navBar;
+@synthesize nav_toolbar;
 @synthesize red_label;
 @synthesize black_label;
-@synthesize self_time;
-@synthesize opn_time;
+@synthesize red_time;
+@synthesize black_time;
 @synthesize _timer;
 
 /**
@@ -200,18 +200,18 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:YES];
     [activity stopAnimating];
     [self.view bringSubviewToFront:activity];
-    [self.view bringSubviewToFront:navBar];
+    [self.view bringSubviewToFront:nav_toolbar];
     [self.view bringSubviewToFront:red_label];
     [self.view bringSubviewToFront:black_label];
-    [self.view bringSubviewToFront:self_time];
-    [self.view bringSubviewToFront:opn_time];
+    [self.view bringSubviewToFront:red_time];
+    [self.view bringSubviewToFront:black_time];
     _initialTime = [[NSUserDefaults standardUserDefaults] integerForKey:@"time_setting"];
     _redTime = _blackTime = _initialTime * 60;
-    [self_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
-    self_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
+    [red_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
+    red_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
 
-    [opn_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
-    opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
+    [black_time setFont:[UIFont fontWithName:@"DBLCDTempBlack" size:13.0]];
+    black_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
 
     self._timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(_ticked:) userInfo:nil repeats:YES];
     
@@ -275,11 +275,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (void)dealloc
 {
-    [navBar release];
+    [nav_toolbar release];
     [red_label release];
     [black_label release];
-    [self_time release];
-    [opn_time release];
+    [red_time release];
+    [black_time release];
     [activity release];
     [_timer release];
     [_audioHelper release];
@@ -444,8 +444,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     _hl_nMoves = 0;
     _redTime = _blackTime = _initialTime * 60;
     memset(_hl_moves, 0x0, sizeof(_hl_moves));
-    self_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
-    opn_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
+    red_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
+    black_time.text = [NSString stringWithFormat:@"%d:%02d", (_blackTime / 60), (_blackTime % 60)];
 
     [_game reset_game];
     [_moves removeAllObjects];
@@ -486,12 +486,12 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         --_blackTime;
         int min = _blackTime / 60;
         int sec = _blackTime % 60;
-        opn_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
+        black_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
     } else {
         --_redTime;
         int min = _redTime / 60;
         int sec = _redTime % 60;
-        self_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
+        red_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
     }
 }
 
