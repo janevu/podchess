@@ -494,7 +494,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int min = _blackTime / 60;
         int sec = _blackTime % 60;
         black_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
-        _ai_thinkingProgress.progress += 1.0f/5;
+        _ai_thinkingProgress.progress += 1.0f/sec;
     } else {
         --_redTime;
         int min = _redTime / 60;
