@@ -24,12 +24,11 @@
 
 @interface ChessBoardViewController : UIViewController {
     
-    IBOutlet UIToolbar *navBar;
-    
+    IBOutlet UIToolbar   *nav_toolbar;
     IBOutlet UILabel     *red_label;
     IBOutlet UILabel     *black_label;
-    IBOutlet UITextField *self_time;
-    IBOutlet UITextField *opn_time;
+    IBOutlet UITextField *red_time;
+    IBOutlet UITextField *black_time;
     
     IBOutlet UIActivityIndicatorView *activity;
     
@@ -58,12 +57,11 @@
     BOOL            _inReview;
 }
 
-@property (nonatomic, retain) IBOutlet UIToolbar *navBar;
-
+@property (nonatomic, retain) IBOutlet UIToolbar *nav_toolbar;
 @property (nonatomic, retain) IBOutlet UILabel *red_label;
 @property (nonatomic, retain) IBOutlet UILabel *black_label;
-@property (nonatomic, retain) IBOutlet UITextField *self_time;
-@property (nonatomic, retain) IBOutlet UITextField *opn_time;
+@property (nonatomic, retain) IBOutlet UITextField *red_time;
+@property (nonatomic, retain) IBOutlet UITextField *black_time;
 
 @property (nonatomic, retain) NSTimer* _timer;
 

@@ -238,14 +238,6 @@
 					<int key="connectionID">26</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">navBar</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="397921342"/>
-					</object>
-					<int key="connectionID">75</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">homePressed:</string>
 						<reference key="source" ref="1012503738"/>
@@ -260,22 +252,6 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">82</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">opn_time</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="409823244"/>
-					</object>
-					<int key="connectionID">91</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">self_time</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="265711230"/>
-					</object>
-					<int key="connectionID">93</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -308,6 +284,30 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">101</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">red_time</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="265711230"/>
+					</object>
+					<int key="connectionID">102</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">black_time</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="409823244"/>
+					</object>
+					<int key="connectionID">103</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">nav_toolbar</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="397921342"/>
+					</object>
+					<int key="connectionID">104</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -442,7 +442,7 @@
 					<string>ChessBoardViewController</string>
 					<string>UIResponder</string>
 					<string>ChessBoardView</string>
-					<string>{{466, 81}, {320, 480}}</string>
+					<string>{{177, 108}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -474,7 +474,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">101</int>
+			<int key="maxID">104</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -521,17 +521,17 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>activity</string>
 							<string>black_label</string>
-							<string>navBar</string>
-							<string>opn_time</string>
+							<string>black_time</string>
+							<string>nav_toolbar</string>
 							<string>red_label</string>
-							<string>self_time</string>
+							<string>red_time</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIActivityIndicatorView</string>
 							<string>UILabel</string>
-							<string>UIToolbar</string>
 							<string>UITextField</string>
+							<string>UIToolbar</string>
 							<string>UILabel</string>
 							<string>UITextField</string>
 						</object>
