@@ -48,7 +48,7 @@
     ((UITableView*)self.view).rowHeight = 60;
     
     //make right navigation bar button to default
-    UIBarButtonItem *defaultButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Default" 
+    UIBarButtonItem *defaultButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Default", @"")
                                                                           style:UIBarButtonItemStylePlain 
                                                                          target:self 
                                                                          action:@selector(defaultSettingPressed:)];

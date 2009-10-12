@@ -12,6 +12,7 @@
 "RESET" = "RESET";
 "Settings" = "Settings";
 "General" = "General";
+"Default" = "Default";
 "AI" = "AI";
 "You win,congratulations!" = "You win,congratulations!";
 "Computer wins. Don't give up, please try again!" = "Computer wins. Don't give up, please try again!";
@@ -23,7 +24,7 @@
 "Yes" = "Yes";
 "No" = "No";
 
-/* Other keys (currently unused!) */
+/* Other keys */
 "HOME_Key" = "HOME";
 "DEFAULT_Key" = "DEFAULT";
 "Difficulty_Key" = "Difficulty (AI)";

@@ -11,6 +11,7 @@
 "HOME" = "主菜单";
 "RESET" = "重新开始";
 "Settings" = "设置";
+"Default" = "默认";
 "General" = "一般设置";
 "AI" = "机器对战AI";
 "You win,congratulations!" = "祝贺您，您赢了！";
@@ -22,10 +23,17 @@
 "Reset game?" = "重置游戏？";
 "Yes" = "是";
 "No" = "否";
+
+/* Other keys */
 "AI_Setting_Key" = "AI设置";
 "Chinese_Key" = "中国";
 "Western_Key" = "西方";
 "Time_Key" = "时间 (分钟)";
 "Difficulty_Key" = "难度 (AI)";
+"Easy_Key" = "简单";
+"Hard_Key" = "困难";
+"Sound_Key" = "声音";
+"PieceStyle_Key" = "棋子";
+
 /*move review label*/
 "MOVE" = "步";
