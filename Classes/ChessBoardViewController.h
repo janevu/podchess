@@ -31,6 +31,7 @@
     IBOutlet UITextField *black_time;
     
     IBOutlet UIActivityIndicatorView *activity;
+    IBOutlet UIProgressView *_ai_thinkingProgress;
     
     NSTimer *_timer;
 
