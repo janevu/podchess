@@ -144,7 +144,7 @@
 
 
 /** Subclasses can override this, to change the cell's class or frame. */
-- (GridCell*) createCellAtRow: (unsigned)row column: (unsigned)col 
+- (GridCell*) allocCellAtRow: (unsigned)row column: (unsigned)col 
                suggestedFrame: (CGRect)frame
 {
     return [[_cellClass alloc] initWithGrid: self 
@@ -162,7 +162,7 @@
     if( (id)cell == [NSNull null] ) {
         CGRect frame = CGRectMake(col*_spacing.width, row*_spacing.height,
                                   _spacing.width,_spacing.height);
-        cell = [self createCellAtRow: row column: col suggestedFrame: frame];
+        cell = [self allocCellAtRow: row column: col suggestedFrame: frame];
         if( cell ) {
             [_cells replaceObjectAtIndex: index withObject: cell];
             [self addSublayer: cell];
@@ -196,7 +196,7 @@
     id cell = [_cells objectAtIndex: index];
     if( cell != [NSNull null] )
         [cell removeFromSuperlayer];
-    [cell release];
+    // HUY PHAN: (not needed): [cell release];
     [_cells replaceObjectAtIndex: index withObject: [NSNull null]];
     [self setNeedsDisplay];
 }

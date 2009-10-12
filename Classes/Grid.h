@@ -100,7 +100,7 @@ Copyright © 2007 Apple Inc. All Rights Reserved.
 
 
 // protected:
-- (GridCell*) createCellAtRow: (unsigned)row column: (unsigned)col 
+- (GridCell*) allocCellAtRow: (unsigned)row column: (unsigned)col 
                suggestedFrame: (CGRect)frame;
 
 @end
