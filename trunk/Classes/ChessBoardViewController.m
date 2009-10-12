@@ -200,6 +200,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [activity setHidden:YES];
     [activity stopAnimating];
     [self.view bringSubviewToFront:activity];
+    [self.view bringSubviewToFront:_ai_thinkingProgress];
     [self.view bringSubviewToFront:nav_toolbar];
     [self.view bringSubviewToFront:red_label];
     [self.view bringSubviewToFront:black_label];
@@ -286,6 +287,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [_game release];
     [_moves release];
     [_robotPort release];
+    [_ai_thinkingProgress release];
     [super dealloc];
 }
 
@@ -321,7 +323,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (IBAction)movePrevPressed:(id)sender
 {
-    if (_nthMove > 0) {
+    if (_nthMove > 0 && ![_game get_sdPlayer]) {
         MoveAtom *pMove = [_moves objectAtIndex:--_nthMove];
         int mv = [(NSNumber*)pMove.move intValue];
         int sqSrc = SRC(mv);
@@ -345,7 +347,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (IBAction)moveNextPressed:(id)sender
 {
     int nMoves = [_moves count]; 
-    if (_nthMove >= 0 && _nthMove < nMoves) {
+    if (_nthMove >= 0 && _nthMove < nMoves && ![_game get_sdPlayer]) {
         MoveAtom *pMove = [_moves objectAtIndex:_nthMove++];
         int mv = [(NSNumber*)pMove.move intValue];
         int sqDst = DST(mv);
@@ -388,6 +390,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     //FIXME: if we are in the middle of move/review, alert the user 
     if (_inReview) {
         //TODO: alert
+        return;
+    }
+    
+    //ignore any touch when it's robot's turn 
+    if ([_game get_sdPlayer]) {
         return;
     }
     
@@ -487,6 +494,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int min = _blackTime / 60;
         int sec = _blackTime % 60;
         black_time.text = [NSString stringWithFormat:@"%d:%02d", min, sec];
+        _ai_thinkingProgress.progress += 1.0f/5;
     } else {
         --_redTime;
         int min = _redTime / 60;
@@ -529,9 +537,13 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
 
     if ( isAI ) {
+        //ai thinking finishes
+        _ai_thinkingProgress.progress = 1.0f;
         [_audioHelper performSelectorOnMainThread:@selector(play_wav_sound:) 
                                        withObject:sound waitUntilDone:NO];
     } else {
+        //ai thinking will begin shortly
+        _ai_thinkingProgress.progress = 0.0f;
         [_audioHelper play_wav_sound:sound];
     }
 
