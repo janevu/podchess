@@ -83,6 +83,11 @@
 
     clone._owner = _owner;             // _owner is not archived
     clone.holder = holder;
+
+    // HUY PHAN: Just "retain" to make Xcode "Build and Analyze" happy!
+    //           Anyway, this code is not used at all by PodChess.
+    [clone retain];
+
     return clone;
 }
 

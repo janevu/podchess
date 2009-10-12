@@ -113,7 +113,7 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    UITableViewCell *cell;
+    UITableViewCell *cell = nil;
     // section 0
     if (indexPath.row == 0) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"generic_setting"];
