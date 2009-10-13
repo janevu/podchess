@@ -374,8 +374,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         if ( _latestMove != INVALID_MOVE ) {
             NSNumber *moveInfo = [NSNumber numberWithInteger:_latestMove];
             _latestMove = INVALID_MOVE;
-            [self performSelectorOnMainThread:@selector(_handleNewMove:)
-                                   withObject:moveInfo waitUntilDone:NO];
+            [self _handleNewMove:moveInfo];
         }
     }
 }
