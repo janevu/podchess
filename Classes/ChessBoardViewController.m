@@ -38,13 +38,13 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 //    Private methods
 //
 ///////////////////////////////////////////////////////////////////////////////
- 
+
 @interface ChessBoardViewController (PrivateMethods)
 
 - (void) _ticked:(NSTimer*)timer;
 - (void) _updateTimer:(int)color;
 - (void) _setHighlightCells:(BOOL)bHighlight;
-- (void) _onNewMove:(int)move fromAI:(BOOL)isAI captured:(int)captured;
+- (void) _handleNewMove:(NSNumber *)pMove;
 - (void) _handleEndGameInUI;
 - (void) _displayResumeGameAlert;
 - (void) _loadPendingGame:(NSString *)sPendingGame;
@@ -73,6 +73,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (id)init
 {
     self = [super init];
+    if (self ) {
+        move = nil;
+        srcPiece = nil;
+        capturedPiece = nil;
+    }
     return self;
 }
 
@@ -123,6 +128,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         _moves = [[NSMutableArray alloc] initWithCapacity: POC_MAX_MOVES_PER_GAME];
         _nthMove = -1;
         _inReview = NO;
+        _latestMove = INVALID_MOVE;
 
         // Restore pending game, if any.
         NSString *sPendingGame = [[NSUserDefaults standardUserDefaults] stringForKey:@"pending_game"];
@@ -363,6 +369,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     if (_nthMove == nMoves) {
         //we are reaching the latest move end
         _inReview = NO;
+        
+        // Perform the latest Move if not yet done so.
+        if ( _latestMove != INVALID_MOVE ) {
+            NSNumber *moveInfo = [NSNumber numberWithInteger:_latestMove];
+            _latestMove = INVALID_MOVE;
+            [self performSelectorOnMainThread:@selector(_handleNewMove:)
+                                   withObject:moveInfo waitUntilDone:NO];
+        }
     }
 }
 
@@ -376,7 +390,9 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         return;
     }
 
-    [self _onNewMove:move fromAI:YES captured:captured];
+    NSNumber *moveInfo = [NSNumber numberWithInteger:move];
+    [self performSelectorOnMainThread:@selector(_handleNewMove:)
+                           withObject:moveInfo waitUntilDone:NO];
 }
 
 #pragma mark Touch event handling
@@ -430,8 +446,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         int move = MOVE(sqSrc, sqDst);
         if([_game isLegalMove:move])
         {
-            int captured = [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-            [self _onNewMove:move fromAI:NO captured:captured];
+            [_game humanMove:cell._row fromCol:cell._column toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+
+            NSNumber *moveInfo = [NSNumber numberWithInteger:move];
+            [self _handleNewMove:moveInfo];
+
             // AI's turn.
             if ( _game.game_result == kXiangQi_InPlay ) {
                 [self performSelector:@selector(AIMove) onThread:robot withObject:nil waitUntilDone:NO];
@@ -458,6 +477,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [_moves removeAllObjects];
     _nthMove = -1;
     _inReview = NO;
+    _latestMove = INVALID_MOVE;
 }
 
 - (id) _initSoundSystem
@@ -515,56 +535,54 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
 }
 
-- (void) _onNewMove:(int)move fromAI:(BOOL)isAI captured:(int)captured
+- (void) _handleNewMove:(NSNumber *)moveInfo
 {
+    int  move     = [moveInfo integerValue];
+    BOOL isAI     = ([_game get_sdPlayer] == 0); // AI just made this Move.
+
+    // Delay update the UI if in Preview mode.
+    if ( _inReview ) {
+        NSAssert1(_latestMove == INVALID_MOVE,
+                  @"The latest Move should not be set [%d]",_latestMove);
+        _latestMove = move;
+        return;
+    }
+    
     int sqSrc = SRC(move);
     int sqDst = DST(move);
-
     int row1 = ROW(sqSrc);
     int col1 = COLUMN(sqSrc);
     int row2 = ROW(sqDst);
     int col2 = COLUMN(sqDst);
-    
+
     NSString *sound = @"MOVE";
 
     Piece *capture = [_game x_getPieceAtRow:row2 col:col2];
     Piece *piece = [_game x_getPieceAtRow:row1 col:col1];
-    
-    if (!_inReview) {
-        // While in review mode, the AI move would not be drawn on the board
-        if (capture != nil) {
-            [capture removeFromSuperlayer];
-            sound = (isAI ? @"CAPTURE2" : @"CAPTURE");
-        }
 
-        if ( isAI ) {
-            [_audioHelper performSelectorOnMainThread:@selector(play_wav_sound:) 
-                                           withObject:sound waitUntilDone:NO];
-        } else {
-            [_audioHelper play_wav_sound:sound];
-        }
-    
-        [_game x_movePiece:piece toRow:row2 toCol:col2];        
+    if (capture != nil) {
+        [capture removeFromSuperlayer];
+        sound = (isAI ? @"CAPTURE2" : @"CAPTURE");
     }
+    
+    [_audioHelper play_wav_sound:sound];
+    
+    [_game x_movePiece:piece toRow:row2 toCol:col2];
     
     // Check End-Game status.
     int nGameResult = [_game checkGameStatus:isAI];
     if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
-        [self performSelectorOnMainThread:@selector(_handleEndGameInUI)
-                               withObject:nil waitUntilDone:NO];
+        [self _handleEndGameInUI];
     }
     
     // Add this new Move to the Move-History.
     MoveAtom *pMove = [[MoveAtom alloc] init];
     pMove.srcPiece = piece;
-    //check if AI is really capturing
-    if(captured)
-        pMove.capturedPiece = capture;
+    pMove.capturedPiece = capture;
     pMove.move = [NSNumber numberWithInteger:move];
     [_moves addObject:pMove];
     [pMove release];
-    if(!_inReview)
-        _nthMove = [_moves count];
+    _nthMove = [_moves count];
 }
 
 - (void) _handleEndGameInUI
@@ -653,12 +671,15 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         sqSrc = SRC(move);
         sqDst = DST(move);
 
-        int captured = [_game humanMove:ROW(sqSrc) fromCol:COLUMN(sqSrc)
-                                  toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
-        [self _onNewMove:move fromAI:bAIturn captured:captured];
+        [_game humanMove:ROW(sqSrc) fromCol:COLUMN(sqSrc)
+                   toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
+
+        NSNumber *moveInfo = [NSNumber numberWithInteger:move];
+        [self _handleNewMove:moveInfo];
+        
         bAIturn = !bAIturn;
     }
-    
+
     // If it is AI's turn after the game is loaded, then inform the AI.
     if ( bAIturn && _game.game_result == kXiangQi_InPlay ) {
         [self performSelector:@selector(AIMove) onThread:robot withObject:nil waitUntilDone:NO];
