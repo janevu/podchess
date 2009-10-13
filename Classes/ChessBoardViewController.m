@@ -327,51 +327,58 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
 - (IBAction)movePrevPressed:(id)sender
 {
-    if (_nthMove > 0) {
-        MoveAtom *pMove = [_moves objectAtIndex:--_nthMove];
-        int mv = [(NSNumber*)pMove.move intValue];
-        int sqSrc = SRC(mv);
-        int sqDst = DST(mv);
-        int row1 = ROW(sqSrc);
-        int col1 = COLUMN(sqSrc);
-        int row2 = ROW(sqDst);
-        int col2 = COLUMN(sqDst);
-        //FIXME: mono-type "move" sound
-        [_audioHelper play_wav_sound:@"MOVE"];
-        //for move review, just reverse the move order (sqDst->sqSrc)
-        //Since it's only a review, no need to make acutal move in underlying game logic
-        [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row1 toCol:col1];
-        if (pMove.capturedPiece) {
-            [_game x_movePiece:(Piece*)pMove.capturedPiece toRow:row2 toCol:col2];
-        }
-        _inReview = YES;
+    if (_nthMove < 1) {  // No Move made yet?
+        return;
+    }
+
+    _inReview = YES; // Enter the Move-Review mode immediately!
+
+    MoveAtom *pMove = [_moves objectAtIndex:--_nthMove];
+    int move = [(NSNumber*)pMove.move intValue];
+    int sqSrc = SRC(move);
+    int sqDst = DST(move);
+    [_audioHelper play_wav_sound:@"MOVE"]; // TODO: mono-type "move" sound
+
+    /* For Move-Review, just reverse the move order (sqDst->sqSrc)
+     * Since it's only a review, no need to make actual move in
+     * the underlying game logic.
+     */
+    [_game x_movePiece:(Piece*)pMove.srcPiece toRow:ROW(sqSrc) toCol:COLUMN(sqSrc)];
+    if (pMove.capturedPiece) {
+        [_game x_movePiece:(Piece*)pMove.capturedPiece toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
     }
 }
 
 - (IBAction)moveNextPressed:(id)sender
 {
-    int nMoves = [_moves count]; 
+    BOOL bNext = NO; /* One "Next" click was serviced.
+                      * This variable is introduced to enforce the rule:
+                      * "Only one Move is replayed PER click".
+                      */
+    int nMoves = [_moves count];
     if (_nthMove >= 0 && _nthMove < nMoves) {
         MoveAtom *pMove = [_moves objectAtIndex:_nthMove++];
-        int mv = [(NSNumber*)pMove.move intValue];
-        int sqDst = DST(mv);
+        int move = [(NSNumber*)pMove.move intValue];
+        int sqDst = DST(move);
         int row2 = ROW(sqDst);
         int col2 = COLUMN(sqDst);
-        //FIXME: mono-type "move" sound
-        [_audioHelper play_wav_sound:@"MOVE"];
+        [_audioHelper play_wav_sound:@"MOVE"]; // TODO: mono-type "move" sound
         Piece *capture = [_game x_getPieceAtRow:row2 col:col2];
         if (capture) {
             [capture removeFromSuperlayer];
         }
         [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row2 toCol:col2];
-        _inReview = YES;
-    } 
-    if (_nthMove == nMoves) {
-        //we are reaching the latest move end
-        _inReview = NO;
-        
-        // Perform the latest Move if not yet done so.
-        if ( _latestMove != INVALID_MOVE ) {
+        bNext = YES;
+    }
+
+    if (_nthMove == nMoves) // Are we are reaching the latest Move end?
+    {
+        if ( _latestMove == INVALID_MOVE ) {
+            _inReview = NO;
+        }
+        else if ( ! bNext ) {
+            _inReview = NO;
+            // Perform the latest Move if not yet done so.
             NSNumber *moveInfo = [NSNumber numberWithInteger:_latestMove];
             _latestMove = INVALID_MOVE;
             [self _handleNewMove:moveInfo];
@@ -402,13 +409,12 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         return;
     }
     
-    //FIXME: if we are in the middle of move/review, alert the user 
+    // Do nothing if we are in the middle of Move-Review.
     if (_inReview) {
-        //TODO: alert
-        return;
+        return;  // TODO: We may want to notify the user.
     }
     
-    //ignore any touch when it's robot's turn 
+    // Ignore any touch when it is robot's turn. 
     if ([_game get_sdPlayer]) {
         return;
     }
@@ -542,8 +548,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     // Delay update the UI if in Preview mode.
     if ( _inReview ) {
         NSAssert1(_latestMove == INVALID_MOVE,
-                  @"The latest Move should not be set [%d]",_latestMove);
-        _latestMove = move;
+                  @"The latest Move should not be set [%d]", _latestMove);
+        _latestMove = move;  // NOTE: Save the Move to be processed later.
         return;
     }
     
