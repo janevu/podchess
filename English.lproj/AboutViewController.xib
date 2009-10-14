@@ -3,7 +3,7 @@
 	<data>
 		<int key="IBDocument.SystemTarget">768</int>
 		<string key="IBDocument.SystemVersion">10B504</string>
-		<string key="IBDocument.InterfaceBuilderVersion">732</string>
+		<string key="IBDocument.InterfaceBuilderVersion">740</string>
 		<string key="IBDocument.AppKitVersion">1038.2</string>
 		<string key="IBDocument.HIToolboxVersion">437.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
@@ -81,7 +81,7 @@
 						<double key="IBUIImageEdgeInsets.bottom">4</double>
 						<double key="IBUIImageEdgeInsets.left">4</double>
 						<double key="IBUIImageEdgeInsets.right">4</double>
-						<string key="IBUINormalTitle">HOME</string>
+						<string key="IBUINormalTitle">Home</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -210,7 +210,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>AboutViewController</string>
 					<string>UIResponder</string>
-					<string>{{460, 338}, {320, 480}}</string>
+					<string>{{131, 31}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
