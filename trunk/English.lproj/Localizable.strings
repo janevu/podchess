@@ -10,6 +10,12 @@
 "Home" = "Home";
 "HOME" = "HOME";
 "RESET" = "RESET";
+
+/* These HOME keys need a single space in the front to separate an icon. */
+"Home_Play" = " Play";
+"Home_Settings" = " Settings";
+"Home_About" = " About";
+
 "Settings" = "Settings";
 "General" = "General";
 "Default" = "Default";
@@ -41,5 +47,5 @@
 "Options_Key" = "OPTIONS";
 "About_Key" = "ABOUT";
 
-/*move review label*/
+/* Move review label (not used?) */
 "MOVE" = "move";

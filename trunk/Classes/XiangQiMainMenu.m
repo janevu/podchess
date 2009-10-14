@@ -45,6 +45,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Home", @"");
+    [new_game setTitle:NSLocalizedString(@"Home_Play", @"") forState:UIControlStateNormal];
+    [about setTitle:NSLocalizedString(@"Home_About", @"") forState:UIControlStateNormal];
+    [setting setTitle:NSLocalizedString(@"Home_Settings", @"") forState:UIControlStateNormal];
 }
 
 
