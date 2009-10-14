@@ -50,6 +50,7 @@
     NSString *releaseVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     NSString *about_page = [NSString stringWithFormat:NSLocalizedString(@"About_PodChess_Key", @""),
                                                                         releaseVersion, buildInfo];
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController setNavigationBarHidden:NO animated:NO];
     [webview loadHTMLString:about_page baseURL:baseURL];
 }
 
