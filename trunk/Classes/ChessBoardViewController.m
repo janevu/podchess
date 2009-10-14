@@ -316,7 +316,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
     UIAlertView *alert =
         [[UIAlertView alloc] initWithTitle:@"PodChess"
-                                   message:NSLocalizedString(@"Reset game?", @"")
+                                   message:NSLocalizedString(@"New game?", @"")
                                   delegate:self 
                          cancelButtonTitle:NSLocalizedString(@"No", @"")
                          otherButtonTitles:NSLocalizedString(@"Yes", @""), nil];
