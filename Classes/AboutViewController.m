@@ -63,6 +63,12 @@
 }
 */
 
+- (void)viewWillDisappear:(BOOL)animated 
+{
+    [super viewWillDisappear:animated];
+    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController setNavigationBarHidden:YES animated:NO];
+}
+
 - (void)didReceiveMemoryWarning
 {
 	// Releases the view if it doesn't have a superview.
