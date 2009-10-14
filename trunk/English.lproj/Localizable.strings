@@ -6,7 +6,7 @@
    Copyright 2009 PlayXiangqi. All rights reserved.
  */
 
-"About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>About PodChess</h2><div><div><bold>PodChess</bold> is an open source XiangQi application on iPhone/iPod touch, hosted at <a href=\"http://podchess.googlecode.com\"> PodChess Google Code Project </a>. Please contact us at <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>Version %@</h2><div>%@</div></div></body>";
+"About_PodChess_Key" = "<body style=\"background-image:url(board_320x480.png);\"><h2>About PodChess</h2><div><div><bold>PodChess</bold> is an open source XiangQi application on iPhone/iPod touch, hosted at <a href=\"http://podchess.googlecode.com\"> PodChess Google Code Project </a>. Please contact us at <a href=\"mailto:podchess@playxiangqi.com\"><font face=\"Times New Roman\">podchess@playxiangqi.com</font></a> </div></div><br/><h2>Version %@</h2><div>%@</div></div><br/><h2>Developers</h2><div>Nevo.H (<a href=\"mailto:nevo.hua@playxiangqi.com\"><font face=\"Times New Roman\">nevo.hua@playxiangqi.com</font></a>)<br/>Huy Phan (<a href=\"mailto:huyphan@playxiangqi.com\"><font face=\"Times New Roman\">huyphan@playxiangqi.com</font></a>)</div></div><h2>Legal Notice</h2><div>XQWLight is an open source XiangQi AI engine written by Huang Chen at <a href=\"www.elephantbase.net\">www.elephantbase.net</a><br/>HaQiKiD is an XiangQi AI engine written by H.G. Muller (<a href=\"http://home.hccnet.nl/h.g.muller/XQhaqikid.html\">http://home.hccnet.nl/h.g.muller/XQhaqikid.html</a>)</body>";
 "Home" = "Home";
 "HOME" = "HOME";
 "RESET" = "RESET";
