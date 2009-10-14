@@ -24,7 +24,6 @@
 
 @implementation AboutViewController
 @synthesize webview;
-@synthesize home;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -41,6 +40,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = NSLocalizedString(@"About", @"");
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
     NSString *buildInfo = @"";
@@ -86,13 +86,7 @@
 
 - (void)dealloc {
     [webview release];
-    [home release];
     [super dealloc];
-}
-
-- (IBAction)homePressed:(id)sender
-{
-    [((PodChessAppDelegate*)[[UIApplication sharedApplication] delegate]).navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark WebView delegate

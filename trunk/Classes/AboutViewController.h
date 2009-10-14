@@ -21,13 +21,9 @@
 
 
 @interface AboutViewController : UIViewController {
-    IBOutlet UIButton *home;
     IBOutlet UIWebView *webview;
 }
 
-@property(nonatomic,retain) IBOutlet UIButton *home;
 @property(nonatomic,retain) IBOutlet UIWebView *webview;
-
-- (IBAction)homePressed:(id)sender;
 
 @end

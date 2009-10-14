@@ -44,7 +44,6 @@
 		4BEB36CB103A4A7000B545FE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4BEB36CA103A4A7000B545FE /* Settings.bundle */; };
 		AF07E7F0107A272200FE19B7 /* XQWLight_Referee.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF07E7EF107A272200FE19B7 /* XQWLight_Referee.cpp */; };
 		AF07E8C1107A30F700FE19B7 /* Referee.m in Sources */ = {isa = PBXBuildFile; fileRef = AF07E8C0107A30F700FE19B7 /* Referee.m */; };
-		AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF0973D0106A7D820007C208 /* AboutViewController.xib */; };
 		AF1B67201085546100032C01 /* preferences-system.png in Resources */ = {isa = PBXBuildFile; fileRef = AF1B671F1085546100032C01 /* preferences-system.png */; };
 		AF1B6724108555DC00032C01 /* applications-internet.png in Resources */ = {isa = PBXBuildFile; fileRef = AF1B6723108555DC00032C01 /* applications-internet.png */; };
 		AF1B672F108558D600032C01 /* start-here.png in Resources */ = {isa = PBXBuildFile; fileRef = AF1B672E108558D600032C01 /* start-here.png */; };
@@ -60,6 +59,7 @@
 		AF8CF6681073154E0071CAE2 /* XQWLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF8CF6661073154E0071CAE2 /* XQWLight.cpp */; };
 		AF8CF66B107315E50071CAE2 /* AI_XQWLight.m in Sources */ = {isa = PBXBuildFile; fileRef = AF8CF66A107315E50071CAE2 /* AI_XQWLight.m */; };
 		AF943D1E10855C6100677DF9 /* XiangQiMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4BBB5F891033069500243E55 /* XiangQiMainMenu.xib */; };
+		AF957A431085897500589D4A /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF9F2B7C106A71D400D919B1 /* AboutViewController.xib */; };
 		AFA46640106FB2C60006DAFE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA4663F106FB2C60006DAFE /* Icon.png */; };
 		AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */; };
 		AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FEE106FAC8F00D7B220 /* board_320x480.png */; };
@@ -134,7 +134,6 @@
 		AF07E7EF107A272200FE19B7 /* XQWLight_Referee.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XQWLight_Referee.cpp; path = AI/XQWLight_Referee.cpp; sourceTree = "<group>"; };
 		AF07E8BF107A30F700FE19B7 /* Referee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Referee.h; path = AI/Referee.h; sourceTree = "<group>"; };
 		AF07E8C0107A30F700FE19B7 /* Referee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Referee.m; path = AI/Referee.m; sourceTree = "<group>"; };
-		AF0973D2106A7D870007C208 /* zh */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh; path = zh.lproj/AboutViewController.xib; sourceTree = "<group>"; };
 		AF1B671F1085546100032C01 /* preferences-system.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "preferences-system.png"; sourceTree = "<group>"; };
 		AF1B6723108555DC00032C01 /* applications-internet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "applications-internet.png"; sourceTree = "<group>"; };
 		AF1B672E108558D600032C01 /* start-here.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-here.png"; sourceTree = "<group>"; };
@@ -151,7 +150,7 @@
 		AF8CF6661073154E0071CAE2 /* XQWLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XQWLight.cpp; path = AI/XQWLight.cpp; sourceTree = "<group>"; };
 		AF8CF669107315E50071CAE2 /* AI_XQWLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AI_XQWLight.h; path = AI/AI_XQWLight.h; sourceTree = "<group>"; };
 		AF8CF66A107315E50071CAE2 /* AI_XQWLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AI_XQWLight.m; path = AI/AI_XQWLight.m; sourceTree = "<group>"; };
-		AF9F2B7C106A71D400D919B1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/AboutViewController.xib; sourceTree = "<group>"; };
+		AF9F2B7C106A71D400D919B1 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		AFA4663F106FB2C60006DAFE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
 		AFA63FEE106FAC8F00D7B220 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
@@ -230,7 +229,7 @@
 				4BE40C0B10691A1B006154CC /* books */,
 				4B3454C61054EAFF00362ED5 /* sounds */,
 				4B67330E10423930009DA9E7 /* pieces */,
-				AF0973D0106A7D820007C208 /* AboutViewController.xib */,
+				AF9F2B7C106A71D400D919B1 /* AboutViewController.xib */,
 				4BBB5F881033069500243E55 /* ChessBoardViewController.xib */,
 				DE964FCB1082511E00980CF6 /* GenericSettingViewController.xib */,
 				DE964FCC1082511E00980CF6 /* OptionsView.xib */,
@@ -418,7 +417,7 @@
 				AF8CABE71042F7FC002D6594 /* Entitlements.plist in Resources */,
 				4BE40C1110691A1B006154CC /* books in Resources */,
 				AFB08A14106A663E00038488 /* Localizable.strings in Resources */,
-				AF0973D1106A7D820007C208 /* AboutViewController.xib in Resources */,
+				AF957A431085897500589D4A /* AboutViewController.xib in Resources */,
 				4BE40E45106C8C0F006154CC /* AISelectionView.xib in Resources */,
 				AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */,
 				AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */,
@@ -493,15 +492,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		AF0973D0106A7D820007C208 /* AboutViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AF9F2B7C106A71D400D919B1 /* English */,
-				AF0973D2106A7D870007C208 /* zh */,
-			);
-			name = AboutViewController.xib;
-			sourceTree = "<group>";
-		};
 		AFB08A12106A663E00038488 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
