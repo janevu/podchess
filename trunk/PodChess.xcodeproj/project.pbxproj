@@ -154,7 +154,7 @@
 		AFA4663F106FB2C60006DAFE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = podchessbg320x480.png; sourceTree = "<group>"; };
 		AFA63FEE106FAC8F00D7B220 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
-		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		AFB08A15106A665300038488 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AFF89D0F106FEF2B00E2136D /* Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 		DE964FCB1082511E00980CF6 /* GenericSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericSettingViewController.xib; sourceTree = "<group>"; };
