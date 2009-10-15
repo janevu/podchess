@@ -40,11 +40,11 @@
 			<key>Key</key>
 			<string>time_setting</string>
 			<key>DefaultValue</key>
-			<integer>60</integer>
-			<key>MinimumValue</key>
 			<integer>30</integer>
+			<key>MinimumValue</key>
+			<integer>5</integer>
 			<key>MaximumValue</key>
-			<integer>120</integer>
+			<integer>90</integer>
 			<key>MinimumValueImage</key>
 			<string></string>
 			<key>MaximumValueImage</key>
