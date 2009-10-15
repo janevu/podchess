@@ -64,6 +64,7 @@
 		AFA63FE5106FABD700D7B220 /* podchessbg320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FE4106FABD700D7B220 /* podchessbg320x480.png */; };
 		AFA63FEF106FAC8F00D7B220 /* board_320x480.png in Resources */ = {isa = PBXBuildFile; fileRef = AFA63FEE106FAC8F00D7B220 /* board_320x480.png */; };
 		AFB08A14106A663E00038488 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AFB08A12106A663E00038488 /* Localizable.strings */; };
+		AFF0CF2C10879DC800C81662 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AFF0CF2B10879DC800C81662 /* Default.png */; };
 		DE964FCD1082511E00980CF6 /* GenericSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE964FCB1082511E00980CF6 /* GenericSettingViewController.xib */; };
 		DE964FCE1082511E00980CF6 /* OptionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE964FCC1082511E00980CF6 /* OptionsView.xib */; };
 /* End PBXBuildFile section */
@@ -156,6 +157,7 @@
 		AFA63FEE106FAC8F00D7B220 /* board_320x480.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board_320x480.png; sourceTree = "<group>"; };
 		AFB08A13106A663E00038488 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		AFB08A15106A665300038488 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
+		AFF0CF2B10879DC800C81662 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		AFF89D0F106FEF2B00E2136D /* Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enums.h; sourceTree = "<group>"; };
 		DE964FCB1082511E00980CF6 /* GenericSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GenericSettingViewController.xib; sourceTree = "<group>"; };
 		DE964FCC1082511E00980CF6 /* OptionsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OptionsView.xib; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				AF8CABE61042F7FC002D6594 /* Entitlements.plist */,
 				4BEB36CA103A4A7000B545FE /* Settings.bundle */,
 				AFB08A12106A663E00038488 /* Localizable.strings */,
+				AFF0CF2B10879DC800C81662 /* Default.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				AF1B67201085546100032C01 /* preferences-system.png in Resources */,
 				AF1B6724108555DC00032C01 /* applications-internet.png in Resources */,
 				AF1B672F108558D600032C01 /* start-here.png in Resources */,
+				AFF0CF2C10879DC800C81662 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,7 +539,7 @@
 			};
 			name = Release;
 		};
-		AF8CABE11042F7AE002D6594 /* Distribution */ = {
+		AF8CABE11042F7AE002D6594 /* Distribution (AdHoc) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -548,9 +552,9 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ECE4769A-91B1-412A-BD12-CF736517A905";
 				SDKROOT = iphoneos3.0;
 			};
-			name = Distribution;
+			name = "Distribution (AdHoc)";
 		};
-		AF8CABE21042F7AE002D6594 /* Distribution */ = {
+		AF8CABE21042F7AE002D6594 /* Distribution (AdHoc) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -560,7 +564,34 @@
 				INFOPLIST_FILE = "PodChess-Info.plist";
 				PRODUCT_NAME = PodChess;
 			};
-			name = Distribution;
+			name = "Distribution (AdHoc)";
+		};
+		AFF0CF0D10879A1A00C81662 /* Distribution (AppStore) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Huy Phan";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F466643-7F40-4CB1-8E51-4FA27E4A45B2";
+				SDKROOT = iphoneos3.0;
+			};
+			name = "Distribution (AppStore)";
+		};
+		AFF0CF0E10879A1A00C81662 /* Distribution (AppStore) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PodChess_Prefix.pch;
+				INFOPLIST_FILE = "PodChess-Info.plist";
+				PRODUCT_NAME = PodChess;
+			};
+			name = "Distribution (AppStore)";
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -598,7 +629,8 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				AF8CABE21042F7AE002D6594 /* Distribution */,
+				AF8CABE21042F7AE002D6594 /* Distribution (AdHoc) */,
+				AFF0CF0E10879A1A00C81662 /* Distribution (AppStore) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -608,7 +640,8 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				AF8CABE11042F7AE002D6594 /* Distribution */,
+				AF8CABE11042F7AE002D6594 /* Distribution (AdHoc) */,
+				AFF0CF0D10879A1A00C81662 /* Distribution (AppStore) */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
