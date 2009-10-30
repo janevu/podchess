@@ -175,7 +175,7 @@ static const char ccKnightDelta[4][2] = {{-33, -31}, {-18, 14}, {-14, 18}, {31, 
 static const char ccKnightCheckDelta[4][2] = {{-33, -18}, {-31, -14}, {14, 31}, {18, 33}};
 
 // 棋盘初始设置
-static const char cucpcStartup[256] = {
+static const unsigned char cucpcStartup[256] = {
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -195,7 +195,7 @@ static const char cucpcStartup[256] = {
 };
 
 // 子力位置价值表
-static const char cucvlPiecePos[7][256] = {
+static const unsigned char cucvlPiecePos[7][256] = {
 { // 帅(将)
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -446,12 +446,12 @@ static int CompareHistory(const void *lpmv1, const void *lpmv2) {
 
 // 历史走法信息(占4字节)
 typedef struct _MoveStruct {
-    int wmv;
-    int ucpcCaptured, ucbCheck;
-    int dwKey;
+    unsigned short wmv;
+    unsigned char ucpcCaptured, ucbCheck;
+    unsigned int dwKey;
 }MoveStruct; // mvs
 
-static void set_move_history(MoveStruct *mv_history, int mv, int pcCaptured, BOOL bCheck, int dwKey_) {
+static void set_move_history(MoveStruct *mv_history, int mv, int pcCaptured, BOOL bCheck, unsigned int dwKey_) {
     mv_history->wmv = mv;
     mv_history->ucpcCaptured = pcCaptured;
     mv_history->ucbCheck = bCheck;
@@ -466,8 +466,8 @@ static MoveStruct mvsList[MAX_MOVES];  // 历史走法信息列表
 typedef struct _HashItem {
     unsigned char ucDepth, ucFlag;
     short svl;
-    int wmv, wReserved;
-    int dwLock0, dwLock1;
+    unsigned short wmv, wReserved;
+    unsigned int dwLock0, dwLock1;
 }HashItem;
 
 static int mvKillers[LIMIT_DEPTH][2]; // 杀手走法表
@@ -488,11 +488,11 @@ static int MvvLva(int mv)
 
 // "qsort"按MVV/LVA值排序的比较函数
 static int CompareMvvLva(const void *lpmv1, const void *lpmv2) {
-    return MvvLva(*(int *) lpmv2) - MvvLva(*(int *) lpmv1);
+    return MvvLva(*(int*)lpmv2) - MvvLva(*(int*)lpmv1);
 }
 
 static int CompareBook(const void *lpbk1, const void *lpbk2) {
-    int dw1, dw2;
+    unsigned int dw1, dw2;
     dw1 = ((BookItem *) lpbk1)->dwLock;
     dw2 = ((BookItem *) lpbk2)->dwLock;
     return dw1 > dw2 ? 1 : dw1 < dw2 ? -1 : 0;
@@ -586,8 +586,8 @@ static int CompareBook(const void *lpbk1, const void *lpbk2) {
     //default search depth 
     search_depth = DEFAULT_SEARCH_DEPTH;
     search_time = DEFAULT_SEARCH_TIME;
-    ucpc_squares = malloc(256 * sizeof(char));
-    memset(ucpc_squares, 0, 256 * sizeof(char));
+    ucpc_squares = malloc(256 * sizeof(unsigned char));
+    memset(ucpc_squares, 0, 256 * sizeof(unsigned char));
     memset(mvsList, 0x0, sizeof(MoveStruct) * MAX_MOVES);
     //load book
     book = [[Book alloc] initWithBook:@"BOOK.DAT"];
@@ -667,7 +667,7 @@ static int CompareBook(const void *lpbk1, const void *lpbk2) {
 
 - (BOOL)make_move:(int)mv captured:(int*)pcCaptured
 {
-    int dwKey;
+    unsigned int dwKey;
     
     dwKey = zobr.dwKey;
     *pcCaptured = [self move_piece:mv];
@@ -685,7 +685,7 @@ static int CompareBook(const void *lpbk1, const void *lpbk2) {
 - (BOOL)make_move:(int)mv
 {
     int pcCaptured;
-    int dwKey;
+    unsigned int dwKey;
     
     dwKey = zobr.dwKey;
     pcCaptured = [self move_piece:mv];
@@ -703,7 +703,7 @@ static int CompareBook(const void *lpbk1, const void *lpbk2) {
 - (void)null_move
 {                       
     // 走一步空步
-    int dwKey;
+    unsigned int dwKey;
     dwKey = zobr.dwKey;
     [self change_side];
     set_move_history(&mvsList[nMoveNum], 0, 0, FALSE, dwKey);
@@ -1215,7 +1215,8 @@ ret:
 // iterative-deepening search
 - (void)SearchMain 
 {
-    int i, t, vl, nGenMoves;
+    int i, t, nGenMoves;
+    int vl;
     int mvs[MAX_GEN_MOVES];
     memset(mvs, 0x0, MAX_GEN_MOVES * sizeof(int));
     // initialize
@@ -1227,6 +1228,11 @@ ret:
     
     // search opening book
     mvResult = [self searchBook];
+#ifdef ENABLE_DEBUG_OBJC
+    {
+        NSLog(@"[XQWlightObjc]SearchBook Result : %d", mvResult);
+    }
+#endif
     if (mvResult != 0) {
 #ifdef ENABLE_DEBUG
         printf("[%s] get one move in open book\n", __func__);
@@ -1242,6 +1248,11 @@ ret:
     // check if we have only one move to go
     vl = 0;
     nGenMoves = [self generate_moves:mvs];
+#ifdef ENABLE_DEBUG_OBJC
+    {
+        NSLog(@"[XQWlightObjc] generate %d moves\n", nGenMoves);
+    }
+#endif
     for (i = 0; i < nGenMoves; i ++) {
         if ([self make_move:mvs[i]]) {
             [self undo_make_move];
@@ -1259,6 +1270,11 @@ ret:
         printf("[%s]search %d (%d) depth\n", __func__, i, search_depth);
 #endif
         vl = [self search_root:i];
+#ifdef ENABLE_DEBUG_OBJC
+        {
+            NSLog(@"[XQWlightObjc] SearchRoot ret : %d", vl);
+        }
+#endif
         // search to capture then quit search
         if (vl > WIN_VALUE || vl < -WIN_VALUE) {
             break;
@@ -1272,8 +1288,9 @@ ret:
 
 - (int)search_full_for_depth:(int)nDepth alpha:(int)vlAlpha beta:(int)vlBeta nonull:(BOOL)bNoNull
 {
-    int nHashFlag, vl, vlBest;
-    int mv, mvBest, nNewDepth;
+    int nHashFlag, nNewDepth;
+    int mv, mvBest;
+    int vl, vlBest;
     int mHash = 0;
     Sort *sort;
     // 一个Alpha-Beta完全搜索分为以下几个阶段
@@ -1371,7 +1388,8 @@ ret:
 - (int)search_full_for_depth:(int)nDepth alpha:(int)vlAlpha beta:(int)vlBeta 
 {
     int i, nGenMoves, pcCaptured;
-    int vl, vlBest, mvBest;
+    int vl, vlBest;
+    int mvBest;
     int mvs[MAX_GEN_MOVES];
     memset(mvs, 0x0, MAX_GEN_MOVES * sizeof(int));
     // 一个Alpha-Beta完全搜索分为以下几个阶段
@@ -1497,7 +1515,9 @@ ret:
 
 - (int)search_root:(int)nDepth
 {
-    int vl, vlBest, mv, nNewDepth;
+    int nNewDepth;
+    int mv;
+    int vl, vlBest;
     Sort *sort = [[Sort alloc] init];
     vlBest = -MATE_VALUE;
     [sort initWithHash:mvResult];
@@ -1510,19 +1530,32 @@ ret:
                 vl = [self search_root_mtdf:nNewDepth];
 #else
                 vl = -[self search_full_for_depth:nNewDepth alpha:-MATE_VALUE beta:MATE_VALUE nonull:NO_NULL];
+#ifdef ENABLE_DEBUG_OBJC
+                NSLog(@"[XQWLightOBJC] vl (full window search) %d depth %d", vl, nNewDepth);
+#endif
 #endif /*USE_MTDF*/
             } else {
-                vl = -[self search_full_for_depth:nNewDepth alpha:-vlBest - 1 beta:-vlBest nonull:FALSE]; 
+                vl = -[self search_full_for_depth:nNewDepth alpha:-vlBest - 1 beta:-vlBest nonull:FALSE];
+#ifdef ENABLE_DEBUG_OBJC
+                NSLog(@"[XQWLightOBJC] vl 1 %d", vl);
+#endif
                 if (vl > vlBest) {
                     vl = -[self search_full_for_depth:nNewDepth alpha:-MATE_VALUE beta:-vlBest nonull:NO_NULL];
+#ifdef ENABLE_DEBUG_OBJC
+                    NSLog(@"[XQWLightOBJC] vl 2 %d", vl);
+#endif
                 }
             }
             [self undo_make_move];
             if (vl > vlBest) {
+#ifdef ENABLE_DEBUG_OBJC
+                NSLog(@"vl > vlBest (%d)", vlBest);
+#endif
                 vlBest = vl;
                 mvResult = mv;
                 if (vlBest > -WIN_VALUE && vlBest < WIN_VALUE) {
-                    vlBest += (arc4random() & RANDOM_MASK) - (arc4random() & RANDOM_MASK);
+                    //vlBest += (arc4random() & RANDOM_MASK) - (arc4random() & RANDOM_MASK);
+                    vlBest += (rand() & RANDOM_MASK) - (rand() & RANDOM_MASK);
 #ifdef ENABLE_DEBUG
                     printf("[%s]random value %d\n", __func__, vlBest);
 #endif
@@ -1741,10 +1774,13 @@ ret:
 #pragma mark  seach book
 - (int)searchBook
 {
-    int i, vl, nBookMoves, mv;
+    int i, vl, nBookMoves;
+    int mv;
     int mvs[MAX_GEN_MOVES], vls[MAX_GEN_MOVES];
     BOOL bMirror;
     BookItem bkToSearch, *lpbk;
+    bzero(mvs, MAX_GEN_MOVES * sizeof(int));
+    bzero(vls, MAX_GEN_MOVES * sizeof(int));
     // 搜索开局库的过程有以下几个步骤
     
     // 1. 如果没有开局库，则立即返回
@@ -1838,6 +1874,7 @@ ret:
 - (id) init
 {
     if (self = [super init]) {
+        srand((unsigned)time(NULL));
         _objcEngine = [XiangQi getXiangQi];
     }
     return self;
