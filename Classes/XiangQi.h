@@ -77,7 +77,7 @@
 
 @interface XiangQi : NSObject {
     int sd_player; //0 - red 1 - black
-    char *ucpc_squares;
+    unsigned char *ucpc_squares;
     
     int vl_white, vl_black;
     int n_distance; //the plys from root
@@ -155,7 +155,7 @@
 + (XiangQi*)getXiangQi;
 
 @property (nonatomic, assign) int mvResult;
-@property (nonatomic, assign)   char *ucpc_squares;
+@property (nonatomic, assign) unsigned char *ucpc_squares;
 @property (nonatomic, assign) int nMoveNum; 
 @property (nonatomic, readonly) int sd_player;
 @property (nonatomic, readonly) int n_distance;

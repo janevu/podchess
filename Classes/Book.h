@@ -21,9 +21,9 @@
 
 // opening book item
 typedef struct _BookItem {
-    int dwLock;
-    short wmv;
-    short wvl;
+    unsigned int dwLock;
+    unsigned short wmv;
+    unsigned short wvl;
 }BookItem;
 
 #define BOOK_SIZE 16384

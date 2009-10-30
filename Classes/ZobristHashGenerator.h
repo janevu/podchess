@@ -25,14 +25,14 @@
 @class RC4Generator;
 
 @interface ZobristHashGenerator : NSObject {
-    int dwKey;
-    int dwLock0;
-    int dwLock1;
+    unsigned int dwKey;
+    unsigned int dwLock0;
+    unsigned int dwLock1;
 }
 
-@property(nonatomic) int dwKey;
-@property(nonatomic) int dwLock0;
-@property(nonatomic) int dwLock1;
+@property(nonatomic) unsigned int dwKey;
+@property(nonatomic) unsigned int dwLock0;
+@property(nonatomic) unsigned int dwLock1;
 
 - (void)initZero;
 - (void)initRC4:(RC4Generator *)rc4;
