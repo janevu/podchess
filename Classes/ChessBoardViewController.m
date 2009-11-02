@@ -44,6 +44,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _ticked:(NSTimer*)timer;
 - (void) _updateTimer:(int)color;
 - (void) _setHighlightCells:(BOOL)bHighlight;
+- (void) _setHighlightCell:(int)row column:(int)col highlight:(BOOL)bHighlight;
 - (void) _handleNewMove:(NSNumber *)pMove;
 - (void) _handleEndGameInUI;
 - (void) _displayResumeGameAlert;
@@ -540,6 +541,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     }
 }
 
+- (void) _setHighlightCell:(int)row column:(int)col highlight:(BOOL)bHighlight
+{
+    ((XiangQiSquare*)[_game._grid cellAtRow:row column:col])._highlighted = bHighlight;
+}
+
 - (void) _handleNewMove:(NSNumber *)moveInfo
 {
     int  move     = [moveInfo integerValue];
@@ -559,6 +565,13 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     int col1 = COLUMN(sqSrc);
     int row2 = ROW(sqDst);
     int col2 = COLUMN(sqDst);
+    
+    //highlight AI move
+    if (isAI) {
+        _hl_nMoves = 1;
+        _hl_moves[0] = move;
+        [self _setHighlightCells:YES];
+    }
 
     NSString *sound = @"MOVE";
 
