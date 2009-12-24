@@ -43,6 +43,7 @@
     /* Members to keep track of (H)igh(L)ight moves (e.g., move-hints). */
     int    _hl_moves[MAX_GEN_MOVES];
     int    _hl_nMoves;
+    int    _hl_lastMove; /* The last Move that was highlighted. */
 
     Piece *_selectedPiece;
     

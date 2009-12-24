@@ -44,7 +44,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 - (void) _ticked:(NSTimer*)timer;
 - (void) _updateTimer:(int)color;
 - (void) _setHighlightCells:(BOOL)bHighlight;
-- (void) _setHighlightCell:(int)row column:(int)col highlight:(BOOL)bHighlight;
+- (void) _showHighlightOfMove:(int)move;
 - (void) _handleNewMove:(NSNumber *)pMove;
 - (void) _handleEndGameInUI;
 - (void) _displayResumeGameAlert;
@@ -122,6 +122,7 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
 
         memset(_hl_moves, 0x0, sizeof(_hl_moves));
         _hl_nMoves = 0;
+        _hl_lastMove = INVALID_MOVE;
         _selectedPiece = nil;
 
         _game = (CChessGame*)((ChessBoardView*)self.view).game;
@@ -348,6 +349,14 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     if (pMove.capturedPiece) {
         [_game x_movePiece:(Piece*)pMove.capturedPiece toRow:ROW(sqDst) toCol:COLUMN(sqDst)];
     }
+
+    int prevMove = INVALID_MOVE;
+    if (_nthMove > 0) {  // No more Move?
+        int prevIndex = _nthMove - 1;
+        pMove = [_moves objectAtIndex:prevIndex];
+        prevMove = [(NSNumber*)pMove.move intValue];
+    }
+    [self _showHighlightOfMove:prevMove];
 }
 
 - (IBAction)moveNextPressed:(id)sender
@@ -369,10 +378,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
             [capture removeFromSuperlayer];
         }
         [_game x_movePiece:(Piece*)pMove.srcPiece toRow:row2 toCol:col2];
+        [self _showHighlightOfMove:move];
         bNext = YES;
     }
 
-    if (_nthMove == nMoves) // Are we are reaching the latest Move end?
+    if (_nthMove == nMoves) // Are we reaching the latest Move end?
     {
         if ( _latestMove == INVALID_MOVE ) {
             _inReview = NO;
@@ -443,9 +453,11 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     } else {
         holder = (GridCell*)[view hitTestPoint:p LayerMatchCallback:layerIsBitHolder offset:NULL];
     }
-    
+
     // Make a Move from the last selected cell to the current selected cell.
     if(holder && holder._highlighted && _selectedPiece != nil && _hl_nMoves > 0) {
+        [self _setHighlightCells:NO]; // Clear highlighted.
+
         int sqDst = TOSQUARE(holder._row, holder._column);
         GridCell *cell = (GridCell*)_selectedPiece.holder;
         int sqSrc = TOSQUARE(cell._row, cell._column);
@@ -462,18 +474,18 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
                 [self performSelector:@selector(AIMove) onThread:robot withObject:nil waitUntilDone:NO];
             }
         }
+    } else {
+        [self _setHighlightCells:NO]; // Clear highlighted.
     }
-    
+
     _selectedPiece = nil; // Reset selected state.
-    [self _setHighlightCells:NO]; // Clear highlighted.
-    _hl_nMoves = 0;
 }
 
 - (void) _resetBoard
 {
     [self _setHighlightCells:NO];
     _selectedPiece = nil;
-    _hl_nMoves = 0;
+    [self _showHighlightOfMove:INVALID_MOVE]; // Clear the last highlight.
     _redTime = _blackTime = _initialTime * 60;
     memset(_hl_moves, 0x0, sizeof(_hl_moves));
     red_time.text = [NSString stringWithFormat:@"%d:%02d", (_redTime / 60), (_redTime % 60)];
@@ -539,11 +551,26 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
         }
         ((XiangQiSquare*)[_game._grid cellAtRow:row column:col])._highlighted = bHighlight;
     }
+
+    if ( ! bHighlight ) {
+        _hl_nMoves = 0;
+    }
 }
 
-- (void) _setHighlightCell:(int)row column:(int)col highlight:(BOOL)bHighlight
+- (void) _showHighlightOfMove:(int)move
 {
-    ((XiangQiSquare*)[_game._grid cellAtRow:row column:col])._highlighted = bHighlight;
+    if (_hl_lastMove != INVALID_MOVE) {
+        _hl_nMoves = 1;
+        _hl_moves[0] = _hl_lastMove;
+        [self _setHighlightCells:NO];
+        _hl_lastMove = INVALID_MOVE;
+    }
+    
+    if (move != INVALID_MOVE) {
+        int sqDst = DST(move);
+        ((XiangQiSquare*)[_game._grid cellAtRow:ROW(sqDst) column:COLUMN(sqDst)])._highlighted = YES;
+        _hl_lastMove = move;
+    }
 }
 
 - (void) _handleNewMove:(NSNumber *)moveInfo
@@ -565,13 +592,6 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     int col1 = COLUMN(sqSrc);
     int row2 = ROW(sqDst);
     int col2 = COLUMN(sqDst);
-    
-    //highlight AI move
-    if (isAI) {
-        _hl_nMoves = 1;
-        _hl_moves[0] = move;
-        [self _setHighlightCells:YES];
-    }
 
     NSString *sound = @"MOVE";
 
@@ -586,7 +606,8 @@ static BOOL layerIsBitHolder( CALayer* layer )  {return [layer conformsToProtoco
     [_audioHelper play_wav_sound:sound];
     
     [_game x_movePiece:piece toRow:row2 toCol:col2];
-    
+    [self _showHighlightOfMove:move];
+
     // Check End-Game status.
     int nGameResult = [_game checkGameStatus:isAI];
     if ( nGameResult != kXiangQi_Unknown ) {  // Game Result changed?
